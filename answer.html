@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>回答入力</title>
+</head>
+
+<body>
+    <form id="question">
+        <textarea id="answer" name="answer" rows="4" cols="50"></textarea>
+        <input type="button" value="投稿" onclick="postAnswer()">
+    </form>
+
+    <script>
+        function postAnswer() {
+            const answer = document.getElementById('answer').value;
+
+            console.log("回答:", answer);
+
+            document.getElementById('question').reset();
+        }
+    </script>
+</body>
+
+</html>
