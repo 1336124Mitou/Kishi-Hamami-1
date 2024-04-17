@@ -1,51 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question</title>
-<style>
-    /* テキストボックスの微調整 */
-    .transparent-textbox {
-        border: 1px solid #ccc;
-        padding: 10px;
-        width: 700px;
-        height: 400px;
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.3); /* Initial text color */
-        resize: none;
-    }
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Question</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100vh;
+                margin: 20px;
+            }
 
-    /* ボタンの微調整 */
-    .button {
-        border: 1px solid;
-        width: 700px;
-        height: 50px;
-        font-size: 20px;
-        color: white;
-        background-color: #007BFF;
-    }
-</style>
-</head>
-<body>
-<!-- ページのタイトル -->
-<h1>質問入力</h1>
-<!-- テキストボックス -->
-<textarea class="transparent-textbox" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+            .header-container {
+                display: flex;
+                align-items: baseline;
+            }
+            
+            /* テキストボックスの微調整 */
+            textarea {
+                border: 1px solid #ccc;
+                padding: 10px;
+                width: 700px;
+                height: 100px;
+                font-size: 25px;
+                color: rgba(0, 0, 0, 0.3); /* Initial text color */
+                resize: none;
+            }
 
-<!-- ボタン -->
-<button class="button">投稿</button>
+            /* ボタンの微調整 */
+            input[type="button"] {
+                border: 1px solid;
+                width: 700px;
+                height: 50px;
+                font-size: 20px;
+                align-self: center;
+                color: white;
+                background-color: #007BFF;
+            }
 
-<script>
-    // テキストボックス文字色を変えるfunction
-    function changeTextColor(textbox) {
-        if (textbox.value.trim() !== "") {
-            textbox.style.color = "rgba(0, 0, 0, 1)"; // Darker text color
-        } else {
-            textbox.style.color = "rgba(0, 0, 0, 0.3)"; // Initial text color
-        }
-    }
-</script>
+            form {
+                border: 5px solid #ccc;
+                width: 750px;
+                height: 200px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-</body>
+            a {
+                margin-right: auto;
+                border: 1px #007BFF;
+                background-color: #007BFF;
+                color: white;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="header-container">
+            <!-- ページのタイトル -->
+            <h1>質問入力</h1>
+
+            <a href="index.html">ホーム画面に戻る</a>
+        </div>
+
+        <form>
+            <!-- テキストボックス -->
+            <textarea id="quest" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+
+            <!-- ボタン -->
+            <input type="button" value="投稿" onclick="PostQuest()"></input>
+        </form>
+
+        <script>
+            // テキストボックス文字色を変えるfunction
+            function changeTextColor(textbox) {
+                if (textbox.value.trim() !== "") {
+                    textbox.style.color = "rgba(0, 0, 0, 1)"; // Darker text color
+                } else {
+                    textbox.style.color = "rgba(0, 0, 0, 0.3)"; // Initial text color
+                }
+            }
+
+            // テキストボックスの内容を送信する
+            function PostQuest() {
+                const q = document.getElementById('quest').value;
+
+                console.log("Q:", q);
+
+                document.getElementById('quest').reset();
+            }
+        </script>
+
+    </body>
 </html>
