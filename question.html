@@ -5,18 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Transparent Placeholder Text</title>
 <style>
+    /* テキストボックスの微調整 */
     .transparent-textbox {
         border: 1px solid #ccc;
         padding: 10px;
-        width: 300px;
-        height: 100px;
+        width: 700px;
+        height: 400px;
         color: rgba(0, 0, 0, 0.3); /* Initial text color */
+        resize: none;
+    }
+
+    .button {
+        border: 1px solid;
+        width: 700px;
+        height: 200px;
     }
 </style>
 </head>
 <body>
-
-<textarea class="transparent-textbox" placeholder="Write the text here" oninput="changeTextColor(this)"></textarea>
+<h1>質問入力</h1>
+<textarea class="transparent-textbox" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
 
 <script>
     function changeTextColor(textbox) {
@@ -27,6 +35,8 @@
         }
     }
 </script>
+
+<button class="button">投稿</button>
 
 </body>
 </html>
