@@ -7,7 +7,7 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 20px;
@@ -19,6 +19,7 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         textarea,
@@ -40,6 +41,15 @@
             width: 100%;
             margin-right: 0;
         }
+
+        br {
+            clear: both;
+        }
+
+        a {
+            diaplay: block;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -48,6 +58,8 @@
         <textarea id="answer" name="answer" rows="4" cols="50"></textarea><br><br>
         <input type="button" value="投稿" onclick="postAnswer()">
     </form>
+    <br>
+    <a href="index.html">ホーム画面に戻る</a>
 
     <script>
         function postAnswer() {
