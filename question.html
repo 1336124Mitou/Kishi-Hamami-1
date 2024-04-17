@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question</title>
-<style>
-    /* テキストボックスの微調整 */
-    .transparent-textbox {
-        border: 1px solid #ccc;
-        padding: 10px;
-        width: 700px;
-        height: 400px;
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.3); /* Initial text color */
-        resize: none;
-    }
-
-    /* ボタンの微調整 */
-    .button {
-        border: 1px solid;
-        width: 700px;
-        height: 50px;
-        font-size: 20px;
-        color: white;
-        background-color: #007BFF;
-    }
-</style>
-</head>
-<body>
-<!-- ページのタイトル -->
-<h1>質問入力</h1>
-<!-- テキストボックス -->
-<textarea class="transparent-textbox" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
-
-<!-- ボタン -->
-<button class="button">投稿</button>
-
-<script>
-    // テキストボックス文字色を変えるfunction
-    function changeTextColor(textbox) {
-        if (textbox.value.trim() !== "") {
-            textbox.style.color = "rgba(0, 0, 0, 1)"; // Darker text color
-        } else {
-            textbox.style.color = "rgba(0, 0, 0, 0.3)"; // Initial text color
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <style>
+        /* テキストボックスの微調整 */
+        .transparent-textbox {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 700px;
+            height: 400px;
+            font-size: 20px;
+            color: rgba(0, 0, 0, 0.3);
+            /* Initial text color */
+            resize: none;
         }
-    }
-</script>
+
+        /* ボタンの微調整 */
+        .button {
+            border: 1px solid;
+            width: 700px;
+            height: 50px;
+            font-size: 20px;
+            color: white;
+            background-color: #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ページのタイトル -->
+    <h1>質問入力</h1>
+    <!-- テキストボックス -->
+    <textarea class="transparent-textbox" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+
+    <!-- ボタン -->
+    <button class="button">投稿</button>
+
+    <script>
+        // テキストボックス文字色を変えるfunction
+        function changeTextColor(textbox) {
+            if (textbox.value.trim() !== "") {
+                textbox.style.color = "rgba(0, 0, 0, 1)"; // Darker text color
+            } else {
+                textbox.style.color = "rgba(0, 0, 0, 0.3)"; // Initial text color
+            }
+        }
+    </script>
 
 </body>
+
 </html>
