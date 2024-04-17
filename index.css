@@ -1,0 +1,87 @@
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 479px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+html * {
+    box-sizing: border-box;
+}
+
+body,
+header {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #000000;
+}
+
+.nav {
+    padding: 30px 20px 10px 20px;
+}
+
+nav {
+    background: #000000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 2;
+    color: #ffffff;
+    margin: 0;
+    /* 一番上の余白を0に設定 */
+}
+
+ul {
+    overflow: hidden;
+    list-style: none;
+    margin: 0 auto;
+    z-index: 20;
+}
+
+ul li {
+    display: inline-block;
+    padding: 26px 10px 20px 10px;
+}
+
+a {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+a[href="#kiji1"],
+a[href="#kiji2"],
+a[href="#kiji3"] {
+    color: blue;
+    width: 500px;
+    margin-top: 0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h2 {
+    font-weight: bold;
+    line-height: 2;
+    color: #000000;
+    margin: 25px 0;
+}
+
+p {
+    font-weight: bold;
+    line-height: 2;
+    color: #333;
+}
