@@ -64,7 +64,12 @@ a {
 }
 
 a.que {
-    color: blue;
+    float: right;
+    border-radius: 5px;
+    background-color: #007BFF;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
 }
 
 a[href="#kiji1"],
