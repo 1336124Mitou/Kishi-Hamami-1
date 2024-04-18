@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>制作物公開</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 20px;
+        }
+
+        form {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        div {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>制作物公開</h1>
+    <div>
+        <form action="proshow.html" method="post" enctype="multipart/form-data">
+            <div>
+                <input type="file" name="project" required>
+            </div>
+            <div>
+                <input type="submit" value="送信する">
+            </div>
+        </form>
+        <a href="Allproject.html">制作物一覧</a>
+        <a href="index.html">ホーム</a>
+    </div>
+</body>
+
+</html>
