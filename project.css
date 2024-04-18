@@ -1,0 +1,89 @@
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 479px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+html * {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #000000;
+}
+
+header h1 {
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 2;
+    color: #ffffff;
+    margin: 0;
+}
+
+.nav {
+    padding: 30px 20px 10px 20px;
+    background: #000000;
+}
+
+nav ul {
+    overflow: hidden;
+    list-style: none;
+    margin: 0 auto;
+    z-index: 20;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 26px 10px 20px 10px;
+}
+
+/* ナビゲーションメニューのリンクの色を変更 */
+nav ul li a {
+    color: #ffffff;
+    /* ナビゲーションメニューのリンクの色を白色に設定 */
+}
+
+
+.main {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.project-list {
+    /* 制作物一覧のスタイル */
+}
+
+.project-item {
+    background-color: #7e7e7e;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.project-item h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.project-item p {
+    font-size: 16px;
+    color: #333333;
+}
