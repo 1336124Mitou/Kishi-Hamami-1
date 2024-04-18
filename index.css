@@ -102,3 +102,18 @@ table {
     margin-left: 5px;
     color: black
 }
+
+.frame-article{
+    padding: 10px;
+    width: 450px;
+    margin-bottom: 10px;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}
+
+.frame-tag{
+    padding: 1px;
+    width: 80px;
+    margin-bottom: 1px;
+    border: 1px solid #333333;
+}
