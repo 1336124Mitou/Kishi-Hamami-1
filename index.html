@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>プログラミング情報共有サイト（仮）</title>
     <link href="index.css" rel="stylesheet">
+    <script src="index.js" defer></script>
 </head>
 
 <body>
@@ -24,41 +25,40 @@
     <div class="main">
         <div class="main_con">
             <h2>記事 設置予定地</h2>
-
             <p><a href="#kiji1">プログラミング言語関連記事</a><br>
                 <a href="#kiji2">データベース関連記事</a><br>
                 <a href="#kiji3">AI関連記事</a><br>
                 <hr>
             </p>
-
-            <div id="kiji1">
-                <h2>プログラミング言語関連</h2>
-            </div>
-            <div class = "frame-article">
-                <p>ここに記事を置く予定です</p>
-            </div>
-            <div class = "frame-tag">
-                <p>#Java</p>
-            </div>
-
-            <div id="kiji2">
-                <h2>データベース関連</h2>
-            </div>
-            <div class = "frame-article">
-                <p>ここに記事を置く予定です</p>
-            </div>
-            <div class = "frame-tag">
-                <p>#SQL</p>
-            </div>
-
-            <div id="kiji3">
-                <h2>AI関連</h2>
-            </div>
-            <div class = "frame-article">
-                <p>ここに記事を置く予定です</p>
-            </div>
-            <div class = "frame-tag">
-                <p>#chatGPT</p>
+            <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み">
+            <div class="articles">
+                <div id="kiji1" class="article" data-tags="Java">
+                    <h2>プログラミング言語関連</h2>
+                    <div class="frame-article">
+                        <p>ここに記事を置く予定です</p>
+                    </div>
+                    <div class="frame-tag">
+                        <p>#Java</p>
+                    </div>
+                </div>
+                <div id="kiji2" class="article" data-tags="SQL">
+                    <h2>データベース関連</h2>
+                    <div class="frame-article">
+                        <p>ここに記事を置く予定です</p>
+                    </div>
+                    <div class="frame-tag">
+                        <p>#SQL</p>
+                    </div>
+                </div>
+                <div id="kiji3" class="article" data-tags="chatGPT">
+                    <h2>AI関連</h2>
+                    <div class="frame-article">
+                        <p>ここに記事を置く予定です</p>
+                    </div>
+                    <div class="frame-tag">
+                        <p>#chatGPT</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
