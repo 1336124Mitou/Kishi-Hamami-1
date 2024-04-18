@@ -4,7 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <title>質問一覧</title>
-    <link href="index.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .question {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question h2 {
+            color: #4267b2;
+        }
+
+        .question a {
+            color: #4267b2;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        /* ボタンの微調整 */
+        input.button {
+            border: 1px solid;
+            width: 100px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
+
+        p.tag {
+            border: 1px solid;
+            display: inline-block;
+            border-radius: 20px;
+            background-color: #ccc;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,42 +70,44 @@
             </ul>
         </nav>
     </header>
-
-    <form method="post" action="answer.html">
-        <h2>質問一覧</h2>
-        <table border="2">
-            <tr>
-                <td>質問内容</td>
-                <td>回答</td>
-                <td>タグ</td>
-                <td>回答追加ボタン</td>
-            </tr>
-            <tr>
-                <td>c言語に関する質問です。</td>
-                <td>ここに回答を表示しています</td>
-                <td>プログラミング言語</td>
-                <input type="hidden" name="num" value="1">
-                <td><input type="submit" value="回答追加"></td>
-            </tr>
-            <tr>
-                <td>データベースに関する質問です。</td>
-                <td>ここに回答を表示しています</td>
-                <td>データベース</td>
-                <input type="hidden" name="num" value="2">
-                <td><input type="submit" value="回答追加"></td>
-            </tr>
-            <tr>
-                <td>AIに関する質問です。</td>
-                <td>ここに回答を表示しています</td>
-                <td>その他</td>
-                <input type="hidden" name="num" value="3">
-                <td><input type="submit" value="回答追加"></td>
-            </tr>
-        </table>
-    </form>
-    <br>
-
     <a class="que" href="question.html">質問を追加する</a>
+    <main>
+        <section class="question">
+            <form method="post" action="answer.html">
+                <h2>C言語についての質問</h2>
+                <p>質問内容:C言語のポインタがさっぱり分かりません。さらに文章続く</p>
+                <p class="answer">回答:こういう風にすると理解しやすいですよ</p>
+                <p class="tag">#プログラミング言語</p><br>
+                <input class="button" type="submit" value="回答追加">
+            </form>
+        </section>
+    </main>
+    <main>
+        <section class="question">
+            <form method="post" action="answer.html">
+                <h2>データベースについての質問</h2>
+                <p>質問内容:データベースを作りたいのですが...文章続く</p>
+                <p class="answer">回答:データベースの作成は最初に...</p>
+                <p class="tag">#データベース</p><br>
+                <input class="button" type="submit" value="回答追加">
+            </form>
+        </section>
+    </main>
+    <main>
+        <section class="question">
+            <form method="post" action="answer.html">
+                <h2>AIついての質問</h2>
+                <p>質問内容:AIの活用方法を探しています。このような性能をした</p>
+                <p class="answer">回答:こういう風に活用するのが良いのでは</p>
+                <p class="tag">#その他</p><br>
+                <input class="button" type="submit" value="回答追加">
+            </form>
+        </section>
+        <!-- 他の質問も同様に追加 -->
+    </main>
+    <footer>
+        <p></p>
+    </footer>
 </body>
 
 </html>
