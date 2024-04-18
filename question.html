@@ -12,11 +12,6 @@
                 height: 100vh;
                 margin: 20px;
             }
-
-            .header-container {
-                display: flex;
-                align-items: baseline;
-            }
             
             /* テキストボックスの微調整 */
             textarea {
@@ -51,22 +46,16 @@
             }
 
             a {
-                margin-right: auto;
+                margin-left: auto;
                 border: 1px #007BFF;
-                background-color: #007BFF;
-                color: white;
             }
 
         </style>
     </head>
 
     <body>
-        <div class="header-container">
-            <!-- ページのタイトル -->
-            <h1>質問入力</h1>
-
-            <a href="index.html">ホーム画面に戻る</a>
-        </div>
+        <!-- ページのタイトル -->
+        <h1>質問入力</h1>
 
         <form>
             <!-- テキストボックス -->
@@ -95,6 +84,14 @@
                 document.getElementById('quest').reset();
             }
         </script>
+
+        <form>
+            <h4>タグ追加</h4>
+            <input type="text">
+        </form>
+
+        <!-- ホーム画面に戻る -->
+        <a href="index.html">ホーム画面に戻る</a>
 
     </body>
 </html>
