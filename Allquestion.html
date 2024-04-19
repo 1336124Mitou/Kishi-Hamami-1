@@ -57,6 +57,31 @@
             background-color: #ccc;
         }
     </style>
+    <script>
+        // セレクトボックスの変更時に質問をフィルタリングする関数を呼び出す
+        document.getElementById("tagFilter").addEventListener("change", filterQuestions);
+
+        // 質問をフィルタリングする関数
+        function filterQuestions() {
+            var selectedTag = document.getElementById("tagFilter").value;
+            var questions = document.querySelectorAll('.question');
+
+            // 全ての質問を表示
+            questions.forEach(function (question) {
+                question.style.display = 'block';
+            });
+
+            // タグに基づいて質問をフィルタリング
+            if (selectedTag !== "all") {
+                questions.forEach(function (question) {
+                    var tag = question.querySelector('.tag').textContent;
+                    if (tag !== '#' + selectedTag) {
+                        question.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -71,6 +96,13 @@
         </nav>
     </header>
     <a class="que" href="question.html">質問を追加する</a>
+    <select name="tag">
+        <option value="all">全て</option>
+        <option value="program">プログラミング言語</option>
+        <option value="datebase">データベース</option>
+        <option value="other">その他</option>
+    </select>
+
     <main>
         <section class="question">
             <form method="post" action="answer.html">
@@ -106,7 +138,6 @@
         <!-- 他の質問も同様に追加 -->
     </main>
     <footer>
-        <p></p>
     </footer>
 </body>
 
