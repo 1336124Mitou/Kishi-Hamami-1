@@ -27,7 +27,7 @@ DROP TABLE if EXISTS Question;
 
 -- テーブルQuestionの作成
 CREATE TABLE Question (
-    QuestionID SERIAL PRIMARY KEY NOT NULL auto_increment,
+    QuestionID SERIAL PRIMARY KEY NOT NULL,
     D DATE NOT NULL,
     Tim TIME NOT NULL,
     Question TEXT NOT NULL
@@ -68,7 +68,7 @@ CREATE TABLE RepQ (
     RepID SERIAL PRIMARY KEY NOT NULL,
     QuestionID SERIAL NOT NULL,
     FOREIGN KEY (RepID) REFERENCES Reply(RepID),
-    Foreign Key (QuestionID) REFERENCES Question(QuestionID),
+    FOREIGN Key (QuestionID) REFERENCES Question(QuestionID),
     PRIMARY KEY (RepID, QuestionID)
 );
 
