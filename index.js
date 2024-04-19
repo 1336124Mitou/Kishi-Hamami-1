@@ -10,5 +10,35 @@ function filterArticles(keyword) {
         }
     });
 }
+function sortArticles(key) {
+    var articlesContainer = document.querySelector('.articles');
+    var articles = Array.from(articlesContainer.children);
+    articles.sort(function (a, b) {
+        var aVal = a.getAttribute('data-' + key);
+        var bVal = b.getAttribute('data-' + key);
+        // 日付を比較するために、文字列からDateオブジェクトに変換する
+        var dateA = new Date(aVal);
+        var dateB = new Date(bVal);
+        // 日付を比較
+        return dateA - dateB;
+    });
+    articles.forEach(function (article) {
+        articlesContainer.appendChild(article);
+    });
+}
 
+function sortArticlesByTitle() {
+    var articlesContainer = document.querySelector('.articles');
+    var articles = Array.from(articlesContainer.querySelectorAll('.article'));
+
+    articles.sort(function (a, b) {
+        var titleA = a.querySelector('h2').textContent.toLowerCase();
+        var titleB = b.querySelector('h2').textContent.toLowerCase();
+        return titleA.localeCompare(titleB);
+    });
+
+    articles.forEach(function (article) {
+        articlesContainer.appendChild(article);
+    });
+}
 

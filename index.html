@@ -31,6 +31,10 @@
                 <hr>
             </p>
             <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み">
+            <br>
+            <button onclick="sortArticles('tags')">タグで並べ替え</button>
+            <button onclick="sortArticlesByTitle()">タイトルで並べ替え</button>
+            <button onclick="sortArticles('day')">日付で並べ替え</button>
             <div class="articles">
                 <div id="kiji1" class="article" data-tags="Java">
                     <h2>プログラミング言語関連</h2>
