@@ -45,7 +45,56 @@
         body.overlay {
             background-color: rgba(0, 0, 0, 0.5);
         }
+
+        .home-link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-link-container a {
+            text-decoration: none;
+            color: #333;
+            background-color: #ccc;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .user {
+            display: inline-block;
+            position: relative;
+            border-radius: 50%;
+            background-color: #89baeb;
+            width: 1em;
+            height: 1em;
+            font-size: 50px;
+            overflow: hidden;
+        }
+
+        .user::before,
+        .user::after {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background-color: #3388dd;
+            content: "";
+        }
+
+        .user::before {
+            top: 0.15em;
+            width: 0.4em;
+            height: 0.4em;
+        }
+
+        .user::after {
+            bottom: -0.4em;
+            width: 0.8em;
+            height: 0.8em;
+        }
+
+        #form3 {}
     </style>
+
 </head>
 
 <body>
@@ -76,7 +125,13 @@
     </script>
 
     <h2>コメント一覧</h2>
+    <form id="form3">
+        <span class="user"></span>
+    </form>
 
+    <div class="home-link-container">
+        <a href="index.html">ホーム</a>
+    </div>
 </body>
 
 </html>
