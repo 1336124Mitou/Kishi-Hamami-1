@@ -1,3 +1,31 @@
+// crud/app.js: 最初のMySQL クライアント
+//ret: https://github.com/mysalis/mysql↓
+
+
+// mysql インスタンス生成↓
+const mysql = require('mysql');
+const connection = mysql.createConnection({
+    host: 'localhost', // ホスト名↓
+    user: 'root', // ユーザ名↓
+    password: '',// パスワード↓
+    databse: 'test_db' // データベース名
+});
+//MySQL接続↓
+
+connection.connect((err) => {
+    // エラー発生時
+    if (err) {
+        console.error(`Error!: $ {err.stack)`);
+        return;
+    }
+    // 成功時↓
+    console.log(`Success! Connected as id ${connection.threadId}`);
+});
+// ここにSQL文を書いて実行
+
+// MySQL接続断
+connection.end();
+
 function filterArticles(keyword) {
     var articles = document.querySelectorAll('.article');
     articles.forEach(function (article) {
