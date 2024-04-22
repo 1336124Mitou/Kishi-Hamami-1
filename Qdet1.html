@@ -50,6 +50,27 @@
             border-radius: 10px;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const num1 = document.getElementById('num1');
+            const button1 = document.getElementById('bt1');
+            const num2 = document.getElementById('num2');
+            const button2 = document.getElementById('bt2');
+
+            let count1 = 0;
+            let count2 = 0;
+
+            button1.addEventListener('click', function () {
+                count1++;
+                num1.innerHTML = count1;
+            });
+
+            button2.addEventListener('click', function () {
+                count2++;
+                num2.innerHTML = count2;
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -70,9 +91,9 @@
             <hr>
 
             <p>C言語のポインタがさっぱり分かりません。<br>
-            あとスコープも分かりません。<br>
-            古い言語過ぎていろいろ不便です。<br>
-            なんですか？これは</p>
+                あとスコープも分かりません。<br>
+                古い言語過ぎていろいろ不便です。<br>
+                なんですか？これは</p>
 
             <p class="tag">#プログラミング言語</p>
             <p class="tag">#C言語</p><br>
@@ -80,21 +101,24 @@
     </main>
 
     <main>
-        <form method="post" action="answer.html">
-            <div class="frame">
-                <h2>回答</h2>
 
-                <p>Cは最初だけ触れたら学ばなくていいですよ。ほぼ使わないので。</p>
+        <div class="frame">
+            <h2>回答</h2>
 
-                <hr>
+            <p>Cは最初だけ触れたら学ばなくていいですよ。ほぼ使わないので。</p>
+            <p id="num1">0</p><button id="bt1">いいね</button>
 
-                <p>こういう風にすると理解しやすいですよ。</p>
+            <hr>
 
-                <hr>
+            <p>こういう風にすると理解しやすいですよ。</p>
+            <p id="num2">0</p><button id="bt2">いいね</button>
 
+            <hr>
+            <form method="post" action="answer.html">
                 <input class="button" type="submit" value="回答追加">
-            </div>
-        </form>
+            </form>
+        </div>
+
     </main>
 
     <footer>

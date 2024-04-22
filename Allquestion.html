@@ -44,6 +44,9 @@
             background-color: #ccc;
         }
     </style>
+    <script>
+
+    </script>
 </head>
 
 <body>
@@ -60,6 +63,13 @@
         </nav>
     </header>
     <a class="que" href="question.html">質問を追加する</a>
+    <select name="tag">
+        <option value="all">全て</option>
+        <option value="program">プログラミング言語</option>
+        <option value="datebase">データベース</option>
+        <option value="other">その他</option>
+    </select>
+
     <main>
         <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み"
             style="width: 300px;height: 40px;">
