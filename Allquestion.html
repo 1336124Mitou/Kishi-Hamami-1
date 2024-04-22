@@ -58,29 +58,7 @@
         }
     </style>
     <script>
-        // セレクトボックスの変更時に質問をフィルタリングする関数を呼び出す
-        document.getElementById("tagFilter").addEventListener("change", filterQuestions);
 
-        // 質問をフィルタリングする関数
-        function filterQuestions() {
-            var selectedTag = document.getElementById("tagFilter").value;
-            var questions = document.querySelectorAll('.question');
-
-            // 全ての質問を表示
-            questions.forEach(function (question) {
-                question.style.display = 'block';
-            });
-
-            // タグに基づいて質問をフィルタリング
-            if (selectedTag !== "all") {
-                questions.forEach(function (question) {
-                    var tag = question.querySelector('.tag').textContent;
-                    if (tag !== '#' + selectedTag) {
-                        question.style.display = 'none';
-                    }
-                });
-            }
-        }
     </script>
 </head>
 
