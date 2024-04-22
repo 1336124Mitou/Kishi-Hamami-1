@@ -63,6 +63,51 @@ a {
     text-transform: uppercase;
 }
 
+.btn4 {
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn4::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0px;
+    width: 100%;
+    height: 2px;
+    background: #3367ff;
+    display: block;
+    -webkit-transform-origin: right top;
+    -ms-transform-origin: right top;
+    transform-origin: right top;
+    -webkit-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    transform: scale(0, 1);
+    -webkit-transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+    transition: transform 0.4s cubic-bezier(1, 0, 0, 1)
+}
+
+.btn4:hover::before {
+    -webkit-transform-origin: left top;
+    -ms-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1)
+}
+
+.btn2 {
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 2px solid #3367ff;
+}
+
 a.que {
     float: right;
     border-radius: 5px;
@@ -78,7 +123,6 @@ a[href="#kiji3"] {
     color: blue;
     width: 500px;
     margin-top: 0;
-    text-decoration: none;
     font-weight: bold;
 }
 
@@ -121,4 +165,20 @@ table {
     width: 80px;
     margin-bottom: 1px;
     border: 1px solid #333333;
+}
+
+button {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+p.tag {
+    border: 1px solid;
+    display: inline-block;
+    border-radius: 20px;
+    background-color: #ccc;
+}
+
+#a1 {
+    color: #007BFF;
 }

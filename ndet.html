@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テンプレート</title>
+    <style>
+        #form1 {
+            width: 500px;
+            height: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        #form2 {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        #form2 form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        body:not(.overlay) {
+            transition: 0.5s;
+        }
+
+        body.overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>テンプレート</h1>
+    <form id="form1"></form>
+    <button onclick="toggleForm()">コメント入力</button>
+
+    <form id="form2">
+        <label for="comment">コメント：</label>
+        <input type="text" id="comment" name="comment">
+
+        <input type="submit" value="送信">
+    </form>
+
+    <script>
+        function toggleForm() {
+            var form = document.getElementById("form2");
+            var body = document.body;
+
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                body.classList.add("overlay");
+            } else {
+                form.style.display = "none";
+                body.classList.remove("overlay");
+            }
+        }
+    </script>
+
+    <h2>コメント一覧</h2>
+
+</body>
+
+</html>

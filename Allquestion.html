@@ -37,19 +37,6 @@
             text-align: center;
         }
 
-        /* ボタンの微調整 */
-        input.button {
-            border: 1px solid;
-            width: 100px;
-            height: 35px;
-            font-size: 15px;
-            align-self: center;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            background-color: #007BFF;
-        }
-
         p.tag {
             border: 1px solid;
             display: inline-block;
@@ -67,9 +54,11 @@
         <h1>プログラミング情報共有サイト（仮）</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html" class="btn2">ホーム</a></li>
+                <li><a href="index.html" class="btn4">ホーム</a></li>
                 <li><a href="Allquestion.html" class="btn2">質問一覧</a></li>
-                <li><a href="Allproject.html" class="btn2">制作物一覧</a></li>
+                <li><a href="Allproject.html" class="btn4">制作物一覧</a></li>
+                <li><a href="profile.html" class="btn4">プロフィール</a></li>
+                <li><a href="login.html" class="btn4">ログイン</a></li>
             </ul>
         </nav>
     </header>
@@ -82,6 +71,8 @@
     </select>
 
     <main>
+        <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み"
+            style="width: 300px;height: 40px;">
         <section class="question">
             <form method="post" action="answer.html">
                 <h2><a href="Qdet1.html">C言語についての質問</a></h2>
@@ -109,8 +100,60 @@
         </section>
         <!-- 他の質問も同様に追加 -->
     </main>
-    <footer>
-    </footer>
+    <script>
+        // crud/app.js: 最初のMySQL クライアント
+        //ret: https://github.com/mysalis/mysql
+
+
+        // mysql インスタンス生成↓
+        const mysql = require('mysql');
+        const connection = mysql.createConnection({
+            host: 'localhost', // ホスト名↓
+            user: 'root', // ユーザ名↓
+            password: '',// パスワード↓
+            databse: 'test_db' // データベース名
+        });
+        //MySQL接続↓
+
+        connection.connect((err) => {
+            // エラー発生時
+            if (err) {
+                console.error(`Error!: $ {err.stack)`);
+                return;
+            }
+            // 成功時↓
+            console.log(`Success! Connected as id ${connection.threadId}`);
+        });
+        // ここにSQL文を書いて実行
+
+        // MySQL接続断
+        connection.end();
+
+        function filterArticles(keyword) {
+            var articles = document.querySelectorAll('.article');
+            articles.forEach(function (article) {
+                var tags = article.getAttribute('data-tags');
+                var title = article.querySelector('h2').innerText.toLowerCase();
+                if (tags.includes(keyword) || title.includes(keyword.toLowerCase())) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+        function filterArticles(keyword) {
+            var articles = document.querySelectorAll('.question');
+            articles.forEach(function (article) {
+                var title = article.querySelector('h2').innerText.toLowerCase();
+                var tag = article.querySelector('.tag').innerText.toLowerCase();
+                if (title.includes(keyword.toLowerCase()) || tag.includes(keyword.toLowerCase())) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
