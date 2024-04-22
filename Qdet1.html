@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>質問詳細</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        /* ボタンの微調整 */
+        input.button {
+            border: 1px solid;
+            width: 100px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
+
+        p.tag {
+            border: 1px solid;
+            display: inline-block;
+            border-radius: 20px;
+            background-color: #ccc;
+        }
+
+        .frame {
+            padding: 10px;
+            width: 450px;
+            margin-bottom: 10px;
+            border: 1px solid #333333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>プログラミング情報共有サイト（仮）</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html" class="btn2">ホーム</a></li>
+                <li><a href="Allquestion.html" class="btn2">質問一覧</a></li>
+                <li><a href="Allproject.html" class="btn2">制作物一覧</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="frame">
+            <h2>C言語についての質問</h2>
+            <hr>
+
+            <p>C言語のポインタがさっぱり分かりません。<br>
+            あとスコープも分かりません。<br>
+            古い言語過ぎていろいろ不便です。<br>
+            なんですか？これは</p>
+
+            <p class="tag">#プログラミング言語</p>
+            <p class="tag">#C言語</p><br>
+        </div>
+    </main>
+
+    <main>
+        <form method="post" action="answer.html">
+            <div class="frame">
+                <h2>回答</h2>
+
+                <p>Cは最初だけ触れたら学ばなくていいですよ。ほぼ使わないので。</p>
+
+                <hr>
+
+                <p>こういう風にすると理解しやすいですよ。</p>
+
+                <hr>
+
+                <input class="button" type="submit" value="回答追加">
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p></p>
+    </footer>
+</body>
+
+</html>
