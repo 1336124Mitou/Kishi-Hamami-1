@@ -2,7 +2,7 @@
 //ret: https://github.com/mysalis/mysql
 
 
-// mysql インスタンス生成↓
+// mysql インスタンス生成
 const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost', // ホスト名↓
@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     password: '',// パスワード↓
     databse: 'test_db' // データベース名
 });
-//MySQL接続↓
+//MySQL接続
 
 connection.connect((err) => {
     // エラー発生時
@@ -25,7 +25,7 @@ connection.connect((err) => {
 
 // MySQL接続断
 connection.end();
-
+//キーワード検査
 function filterArticles(keyword) {
     var articles = document.querySelectorAll('.article');
     articles.forEach(function (article) {
@@ -54,7 +54,7 @@ function sortArticles(key) {
         articlesContainer.appendChild(article);
     });
 }
-
+//タイトル絞り込み
 function sortArticlesByTitle() {
     var articlesContainer = document.querySelector('.articles');
     var articles = Array.from(articlesContainer.querySelectorAll('.article'));
