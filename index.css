@@ -160,9 +160,9 @@ table {
     border-radius: 10px;
 }
 
-.frame-tag {
-    padding: 1px;
-    width: 80px;
-    margin-bottom: 1px;
-    border: 1px solid #333333;
+p.tag {
+    border: 1px solid;
+    display: inline-block;
+    border-radius: 20px;
+    background-color: #ccc;
 }
