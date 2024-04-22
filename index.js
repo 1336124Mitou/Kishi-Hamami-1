@@ -1,5 +1,5 @@
 // crud/app.js: 最初のMySQL クライアント
-//ret: https://github.com/mysalis/mysql↓
+//ret: https://github.com/mysalis/mysql
 
 
 // mysql インスタンス生成↓
