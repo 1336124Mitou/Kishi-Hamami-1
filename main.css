@@ -18,6 +18,7 @@ body {
     padding: 0;
 }
 
+/*ヘッダーのデザイン*/
 header {
     background: #000000;
 }
@@ -48,6 +49,7 @@ nav ul {
     z-index: 20;
 }
 
+/*navの青線のやつ*/
 .btn4 {
     text-transform: uppercase;
     text-align: center;
@@ -102,35 +104,4 @@ nav ul li {
 nav ul li a {
     color: #ffffff;
     /* ナビゲーションメニューのリンクの色を白色に設定 */
-}
-
-
-.main {
-    padding: 20px;
-}
-
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #000000;
-}
-
-.project-item {
-    background-color: #7e7e7e;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.project-item h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #000000;
-}
-
-.project-item p {
-    font-size: 16px;
-    color: #333333;
 }

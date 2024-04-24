@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テンプレート</title>
+    <title>記事詳細</title>
+    <link rel="stylesheet" href="project.css">
     <style>
         #form1 {
             width: 500px;
@@ -45,10 +46,71 @@
         body.overlay {
             background-color: rgba(0, 0, 0, 0.5);
         }
+
+        .home-link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-link-container a {
+            text-decoration: none;
+            color: #333;
+            background-color: #ccc;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .user {
+            display: inline-block;
+            position: relative;
+            border-radius: 50%;
+            background-color: #89baeb;
+            width: 1em;
+            height: 1em;
+            font-size: 50px;
+            overflow: hidden;
+        }
+
+        .user::before,
+        .user::after {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background-color: #3388dd;
+            content: "";
+        }
+
+        .user::before {
+            top: 0.15em;
+            width: 0.4em;
+            height: 0.4em;
+        }
+
+        .user::after {
+            bottom: -0.4em;
+            width: 0.8em;
+            height: 0.8em;
+        }
+
+        #form3 {}
     </style>
+
 </head>
 
 <body>
+    <header>
+        <h1>プログラミング情報共有サイト（仮）</h1>
+        <nav>
+            <ul class="nav">
+                <li><a href="index.html" class="btn4">ホーム</a></li>
+                <li><a href="Allquestion.html" class="btn4">質問一覧</a></li>
+                <li><a href="Allproject.html" class="btn2">制作物一覧</a></li>
+                <li><a href="profile.html" class="btn4">プロフィール</a></li>
+                <li><a href="login.html" class="btn4">ログイン</a></li>
+            </ul>
+        </nav>
+    </header>
     <h1>テンプレート</h1>
     <form id="form1"></form>
     <button onclick="toggleForm()">コメント入力</button>
@@ -76,7 +138,13 @@
     </script>
 
     <h2>コメント一覧</h2>
+    <form id="form3">
+        <span class="user"></span>
+    </form>
 
+    <div class="home-link-container">
+        <a href="index.html">ホーム</a>
+    </div>
 </body>
 
 </html>

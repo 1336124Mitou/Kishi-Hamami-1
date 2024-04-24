@@ -24,6 +24,12 @@ header {
 
 .nav {
     padding: 30px 20px 10px 20px;
+    width: 100%;
+}
+
+.nav a {
+    font-size: 20px;
+    /* ナビゲーションのテキストのフォントサイズを20pxに設定 */
 }
 
 nav {
