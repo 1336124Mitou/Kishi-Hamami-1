@@ -33,6 +33,12 @@ header h1 {
 .nav {
     padding: 30px 20px 10px 20px;
     background: #000000;
+    width: 100%;
+}
+
+.nav a {
+    font-size: 20px;
+    /* ナビゲーションのテキストのフォントサイズを20pxに設定 */
 }
 
 nav ul {
