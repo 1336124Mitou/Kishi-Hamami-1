@@ -42,6 +42,11 @@ p.tag {
     border-radius: 10px;
 }
 
+
+
+
+
+
 .checkbox {
     display: none;
 }
@@ -131,10 +136,7 @@ p.tag {
     }
 }
 
-
 /* オーバーレイのスタイル */
-
-
 #msg a {
     
     display: inline-block;

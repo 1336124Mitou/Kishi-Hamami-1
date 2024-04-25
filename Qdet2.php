@@ -4,52 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>質問詳細</title>
+    
     <link rel="stylesheet" href="main.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="Qdet.css">
 
-        main {
-            padding: 20px;
-        }
-
-        footer {
-            background-color: #f4f4f4;
-            padding: 10px 20px;
-            text-align: center;
-        }
-
-        /* ボタンの微調整 */
-        input.button {
-            border: 1px solid;
-            width: 100px;
-            height: 35px;
-            font-size: 15px;
-            align-self: center;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            background-color: #007BFF;
-        }
-
-        p.tag {
-            border: 1px solid;
-            display: inline-block;
-            border-radius: 20px;
-            background-color: #ccc;
-        }
-
-        .frame {
-            padding: 10px;
-            width: 450px;
-            margin-bottom: 10px;
-            border: 1px solid #333333;
-            border-radius: 10px;
-        }
-    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const num1 = document.getElementById('num1');
@@ -70,6 +28,10 @@
                 num2.innerHTML = count2;
             });
         });
+
+        function check( id ) {
+            document.getElementById( id ).checked = true;
+        }
     </script>
 </head>
 
@@ -112,9 +74,28 @@
             <p id="num2">0</p><button id="bt2">いいね</button>
 
             <hr>
-            <form method="post" action="answer.php">
-                <input class="button" type="submit" value="回答追加">
-            </form>
+
+            <!-- クリック動作判定 -->
+            <input class="checkbox" type="checkbox" id="popup">
+
+            <!-- ポップアップ部分 -->
+            <div id="overlay">
+                <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+                <div id="window"> <!-- ウィンドウ部分 -->
+                    <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                        <span></span>
+                    </label>
+                    <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                        <h2>回答投稿</h2>
+                        <textarea id="answer" name="answer" rows="5" cols="70"></textarea><br><br>
+                        <a href="">投稿</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <input class="button" onclick="check('popup');" type="button" value="回答追加">
         </div>
 
     </main>
