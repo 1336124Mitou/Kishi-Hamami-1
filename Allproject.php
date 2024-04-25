@@ -43,11 +43,11 @@
         <h1>プログラミング情報共有サイト（仮）</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html" class="btn4">ホーム</a></li>
-                <li><a href="Allquestion.html" class="btn4">質問一覧</a></li>
-                <li><a href="Allproject.html" class="btn2">制作物一覧</a></li>
-                <li><a href="profile.html" class="btn4">プロフィール</a></li>
-                <li><a href="login.html" class="btn4">ログイン</a></li>
+                <li><a href="index.php" class="btn4">ホーム</a></li>
+                <li><a href="Allquestion.php" class="btn4">質問一覧</a></li>
+                <li><a href="Allproject.php" class="btn2">制作物一覧</a></li>
+                <li><a href="profile.php" class="btn4">プロフィール</a></li>
+                <li><a href="login.php" class="btn4">ログイン</a></li>
             </ul>
         </nav>
     </header>
@@ -75,7 +75,7 @@
                 <!-- その他の制作物の情報やリンクなどを追加 -->
             </div>
         </div>
-        <a href="proshow.html">制作物公開へ</a>
+        <a href="proshow.php">制作物公開へ</a>
 
 </body>
 
