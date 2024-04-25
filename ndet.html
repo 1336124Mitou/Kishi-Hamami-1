@@ -93,7 +93,52 @@
             height: 0.8em;
         }
 
-        #form3 {}
+        #comment-list {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .comment {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: flex;
+            align-items: center;
+        }
+
+        .comment .user-icon {
+            background-color: #89baed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .comment .user-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment .comment-text {
+            flex-grow: 1;
+        }
+
+        .comment .comment-text p {
+            margin: 0;
+        }
+
+        .comment .username {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .comment .timestamp {
+            font-size: 0.8em;
+            color: #666;
+        }
     </style>
 
 </head>
@@ -135,12 +180,33 @@
                 body.classList.remove("overlay");
             }
         }
+
+        const comments = [
+            { username: "ユーザーA", comment: "これはテストコメントです", timestamp: "2024-04-24 12:34" },
+            { username: "ユーザーB", comment: "素晴らしい記事ですね！", timestamp: "2024-04-24 12:35" }
+        ];
+
+        //コメント表示の為の関数
+        function displayComments() {
+            const commentList = document.getElementById("comment-list");
+
+            //コメントリストのクリア
+            commentList.innerHTML = "";
+
+            //各コメントの表示
+            comments.forEach(comment => {
+                const commentDiv = document.createElement("div");
+            })
+        }
     </script>
 
     <h2>コメント一覧</h2>
     <form id="form3">
         <span class="user"></span>
     </form>
+    <div id="comment-list">
+        <!-- ここにコメントが追加されます -->
+    </div>
 
     <div class="home-link-container">
         <a href="index.html">ホーム</a>
