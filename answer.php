@@ -63,7 +63,7 @@
         <input type="button" value="投稿" onclick="postAnswer()">
     </form>
     <br>
-    <a href="index.html">ホーム</a>
+    <a href="index.php">ホーム</a>
 </body>
 
 </html>

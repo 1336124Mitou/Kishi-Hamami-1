@@ -148,11 +148,11 @@
         <h1>プログラミング情報共有サイト（仮）</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html" class="btn4">ホーム</a></li>
-                <li><a href="Allquestion.html" class="btn4">質問一覧</a></li>
-                <li><a href="Allproject.html" class="btn2">制作物一覧</a></li>
-                <li><a href="profile.html" class="btn4">プロフィール</a></li>
-                <li><a href="login.html" class="btn4">ログイン</a></li>
+                <li><a href="index.php" class="btn4">ホーム</a></li>
+                <li><a href="Allquestion.php" class="btn4">質問一覧</a></li>
+                <li><a href="Allproject.php" class="btn2">制作物一覧</a></li>
+                <li><a href="profile.php" class="btn4">プロフィール</a></li>
+                <li><a href="login.php" class="btn4">ログイン</a></li>
             </ul>
         </nav>
     </header>
@@ -181,9 +181,16 @@
             }
         }
 
-        const comments = [
-            { username: "ユーザーA", comment: "これはテストコメントです", timestamp: "2024-04-24 12:34" },
-            { username: "ユーザーB", comment: "素晴らしい記事ですね！", timestamp: "2024-04-24 12:35" }
+        const comments = [{
+                username: "ユーザーA",
+                comment: "これはテストコメントです",
+                timestamp: "2024-04-24 12:34"
+            },
+            {
+                username: "ユーザーB",
+                comment: "素晴らしい記事ですね！",
+                timestamp: "2024-04-24 12:35"
+            }
         ];
 
         //コメント表示の為の関数
@@ -209,7 +216,7 @@
     </div>
 
     <div class="home-link-container">
-        <a href="index.html">ホーム</a>
+        <a href="index.php">ホーム</a>
     </div>
 </body>
 
