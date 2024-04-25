@@ -4,9 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <title>プログラミング情報共有サイト（仮）</title>
-    <link href="index.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
     <script src="index.js" defer></script>
 </head>
+<style>
+    a.que {
+        float: right;
+        border-radius: 5px;
+        background-color: #007BFF;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+    }
+
+    a[href="#kiji1"],
+    a[href="#kiji2"],
+    a[href="#kiji3"] {
+        color: blue;
+        width: 500px;
+        margin-top: 0;
+        font-weight: bold;
+    }
+
+    h2 {
+        font-weight: bold;
+        line-height: 2;
+        color: #000000;
+        margin: 25px 0;
+    }
+
+    p {
+        font-weight: bold;
+        line-height: 2;
+        color: #333;
+    }
+
+    th,
+    td {
+        border: solid 1px;
+        /* 枠線指定 */
+        padding: 10px;
+        /* 余白指定 */
+    }
+
+    table {
+        margin-left: 5px;
+        color: black
+    }
+
+    .frame-article {
+        padding: 10px;
+        width: 450px;
+        margin-bottom: 10px;
+        border: 1px solid #333333;
+        border-radius: 10px;
+    }
+
+    .frame-tag {
+        padding: 1px;
+        width: 80px;
+        margin-bottom: 1px;
+        border: 1px solid #333333;
+    }
+
+    button {
+        background-color: #fff;
+        border-color: #fff;
+    }
+
+    p.tag {
+        border: 1px solid;
+        display: inline-block;
+        border-radius: 20px;
+        background-color: #ccc;
+    }
+
+    #a1 {
+        color: #007BFF;
+    }
+</style>
 
 <body>
     <header>
