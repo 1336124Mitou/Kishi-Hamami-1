@@ -26,20 +26,6 @@
         </nav>
 
     </header>
-        <h1>ログイン</h1>
-        <!-- 名前を入力するためのテキストボックス -->
-        <label for="textbox">名前:</label>
-        <input type="text" id="name" name="name"><br>
-
-        <!-- メールを入力するためのテキストボックス -->
-        <label for="textbox">メール:</label>
-        <input type="email" id="mail" name="email"><br>
-
-        <!-- パスワードを入力するためのテキストボックス -->
-        <label for="textbox">パスワード：</label>
-        <input type="password" id="pass" name="password"><br>
-    <br>
-        <a href="NAccount.php">新規登録する</a>
-        <a href="index.php">ホームに戻る</a>
     </body>
 </html>
+    

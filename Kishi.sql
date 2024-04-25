@@ -11,6 +11,19 @@ grant all PRIVILEGES on kishi.* to Kishi@localhost identified by 'hamami';
 -- kishiデータベースを選択
 use kishi;
 
+-- ユーザーのテーブル
+-- tableがあるなら削除
+DROP TABLE if EXISTS Usr;
+
+-- テーブルUsrの作成
+CREATE TABLE Usr (
+    UsID INT PRIMARY KEY AUTO_INCREMENT,
+    UsName VARCHAR(255) UNIQUE NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    Passw VARCHAR(255) NOT NULL
+);
+
+
 -- タグのテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS Tags;
@@ -30,7 +43,9 @@ CREATE TABLE Question (
     QuestionID INT PRIMARY KEY NOT NULL,
     D DATE NOT NULL,
     Tim TIME NOT NULL,
-    Question TEXT NOT NULL
+    Question TEXT NOT NULL,
+    UsID INT NOT NULL,
+    FOREIGN KEY (UsID) REFERENCES Usr(UsID)
 );
 
 -- 質問のIDとタグIDを関連するテーブル
@@ -121,18 +136,6 @@ CREATE TABLE ProjTags (
     FOREIGN KEY (ProID) REFERENCES Project(ProID),
     FOREIGN KEY (TagID) REFERENCES Tags(TagID),
     PRIMARY KEY (ProID, TagID)
-);
-
--- ユーザーのテーブル
--- tableがあるなら削除
-DROP TABLE if EXISTS Usr;
-
--- テーブルUsrの作成
-CREATE TABLE Usr (
-    UsID INT PRIMARY KEY AUTO_INCREMENT,
-    UsName VARCHAR(255) UNIQUE NOT NULL,
-    Email VARCHAR(255) UNIQUE NOT NULL,
-    Passw VARCHAR(255) NOT NULL
 );
 
 -- いいねのテーブル

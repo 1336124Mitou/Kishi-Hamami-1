@@ -1,26 +1,23 @@
 <?php
-class  DbData  // DbDataクラスの宣言	
+class Dbdata
 {
+    protected $pdo;
 
-    protected  $pdo;  // PDOオブジェクト用のプロパティ（メンバ変数）の宣言						
-
-    // コンストラクタ
-    public  function  __construct()
+    public function __construct()
     {
-        // PDOオブジェクトを生成する 															
-        $dsn = 'mysql:host=localhost;dbname=shop;charset=utf8';
-        $user = 'shopping';
-        $password = 'site';
+        $dsn = 'mysql:host=localhost;dbname=kishi;charset=utf8';
+        $user = 'Kishi';
+        $password = 'hamami';
         try {
             $this->pdo = new PDO($dsn, $user, $password);
-        } catch (Exception  $e) {
+        } catch (Exception $e) {
             echo 'Error:' . $e->getMessage();
             die();
         }
     }
 
     // SELECT文実行用のメソッド
-    protected function query($sql,  $array_params)
+    protected function query($sql, $array_params)
     {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($array_params);
