@@ -106,7 +106,8 @@ DROP TABLE if EXISTS Project;
 CREATE TABLE Project (
     ProID INT PRIMARY KEY NOT NULL,
     ProName VARCHAR(255) NOT NULL,
-    ProjFile LONGBLOB NOT NULL
+    ProjFile LONGBLOB NOT NULL,
+    Proexample VARCHAR(255) NOT NULL
 );
 
 -- 制作物のIDとタグのIDを関連するテーブル
