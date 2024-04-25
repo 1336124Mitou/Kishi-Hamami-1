@@ -97,11 +97,6 @@
         }
     </script>
 
-    <form>
-        <h4>タグ追加</h4>
-        <input type="text">
-    </form>
-
     <!-- ホーム画面に戻る -->
     <a href="index.php">ホーム画面に戻る</a>
 
