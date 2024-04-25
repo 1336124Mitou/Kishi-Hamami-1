@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>質問詳細</title>
-    <link rel="stylesheet" href="main.css">
+    
     <link rel="stylesheet" href="Qdet.css">
 
     <script>
@@ -27,6 +27,10 @@
                 num2.innerHTML = count2;
             });
         });
+
+        function check( id ) {
+            document.getElementById( id ).checked = true;
+        }
     </script>
 </head>
 
