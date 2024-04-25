@@ -7,6 +7,7 @@
     <title>記事詳細</title>
     <link rel="stylesheet" href="main.css">
     <style>
+        /* 記事 */
         #form1 {
             width: 500px;
             height: 600px;
@@ -22,23 +23,60 @@
             text-align: center;
         }
 
-        #form2 {
+        /*コメント入力ポップアップ*/
+        .comment-popup {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
 
-        #form2 form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
         }
 
+        .comment-popup h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* その他のスタイリング */
         body:not(.overlay) {
             transition: 0.5s;
         }
@@ -58,86 +96,6 @@
             background-color: #ccc;
             padding: 10px 20px;
             border-radius: 5px;
-        }
-
-        .user {
-            display: inline-block;
-            position: relative;
-            border-radius: 50%;
-            background-color: #89baeb;
-            width: 1em;
-            height: 1em;
-            font-size: 50px;
-            overflow: hidden;
-        }
-
-        .user::before,
-        .user::after {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            background-color: #3388dd;
-            content: "";
-        }
-
-        .user::before {
-            top: 0.15em;
-            width: 0.4em;
-            height: 0.4em;
-        }
-
-        .user::after {
-            bottom: -0.4em;
-            width: 0.8em;
-            height: 0.8em;
-        }
-
-        #comment-list {
-            margin: 20px auto;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .comment {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            padding: flex;
-            align-items: center;
-        }
-
-        .comment .user-icon {
-            background-color: #89baed;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .comment .user-icon img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .comment .comment-text {
-            flex-grow: 1;
-        }
-
-        .comment .comment-text p {
-            margin: 0;
-        }
-
-        .comment .username {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .comment .timestamp {
-            font-size: 0.8em;
-            color: #666;
         }
     </style>
 
@@ -160,12 +118,17 @@
     <form id="form1"></form>
     <button onclick="toggleForm()">コメント入力</button>
 
-    <form id="form2">
-        <label for="comment">コメント：</label>
-        <input type="text" id="comment" name="comment">
-
-        <input type="submit" value="送信">
-    </form>
+    <div id="form2" class="comment-popup">
+        <span class="close-btn" onclick="toggleForm()">&times;</span>
+        <h2>コメントを入力する</h2>
+        <form>
+            <div class="form-group">
+                <label for="comment">コメント：</label>
+                <input type="text" id="comment" name="comment" class="comment-input">
+            </div>
+            <input type="submit" value="送信" class="submit-btn">
+        </form>
+    </div>
 
     <script>
         function toggleForm() {
@@ -180,41 +143,10 @@
                 body.classList.remove("overlay");
             }
         }
-
-        const comments = [{
-                username: "ユーザーA",
-                comment: "これはテストコメントです",
-                timestamp: "2024-04-24 12:34"
-            },
-            {
-                username: "ユーザーB",
-                comment: "素晴らしい記事ですね！",
-                timestamp: "2024-04-24 12:35"
-            }
-        ];
-
-        //コメント表示の為の関数
-        function displayComments() {
-            const commentList = document.getElementById("comment-list");
-
-            //コメントリストのクリア
-            commentList.innerHTML = "";
-
-            //各コメントの表示
-            comments.forEach(comment => {
-                const commentDiv = document.createElement("div");
-            })
-        }
     </script>
 
     <h2>コメント一覧</h2>
-    <form id="form3">
-        <span class="user"></span>
-    </form>
-    <div id="comment-list">
-        <!-- ここにコメントが追加されます -->
-    </div>
-
+    <form id="form3"></form>
     <div class="home-link-container">
         <a href="index.php">ホーム</a>
     </div>
