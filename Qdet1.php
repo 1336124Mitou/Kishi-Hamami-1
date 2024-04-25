@@ -51,7 +51,7 @@
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const num1 = document.getElementById('num1');
             const button1 = document.getElementById('bt1');
             const num2 = document.getElementById('num2');
@@ -60,12 +60,12 @@
             let count1 = 0;
             let count2 = 0;
 
-            button1.addEventListener('click', function () {
+            button1.addEventListener('click', function() {
                 count1++;
                 num1.innerHTML = count1;
             });
 
-            button2.addEventListener('click', function () {
+            button2.addEventListener('click', function() {
                 count2++;
                 num2.innerHTML = count2;
             });
@@ -78,11 +78,11 @@
         <h1>プログラミング情報共有サイト（仮）</h1>
         <nav>
             <ul class="nav">
-                <li><a href="index.html" class="btn4">ホーム</a></li>
-                <li><a href="Allquestion.html" class="btn2">質問一覧</a></li>
-                <li><a href="Allproject.html" class="btn4">制作物一覧</a></li>
-                <li><a href="profile.html" class="btn4">プロフィール</a></li>
-                <li><a href="login.html" class="btn4">ログイン</a></li>
+                <li><a href="index.php" class="btn4">ホーム</a></li>
+                <li><a href="Allquestion.php" class="btn2">質問一覧</a></li>
+                <li><a href="Allproject.php" class="btn4">制作物一覧</a></li>
+                <li><a href="profile.php" class="btn4">プロフィール</a></li>
+                <li><a href="login.php" class="btn4">ログイン</a></li>
             </ul>
         </nav>
     </header>
@@ -116,7 +116,7 @@
             <p id="num2">0</p><button id="bt2">いいね</button>
 
             <hr>
-            <form method="post" action="answer.html">
+            <form method="post" action="answer.php">
                 <input class="button" type="submit" value="回答追加">
             </form>
         </div>

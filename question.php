@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Question</title>
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                height: 100vh;
-                margin: 20px;
-            }
-            
-            /* テキストボックスの微調整 */
-            textarea {
-                border: 1px solid #ccc;
-                padding: 10px;
-                width: 700px;
-                height: 100px;
-                font-size: 25px;
-                color: rgba(0, 0, 0, 0.3); /* Initial text color */
-                resize: none;
-            }
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 20px;
+        }
+
+        /* テキストボックスの微調整 */
+        textarea {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 700px;
+            height: 100px;
+            font-size: 25px;
+            color: rgba(0, 0, 0, 0.3);
+            /* Initial text color */
+            resize: none;
+        }
 
         /* ボタンの微調整 */
         input[type="button"] {
@@ -45,10 +47,10 @@
             align-items: center;
         }
 
-            a {
-                margin-left: auto;
-                border: 1px #007BFF;
-            }
+        a {
+            margin-left: auto;
+            border: 1px #007BFF;
+        }
 
         select {
             margin: 10px;
@@ -56,9 +58,9 @@
     </style>
 </head>
 
-    <body>
-        <!-- ページのタイトル -->
-        <h1>質問入力</h1>
+<body>
+    <!-- ページのタイトル -->
+    <h1>質問入力</h1>
 
     <form>
         <!-- テキストボックス -->
@@ -95,13 +97,14 @@
         }
     </script>
 
-        <form>
-            <h4>タグ追加</h4>
-            <input type="text">
-        </form>
+    <form>
+        <h4>タグ追加</h4>
+        <input type="text">
+    </form>
 
-        <!-- ホーム画面に戻る -->
-        <a href="index.html">ホーム画面に戻る</a>
+    <!-- ホーム画面に戻る -->
+    <a href="index.php">ホーム画面に戻る</a>
 
-    </body>
+</body>
+
 </html>

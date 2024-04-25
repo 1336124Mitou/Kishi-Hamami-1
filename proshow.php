@@ -70,7 +70,7 @@
 <body>
     <h1>制作物公開</h1>
     <div>
-        <form action="proshow.html" method="post" enctype="multipart/form-data">
+        <form action="proshow.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="projectName">作品名:</label>
                 <input type="text" id="projectName" name="projectName" required>
@@ -91,13 +91,13 @@
                 <input type="submit" value="送信する">
             </div>
         </form>
-        <a href="Allproject.html">制作物一覧</a>
-        <a href="index.html">ホーム</a>
+        <a href="Allproject.php">制作物一覧</a>
+        <a href="index.php">ホーム</a>
     </div>
 
     <script>
         // ファイル名を表示する関数
-        document.querySelector('input[name="project"]').addEventListener('change', function (e) {
+        document.querySelector('input[name="project"]').addEventListener('change', function(e) {
             const fileName = e.target.files[0].name;
             document.getElementById('fileName').textContent = '選択されたファイル: ' + fileName;
         });
