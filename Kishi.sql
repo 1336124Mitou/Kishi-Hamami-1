@@ -5,7 +5,7 @@ DROP database if EXISTS kishi;
 -- データベースkishiの作成
 CREATE DATABASE if NOT EXISTS kishi CHARACTER set utf8 COLLATE utf8_general_ci;
 
-#ユーザーKishiに、パスワードhamamiを設定し、データベースkishiに対するすべての権限を付与
+-- ユーザーKishiに、パスワードhamamiを設定し、データベースkishiに対するすべての権限を付与
 grant all PRIVILEGES on kishi.* to Kishi@localhost identified by 'hamami';
 
 -- kishiデータベースを選択
