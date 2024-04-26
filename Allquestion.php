@@ -62,8 +62,8 @@
     </style>
 
     <script>
-        function check( id ) {
-            document.getElementById( id ).checked = true;
+        function check(id) {
+            document.getElementById(id).checked = true;
         }
     </script>
 </head>
@@ -94,13 +94,18 @@
                 <span></span>
             </label>
             <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                <h2>質問投稿</h2>
-                <div class="textarea">
-                    <textarea id="question" name="question" rows="5" cols="70"></textarea><br><br>
-                    <div class="que">
-                        <a href="">投稿</a>
+                <form method="POST" action="shitsumonadd.php">
+                    <h2>質問投稿</h2>
+                    <div class="textarea">
+                        <textarea id="question" name="QDet" rows="5" cols="70"></textarea><br><br>
+                        <!-- ユーザーIDを送る -->
+                        <input type="hidden" name="userid" value="999">
+                        <div class="que">
+                            <!-- 投稿ボタン -->
+                            <input type="submit" value="投稿">
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
