@@ -23,6 +23,7 @@ CREATE TABLE Usr (
     Passw VARCHAR(255) NOT NULL
 );
 
+INSERT INTO Usr(UsID, UsName, Email, Passw) values(999, testuser, aaa, aaa);
 
 -- タグのテーブル
 -- tableがあるなら削除
