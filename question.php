@@ -64,7 +64,7 @@
 
     <form method="POST" action="shitsumonadd.php">
         <!-- テキストボックス -->
-        <textarea id="quest" name="Qdet" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+        <textarea id="quest" name="QDet" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
 
         <!-- ユーザーIDを送る -->
         <input type="hidden" name="userid" value="999">
@@ -77,7 +77,7 @@
         </select>
 
         <!-- ボタン -->
-        <input type="submit" value="投稿">
+        <input type="button" value="投稿" onclick="PostQuest()">
     </form>
 
     <script>
@@ -92,11 +92,17 @@
 
         // テキストボックスの内容を送信する
         function PostQuest() {
-            const q = document.getElementById('quest').value;
+            const q = document.getElementById('quest').value.trim();
+
+            // テキストボックスは空っぽかどうかを確認します
+            if (q === "") {
+                alert("質問を入力してください。");
+                return; // 実行を停止します
+            }
 
             console.log("Q:", q);
 
-            document.getElementById('quest').reset();
+            document.querySelector('form').submit();
         }
     </script>
 
