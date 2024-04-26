@@ -51,11 +51,6 @@ p.tag {
     border-radius: 10px;
 }
 
-
-
-
-
-
 .checkbox {
     display: none;
 }
