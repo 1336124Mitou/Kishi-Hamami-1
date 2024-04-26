@@ -51,6 +51,14 @@
             color: white;
             background-color: #007BFF;
         }
+
+        .que {
+            text-align: right;
+        }
+
+        .textarea {
+            text-align: center;
+        }
     </style>
 
     <script>
@@ -87,14 +95,20 @@
             </label>
             <div id="msg"> <!-- ウィンドウのコンテンツ -->
                 <h2>質問投稿</h2>
-                <textarea id="question" name="question" rows="5" cols="70"></textarea><br><br>
-                <a href="">投稿</a>
+                <div class="textarea">
+                    <textarea id="question" name="question" rows="5" cols="70"></textarea><br><br>
+                    <div class="que">
+                        <a href="">投稿</a>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
+    <div class="que">
+        <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
+    </div>
 
     <main>
         <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
