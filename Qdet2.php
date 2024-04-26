@@ -152,6 +152,14 @@
     #msg a:hover {
         opacity: 0.7;
     }
+
+    #msg h2, .textarea {
+        text-align: center;
+    }
+
+    .post{
+        text-align: right;
+    }
     </style>
 
     <script>
@@ -234,8 +242,12 @@
                     </label>
                     <div id="msg"> <!-- ウィンドウのコンテンツ -->
                         <h2>回答投稿</h2>
-                        <textarea id="answer" name="answer" rows="5" cols="70"></textarea><br><br>
-                        <a href="">投稿</a>
+                        <div class="textarea">
+                            <textarea id="answer" name="answer" rows="5" cols="70"></textarea><br><br>
+                            <div class="post">
+                                <a href="">投稿</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -99,6 +99,31 @@
             padding: 10px 20px;
             border-radius: 5px;
         }
+
+        #comment-list {
+            margin-top: 20px;
+        }
+
+        .comment-item {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment-item p {
+            margin: 0;
+        }
+
+        .comment-item button {
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -131,6 +156,10 @@
             <input type="submit" value="送信" class="submit-btn">
         </form>
     </div>
+    <h2>コメント一覧</h2>
+    <div id="comment-list">
+        <!-- ここにコメントが追加される -->
+    </div>
 
     <script>
         function toggleForm() {
@@ -145,10 +174,50 @@
                 body.classList.remove("overlay");
             }
         }
+
+        let comments = [];
+
+        function addComment(event) {
+            event.preventDefault();
+            const commentText = document.getElementById("comment").value;
+
+            if (commentText.trim() !== "") {
+                comments.push(commentText);
+                displayComments();
+                document.getElementById("comment").value = ""; // テキストエリアをクリア
+                togglrForm(); // フォームを閉じる
+            }
+        }
+
+        function displayComments() {
+            const commentList = document.getElementById("comment-list");
+            commentList.innerHTML = ""; // リストをクリア
+
+            comments.forEach((comment, index) => {
+                const commentItem = document.createElement("div");
+                commentItem.classList.add("comment-item");
+
+                const commentText = document.createElement("p");
+                commentText.textContent = comment;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "削除";
+                deleteButton.addEventListener("click", () => deleteComment(index));
+
+                commentItem.appendChild(commentText);
+                commentItem.appendChild(deleteButton);
+
+                commentList.appendChild(commentItem);
+            });
+        }
+
+
+        function deleteComment(index) {
+            comments.splice(index, 1);
+            displayComments();
+        }
     </script>
 
-    <h2>コメント一覧</h2>
-    <form id="form3"></form>
     <div class="home-link-container">
         <a href="index.php">ホーム</a>
     </div>
