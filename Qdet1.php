@@ -6,8 +6,164 @@
     <title>質問詳細</title>
 
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="Qdet.css">
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+/* ボタンの微調整 */
+input.button {
+    border: 1px solid;
+    width: 100px;
+    height: 35px;
+    font-size: 15px;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: #007BFF;
+}
+
+p.tag {
+    border: 1px solid;
+    display: inline-block;
+    border-radius: 20px;
+    background-color: #ccc;
+}
+
+.frame {
+    padding: 10px;
+    width: 450px;
+    margin-bottom: 10px;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+.checkbox {
+    display: none;
+}
+
+/* ポップアップwindow部分 */
+#overlay {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 70;
+    width: 100%;
+    height: 100%;
+}
+/* オーバーレイの背景部分 */
+#bg_gray {
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 80;
+}
+/* ウィンドウ部分 */
+#window {
+    width: 50%;
+    padding: 20px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,0.6);
+    z-index: 90;
+    opacity: 0;
+}
+/* 閉じるボタン */
+#btn_cloth {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007BFF;
+    border-radius: 5px;
+    z-index: 100;
+    cursor: pointer;
+}
+#btn_cloth:hover {
+    opacity: 0.7;
+}
+#btn_cloth span,
+#btn_cloth span::before {
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background: #fff;
+}
+#btn_cloth span {
+    transform: rotate(45deg);
+}
+#btn_cloth span::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    transform: rotate(-90deg);
+}
+
+
+/* クリックでオーバーレイ表示 */
+#popup:checked ~ #overlay {
+    visibility: visible;
+}
+#popup:checked ~ #overlay #window {
+    animation: fadein 500ms forwards;
+    animation-timing-function: ease-in-out;
+}
+@keyframes fadein {
+    100% {
+        opacity: 1;
+    }
+}
+
+/* オーバーレイのスタイル */
+#msg a {
+    
+    display: inline-block;
+    color: #fff;
+    background: #007BFF;
+    border-radius: 20px;
+    padding: 0.5em 1.5em;
+}
+#msg a:hover {
+    opacity: 0.7;
+}
+#msg h2 {
+    text-align: center;
+}
+textarea {
+    text-align: center;
+}
+</style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const num1 = document.getElementById('num1');
