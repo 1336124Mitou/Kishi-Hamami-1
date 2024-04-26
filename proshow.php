@@ -12,9 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // この例ではデータベースに接続する処理を追加しています
     // データベースに接続するための情報
     $servername = "localhost";
-    $username = "username";
-    $password = "password";
-    $dbname = "database";
+$username = "Kishi";
+$password = "hamami";
+$dbname = "kishi";
 
     // データベースに接続
     $conn = new mysqli($servername, $username, $password, $dbname);
