@@ -5,13 +5,8 @@
     <meta charset="UTF-8">
     <title>質問一覧</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
         main {
             padding: 20px;
         }
@@ -43,9 +38,33 @@
             border-radius: 20px;
             background-color: #ccc;
         }
-    </style>
-    <script>
 
+        /* ボタンの微調整 */
+        input.button {
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
+
+        .que {
+            text-align: right;
+        }
+
+        .textarea {
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function check(id) {
+            document.getElementById(id).checked = true;
+        }
     </script>
 </head>
 
@@ -62,7 +81,39 @@
             </ul>
         </nav>
     </header>
-    <a class="que" href="question.php">質問を追加する</a>
+
+    <!-- クリック動作判定 -->
+    <input class="checkbox" type="checkbox" id="popup">
+
+    <!-- ポップアップ部分 -->
+    <div id="overlay">
+        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+        <div id="window"> <!-- ウィンドウ部分 -->
+            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                <span></span>
+            </label>
+            <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                <form method="POST" action="shitsumonadd.php">
+                    <h2>質問投稿</h2>
+                    <div class="textarea">
+                        <textarea id="question" name="QDet" rows="5" cols="70"></textarea><br><br>
+                        <!-- ユーザーIDを送る -->
+                        <input type="hidden" name="userid" value="999">
+                        <div class="que">
+                            <!-- 投稿ボタン -->
+                            <input type="submit" value="投稿">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="que">
+        <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
+    </div>
 
     <main>
         <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">

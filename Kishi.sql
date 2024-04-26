@@ -23,6 +23,7 @@ CREATE TABLE Usr (
     Passw VARCHAR(255) NOT NULL
 );
 
+INSERT INTO Usr(UsID, UsName, Email, Passw) values(999, 'testuser', 'aaa', 'aaa');
 
 -- タグのテーブル
 -- tableがあるなら削除
@@ -34,13 +35,23 @@ CREATE TABLE Tags (
     TagName VARCHAR(30) UNIQUE
 );
 
+INSERT INTO Tags(TagName) VALUES ('C#');
+INSERT INTO Tags(TagName) VALUES ('C++');
+INSERT INTO Tags(TagName) VALUES ('Python');
+INSERT INTO Tags(TagName) VALUES ('Java');
+INSERT INTO Tags(TagName) VALUES ('JavaScript');
+INSERT INTO Tags(TagName) VALUES ('Linux');
+INSERT INTO Tags(TagName) VALUES ('SQL');
+INSERT INTO Tags(TagName) VALUES ('HTML');
+INSERT INTO Tags(TagName) VALUES ('Ruby');
+
 -- 質問のテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS Question;
 
 -- テーブルQuestionの作成
 CREATE TABLE Question (
-    QuestionID INT PRIMARY KEY NOT NULL,
+    QuestionID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     D DATE NOT NULL,
     Tim TIME NOT NULL,
     Question TEXT NOT NULL,
@@ -67,7 +78,7 @@ DROP TABLE if EXISTS Reply;
 
 -- テーブルReplyの作成
 CREATE TABLE Reply (
-    RepID INT PRIMARY KEY NOT NULL,
+    RepID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Reply TEXT NOT NULL,
     LNum INT NOT NULL DEFAULT 0,
     D DATE NOT NULL,
@@ -93,7 +104,7 @@ DROP TABLE if EXISTS Report;
 
 -- テーブルReportの作成
 CREATE TABLE Report (
-    RepoID INT PRIMARY KEY NOT NULL,
+    RepoID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Info TEXT NOT NULL,
     D DATE NOT NULL,
     Tim TIME NOT NULL,
@@ -119,7 +130,7 @@ DROP TABLE if EXISTS Project;
 
 -- テーブルProjectの作成
 CREATE TABLE Project (
-    ProID INT PRIMARY KEY NOT NULL,
+    ProID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     ProName VARCHAR(255) NOT NULL,
     ProjFile LONGBLOB NOT NULL,
     Proexample VARCHAR(255) NOT NULL
