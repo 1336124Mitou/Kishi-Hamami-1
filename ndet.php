@@ -53,11 +53,13 @@
             margin-bottom: 20px;
         }
 
-        .comment-input {
+        .comment-textarea {
             width: 100%;
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            resize: vertical;
+            /* 垂直方向にのみリサイズ可能に */
         }
 
         .submit-btn {
@@ -124,7 +126,7 @@
         <form>
             <div class="form-group">
                 <label for="comment">コメント：</label>
-                <input type="text" id="comment" name="comment" class="comment-input">
+                <textarea id="comment" name="comment" class="comment-textarea"></textarea>
             </div>
             <input type="submit" value="送信" class="submit-btn">
         </form>
