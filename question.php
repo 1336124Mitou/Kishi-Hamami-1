@@ -62,9 +62,12 @@
     <!-- ページのタイトル -->
     <h1>質問入力</h1>
 
-    <form>
+    <form method="POST" action="shitsumonadd.php">
         <!-- テキストボックス -->
-        <textarea id="quest" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+        <textarea id="quest" name="Qdet" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
+
+        <!-- ユーザーIDを送る -->
+        <input type="hidden" name="userid" value="999">
 
         <!-- タグ -->
         <select name="tag">
@@ -74,7 +77,7 @@
         </select>
 
         <!-- ボタン -->
-        <input type="button" value="投稿" onclick="PostQuest()"></input>
+        <input type="submit" value="投稿">
     </form>
 
     <script>
