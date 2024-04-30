@@ -182,12 +182,13 @@
             const commentText = document.getElementById("comment").value;
 
             if (commentText.trim() !== "") {
-                comments.push(commentText);
-                displayComments();
+                comments.push(commentText); // comments配列にコメントを追加
+                displayComments(); // コメント一覧を表示
                 document.getElementById("comment").value = ""; // テキストエリアをクリア
-                togglrForm(); // フォームを閉じる
+                toggleForm(); // フォームを閉じる
             }
         }
+
 
         function displayComments() {
             const commentList = document.getElementById("comment-list");
