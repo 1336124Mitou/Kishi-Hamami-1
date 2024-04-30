@@ -1,10 +1,13 @@
 <?php
 if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
     require_once __DIR__.'/shitsumon.php';
+    require_once __DIR__.'/tags.php';
     $quest = new Quest();
+    $tags = new Tag();
 }
 
 $showQuestions = $quest->showAllQuestions();
+$showTags = $tags->showTags();
 if (empty($showQuestions)) {
     echo '<h4>質問はありません';
 } else {
@@ -102,6 +105,15 @@ if (empty($showQuestions)) {
                         <textarea id="question" name="QDet" rows="5" cols="70"></textarea><br><br>
                         <!-- ユーザーIDを送る -->
                         <input type="hidden" name="userid" value="999">
+                        <select>
+                            <?php
+                            foreach ($showTags as $showTag) {
+                            ?>
+                            <option><?= $showTag['TagName'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
                         <div class="que">
                             <!-- 投稿ボタン -->
                             <input type="submit" value="投稿">
