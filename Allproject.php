@@ -1,3 +1,32 @@
+<?php
+// データベース接続などの設定
+
+// データベースへの接続
+$servername = "localhost";
+$username = "Kishi";
+$password = "hamami";
+$dbname = "kishi";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("接続に失敗しました: " . $conn->connect_error);
+}
+
+// 制作物の情報を取得するSQLクエリ
+$sql = "SELECT * FROM Project"; // テーブル名が "Project" であることを前提とします
+$result = $conn->query($sql);
+
+// 取得した制作物の情報を配列に格納
+$projects = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $projects[] = $row;
+    }
+}
+
+// データベース接続を閉じる
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -39,27 +68,16 @@ h2 {
 </head>
 
 <body>
-<?php
-   require_once __DIR__ . '/header.php';
-   ?>
+<?php require_once __DIR__ . '/header.php'; ?>
     <div class="main">
         <h2>制作物一覧</h2>
         <div class="project-list">
             <?php
-            // データベースから制作物の情報を取得する処理を書く
-            // ここではダミーデータを使用しています
-            $projects = [
-                ["title" => "制作物1のタイトル", "description" => "制作物1の説明や詳細などがここに入ります。"],
-                ["title" => "制作物2のタイトル", "description" => "制作物2の説明や詳細などがここに入ります。"],
-                ["title" => "制作物3のタイトル", "description" => "制作物3の説明や詳細などがここに入ります。"],
-                ["title" => "制作物4のタイトル", "description" => "制作物4の説明や詳細などがここに入ります。"]
-            ];
-
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h3>" . $project['title'] . "</h3>";
-                echo "<p>" . $project['description'] . "</p>";
+                echo "<h3>" . $project['ProName'] . "</h3>"; // テーブル内の列名を適切に変更します
+                echo "<p>" . $project['Proexample'] . "</p>"; // テーブル内の列名を適切に変更します
                 echo "</div>";
             }
             ?>
@@ -69,3 +87,5 @@ h2 {
 </body>
 
 </html>
+
+
