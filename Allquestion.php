@@ -1,3 +1,15 @@
+<?php
+if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
+    require_once __DIR__.'/shitsumon.php';
+    $quest = new Quest();
+}
+
+$showQuestions = $quest->showAllQuestions();
+if (empty($showQuestions)) {
+    echo '<h4>質問はありません';
+} else {
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -125,6 +137,21 @@
             </form>
         </section>
     </main>
+    
+    <?php
+    foreach ($showQuestions as $question) {
+    ?>
+    <main>
+        <section class="question">
+            <form method="post" action="answer.php">
+                <td class="question"><?= $question?></td>
+            </form>
+        </section>
+    </main>
+    <?php
+    }
+    ?>
+
     <main>
         <section class="question">
             <form method="post" action="answer.php">
