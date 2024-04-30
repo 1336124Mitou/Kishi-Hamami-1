@@ -137,17 +137,22 @@ if (empty($showQuestions)) {
             </form>
         </section>
     </main>
-    
-    <?php
-    foreach ($showQuestions as $question) {
-    ?>
+        
+        <?php
+        foreach ($showQuestions as $showQuest) {
+        ?>
     <main>
         <section class="question">
             <form method="post" action="answer.php">
-                <td class="question"><?= $question?></td>
+                <h2 class="question"><?= $showQuest['Question']?></h2>
+                <p><a>extra info</a></p>
+                <p class="tag">#template</p><br>
             </form>
         </section>
     </main>
+    <?php
+    }
+    ?>
     <?php
     }
     ?>
