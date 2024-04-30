@@ -12,9 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // この例ではデータベースに接続する処理を追加しています
     // データベースに接続するための情報
     $servername = "localhost";
-$username = "Kishi";
-$password = "hamami";
-$dbname = "kishi";
+    $username = "Kishi";
+    $password = "hamami";
+    $dbname = "kishi";
 
     // データベースに接続
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -47,7 +47,7 @@ $dbname = "kishi";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>制作物公開</title>
     <style>
-     body {
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -95,6 +95,7 @@ $dbname = "kishi";
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+
         }
 
         .form-group input,
@@ -112,7 +113,7 @@ $dbname = "kishi";
     <h1>制作物公開</h1>
     <div>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        <div class="form-group">
+            <div class="form-group">
                 <label for="projectName">作品名:</label>
                 <input type="text" id="projectName" name="projectName" required>
             </div>
