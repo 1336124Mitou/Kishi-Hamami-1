@@ -25,7 +25,8 @@ $dbname = "kishi";
     }
 
     // ファイルをデータベースに保存する例
-    $sql = "INSERT INTO projects (project_name, project_description, project_file) VALUES ('$projectName', '$projectDescription', '$projectFile')";
+    $sql = "INSERT INTO Project (ProName, Proexample, ProjFile) VALUES ('$projectName', '$projectDescription', '$projectFile')";
+
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
