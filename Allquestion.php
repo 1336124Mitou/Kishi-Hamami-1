@@ -1,3 +1,4 @@
+
 <?php
 if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
     require_once __DIR__ . '/shitsumon.php';
