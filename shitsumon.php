@@ -19,4 +19,12 @@ class Quest extends DbData
         $showAll = $stmt->fetchAll();
         return $showAll;
     }
+
+    // 選択された質問の詳細を表示する
+    public function showQuestion($QID) {
+        $sql = "select * from question where QuestionID = ?";
+        $stmt = $this->query($sql, $QID);
+        $showQ = $stmt->fetchAll();
+        return $showQ;
+    }
 }
