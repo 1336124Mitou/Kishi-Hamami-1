@@ -4,11 +4,16 @@ if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセッ�
 
     $quest = new Quest();
 }
-
+if (!isset($kaitou)) {
+    require_once __DIR__ . '/kaitou.php';
+    $kaitou = new Comment();
+}
 $question_id = $_POST["question_id"]; // 質問のIDを取得する
 
 //与えられたIDから質問を取得
 $showQuestion = $quest->showQuestion($question_id);
+
+$showAnswers = $kaitou->showAllAnswer($question_id);
 
 // // フォームから送信されたデータを処理する
 // if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -255,51 +260,66 @@ $showQuestion = $quest->showQuestion($question_id);
     </main>
 
     <main>
+        <?php
+        foreach ($showAnswers as $showAnswer) {
+        ?>
+            <main>
+                <div class="frame">
+                    <section class="frame">
+                        <p><?= $showAnswer['Info'] ?></p>
+                    </section>
+                    <hr>
 
-        <div class="frame">
-            <h2>回答</h2>
+                <?php
+            }
+                ?>
+                </div>
+            </main>
 
-            <p>Cは最初だけ触れたらゆっくりでいいですよ。</p>
-            <p id="num1">0</p><button id="bt1">いいね</button>
+            <div class="frame">
+                <h2>回答</h2>
 
-            <hr>
+                <p>Cは最初だけ触れたらゆっくりでいいですよ。</p>
+                <p id="num1">0</p><button id="bt1">いいね</button>
 
-            <p>こういう風にすると理解しやすいですよ。</p>
-            <p id="num2">0</p><button id="bt2">いいね</button>
+                <hr>
 
-            <hr>
+                <p>こういう風にすると理解しやすいですよ。</p>
+                <p id="num2">0</p><button id="bt2">いいね</button>
 
-            <!-- クリック動作判定 -->
-            <input class="checkbox" type="checkbox" id="popup">
+                <hr>
 
-            <!-- ポップアップ部分 -->
-            <div id="overlay">
-                <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+                <!-- クリック動作判定 -->
+                <input class="checkbox" type="checkbox" id="popup">
 
-                <div id="window"> <!-- ウィンドウ部分 -->
-                    <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
-                        <span></span>
-                    </label>
-                    <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                        <form method="POST" action="kaitouadd.php">
-                            <h2>回答投稿</h2>
-                            <div class="textarea">
-                                <textarea id="answer" name="Com" rows="5" cols="70"></textarea><br><br>
-                                <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
-                                <div class="post">
-                                    <input type="submit" value="投稿">
-                                </div>
-                        </form>
+                <!-- ポップアップ部分 -->
+                <div id="overlay">
+                    <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+                    <div id="window"> <!-- ウィンドウ部分 -->
+                        <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                            <span></span>
+                        </label>
+                        <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                            <form method="POST" action="kaitouadd.php">
+                                <h2>回答投稿</h2>
+                                <div class="textarea">
+                                    <textarea id="answer" name="Com" rows="5" cols="70"></textarea><br><br>
+                                    <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
+                                    <div class="post">
+                                        <input type="submit" value="投稿">
+                                    </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
+
+
             </div>
 
-
-
-        </div>
-
-        <input class="button" onclick="check('popup');" type="button" value="回答追加">
-        </div>
+            <input class="button" onclick="check('popup');" type="button" value="回答追加">
+            </div>
 
     </main>
 
