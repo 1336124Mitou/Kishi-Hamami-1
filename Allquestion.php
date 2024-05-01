@@ -1,8 +1,7 @@
-
 <?php
 if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
-    require_once __DIR__.'/shitsumon.php';
-    require_once __DIR__.'/tags.php';
+    require_once __DIR__ . '/shitsumon.php';
+    require_once __DIR__ . '/tags.php';
     $quest = new Quest();
     $tags = new Tag();
 }
@@ -95,34 +94,34 @@ if (empty($showQuestions)) {
         <div id="overlay">
             <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
 
-        <div id="window"> <!-- ウィンドウ部分 -->
-            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
-                <span></span>
-            </label>
-            <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                <form method="POST" action="shitsumonadd.php">
-                    <h2>質問投稿</h2>
-                    <div class="textarea">
-                        <textarea id="question" name="QDet" rows="5" cols="70"></textarea><br><br>
-                        <!-- ユーザーIDを送る -->
-                        <input type="hidden" name="userid" value="999">
-                        <select>
-                            <?php
-                            foreach ($showTags as $showTag) {
-                            ?>
-                            <option><?= $showTag['TagName'] ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                        <div class="que">
-                            <!-- 投稿ボタン -->
-                            <input type="submit" value="投稿">
+            <div id="window"> <!-- ウィンドウ部分 -->
+                <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                    <span></span>
+                </label>
+                <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                    <form method="POST" action="shitsumonadd.php">
+                        <h2>質問投稿</h2>
+                        <div class="textarea">
+                            <textarea id="question" name="QDet" rows="5" cols="70"></textarea><br><br>
+                            <!-- ユーザーIDを送る -->
+                            <input type="hidden" name="userid" value="999">
+                            <select>
+                                <?php
+                                foreach ($showTags as $showTag) {
+                                ?>
+                                    <option><?= $showTag['TagName'] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <div class="que">
+                                <!-- 投稿ボタン -->
+                                <input type="submit" value="投稿">
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
 
         </div>
 
@@ -147,9 +146,12 @@ if (empty($showQuestions)) {
             <main>
                 <section class="question">
                     <form method="post" action="answer.php">
-                        <h2 class="question"><?= $showQuest['Question'] ?></h2>
+                        <a href="answer.php" onclick="document.a_form.submit();">
+                            <h2 class="question"><?= $showQuest['Question'] ?></h2>
+                        </a>
                         <p><a>extra info</a></p>
                         <p class="tag">#template</p><br>
+
                     </form>
                 </section>
             </main>
