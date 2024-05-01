@@ -8,4 +8,4 @@ $kaitou = new Comment();
 session_start();
 $kaitou->addCom($Kai, $Quest);
 
-require_once __DIR__ . 'answer.php';
+require_once __DIR__ . '/answer.php';
