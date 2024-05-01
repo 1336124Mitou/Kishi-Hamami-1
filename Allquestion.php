@@ -142,17 +142,19 @@ if (empty($showQuestions)) {
         </main>
 
         <?php
+        //文字数の上限
+        $limit = 20;
         foreach ($showQuestions as $showQuest) {
+            $q = mb_substr($showQuest['Question'], 0, $limit);
         ?>
             <main>
                 <section class="question">
-                    <form method="post" action="answer.php">
-                        <a href="answer.php" onclick="document.a_form.submit();">
-                            <h2 class="question"><?= $showQuest['Question'] ?></h2>
-                        </a>
-                        <p><a>extra info</a></p>
+                    <form method="post" name="answer" action="answer.php">
+                        <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
+                        <!-- <a href="answer.php" onclick="javascript:answer.submit();"></a> -->
+                        <h2 class="question"><?= $q ?></h2>
                         <p class="tag">#template</p><br>
-
+                        <input type="submit" value="詳細">
                     </form>
                 </section>
             </main>
