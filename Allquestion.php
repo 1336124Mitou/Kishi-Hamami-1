@@ -75,6 +75,19 @@ if (empty($showQuestions)) {
                 resize: none;
                 text-align: center;
             }
+
+            input.submit {
+                display: inline-block;
+                color: #fff;
+                background: #007BFF;
+                border-radius: 20px;
+                padding: 0.5em 1.5em;
+                border-color: #007BFF;
+            }
+
+            input.submit:hover {
+                opacity: 0.7;
+            }
         </style>
 
         <script>
@@ -117,7 +130,7 @@ if (empty($showQuestions)) {
                             </select>
                             <div class="que">
                                 <!-- 投稿ボタン -->
-                                <input type="submit" value="投稿">
+                                <input class="submit" type="submit" value="投稿">
                             </div>
                         </div>
                     </form>
