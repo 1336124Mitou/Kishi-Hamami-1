@@ -62,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            position: relative;
+			left: -20px;
         }
 
         div {
@@ -105,6 +107,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            position: relative;
+            left: -8px;
+        }
+
+        .link {
+            position: relative;
+            top: 20px;
+            left: -15px;
         }
     </style>
 </head>
@@ -133,8 +143,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="submit" value="送信する">
             </div>
         </form>
-        <a href="Allproject.php">制作物一覧</a>
-        <a href="index.php">ホーム</a>
+        <div class="link">
+            <a href="Allproject.php">制作物一覧</a>
+            <a href="index.php">ホーム</a>
+        </div>
     </div>
     </div>
 

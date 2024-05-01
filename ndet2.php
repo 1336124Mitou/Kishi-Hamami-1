@@ -45,10 +45,6 @@
             color: #999;
         }
 
-        .comment-form {
-            margin-top: 20px;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -58,7 +54,6 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
         }
 
@@ -83,6 +78,24 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .comment-form button {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -94,7 +107,7 @@
         $db   = 'kishi'; // 作成したデータベース名
         $user = 'Kishi'; // データベースユーザー名
         $pass = 'hamami'; // データベースパスワード
-        $charset = 'utf8';
+        $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $options = [
@@ -111,11 +124,11 @@
         }
 
         // コメント取得
-        $stmt = $pdo->query('SELECT Question.QuestionID, Question.Question, Usr.UsName, Question.D, Question.Tim FROM Question INNER JOIN Usr ON Question.UsID = Usr.UsID');
+        $stmt = $pdo->prepare('SELECT RepoID, Info, D, Tim FROM Report');
+        $stmt->execute();
         while ($row = $stmt->fetch()) {
             echo '<div class="comment">';
-            echo '<span class="user">' . htmlspecialchars($row['UsName']) . ':</span>';
-            echo '<span class="text">' . htmlspecialchars($row['Question']) . '</span>';
+            echo '<span class="text">' . htmlspecialchars($row['Info']) . '</span>';
             echo '<span class="timestamp">- ' . htmlspecialchars($row['D']) . ' ' . htmlspecialchars($row['Tim']) . '</span>';
             echo '</div>';
         }
@@ -125,7 +138,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form action="ndet2.php" method="post">
+                <form id="commentForm" action="ndet2.php" method="post">
                     <textarea name="comment" placeholder="コメントを入力してください" required></textarea>
                     <button type="submit">コメントする</button>
                 </form>
@@ -167,6 +180,25 @@
         openModalBtn.onclick = function() {
             openModal();
         };
+
+        // コメント入力フォームの送信後にページをリロード
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var form = this;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                    method: form.method,
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    location.reload(); // ページをリロードしてコメントを表示
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 
 </body>
