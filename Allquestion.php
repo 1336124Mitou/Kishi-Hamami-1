@@ -72,6 +72,7 @@ if (empty($showQuestions)) {
             }
 
             .textarea {
+                resize: none;
                 text-align: center;
             }
         </style>

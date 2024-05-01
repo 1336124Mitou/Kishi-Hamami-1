@@ -36,40 +36,60 @@ $conn->close();
     <link href="main.css" rel="stylesheet">
     <style>
     .main {
-    padding: 20px;
-}
+        padding: 20px;
+    }
 
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #000000;
-}
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #000000;
+    }
 
-.project-item {
-    background-color: #7e7e7e;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+    .project-item {
+        background-color: #7e7e7e;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
-.project-item h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #000000;
-}
+    .project-item h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #000000;
+    }
 
-.project-item p {
-    font-size: 16px;
-    color: #333333;
-}
+    .project-item p {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    /* ボタンの微調整 */
+    input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
+
+    .show {
+        text-align: right;
+    }
 </style>
 </head>
 
 <body>
 <?php require_once __DIR__ . '/header.php'; ?>
     <div class="main">
+        <div class="show">
+            <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
+        </div>
         <h2>制作物一覧</h2>
         <div class="project-list">
             <?php
@@ -82,7 +102,8 @@ h2 {
             }
             ?>
         </div>
-        <a href="proshow.php">制作物公開へ</a>
+        
+        <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
     </div>
 </body>
 
