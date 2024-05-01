@@ -25,4 +25,11 @@ class Comment extends Dbdata {
             return false; // INSERT INTO Replyが失敗しました
         }
     }
+
+    public function showAnswers($QID) {
+        $sql = "select * from Reply where RepID = (select RepID from RepQ where QuestionID = ?)";
+        $stmt = $this->query($sql, [$QID]);
+        $rep = $stmt->fetch();
+        return $rep;
+    }
 }
