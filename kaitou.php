@@ -28,11 +28,11 @@ class Comment extends Dbdata
         }
     }
 
-    public function showAnswers($QID)
+    public function showAllAnswer($QID)
     {
         $sql = "select * from Reply where RepID in (select RepID from RepQ where QuestionID = ?)";
         $stmt = $this->query($sql, [$QID]);
-        $rep = $stmt->fetch();
+        $rep = $stmt->fetchAll();
         return $rep;
     }
 }
