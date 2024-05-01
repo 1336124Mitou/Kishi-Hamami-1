@@ -1,3 +1,32 @@
+<?php
+// データベース接続などの設定
+
+// データベースへの接続
+$servername = "localhost";
+$username = "Kishi";
+$password = "hamami";
+$dbname = "kishi";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("接続に失敗しました: " . $conn->connect_error);
+}
+
+// 制作物の情報を取得するSQLクエリ
+$sql = "SELECT * FROM Project"; // テーブル名が "Project" であることを前提とします
+$result = $conn->query($sql);
+
+// 取得した制作物の情報を配列に格納
+$projects = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $projects[] = $row;
+    }
+}
+
+// データベース接続を閉じる
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -7,74 +36,77 @@
     <link href="main.css" rel="stylesheet">
     <style>
     .main {
-    padding: 20px;
-}
+        padding: 20px;
+    }
 
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #000000;
-}
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #000000;
+    }
 
-.project-item {
-    background-color: #7e7e7e;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+    .project-item {
+        background-color: #7e7e7e;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
-.project-item h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #000000;
-}
+    .project-item h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #000000;
+    }
 
-.project-item p {
-    font-size: 16px;
-    color: #333333;
-}
+    .project-item p {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    /* ボタンの微調整 */
+    input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
+
+    .show {
+        text-align: right;
+    }
 </style>
 </head>
 
 <body>
-    <header>
-        <h1>プログラミング情報共有サイト（仮）</h1>
-        <nav>
-            <ul class="nav">
-                <li><a href="index.php" class="btn4">ホーム</a></li>
-                <li><a href="Allquestion.php" class="btn4">質問一覧</a></li>
-                <li><a href="Allproject.php" class="btn2">制作物一覧</a></li>
-                <li><a href="profile.php" class="btn4">プロフィール</a></li>
-                <li><a href="login.php" class="btn4">ログイン</a></li>
-            </ul>
-        </nav>
-    </header>
+<?php require_once __DIR__ . '/header.php'; ?>
     <div class="main">
+        <div class="show">
+            <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
+        </div>
         <h2>制作物一覧</h2>
         <div class="project-list">
             <?php
-            // データベースから制作物の情報を取得する処理を書く
-            // ここではダミーデータを使用しています
-            $projects = [
-                ["title" => "制作物1のタイトル", "description" => "制作物1の説明や詳細などがここに入ります。"],
-                ["title" => "制作物2のタイトル", "description" => "制作物2の説明や詳細などがここに入ります。"],
-                ["title" => "制作物3のタイトル", "description" => "制作物3の説明や詳細などがここに入ります。"],
-                ["title" => "制作物4のタイトル", "description" => "制作物4の説明や詳細などがここに入ります。"]
-            ];
-
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h3>" . $project['title'] . "</h3>";
-                echo "<p>" . $project['description'] . "</p>";
+                echo "<h3>" . $project['ProName'] . "</h3>"; // テーブル内の列名を適切に変更します
+                echo "<p>" . $project['Proexample'] . "</p>"; // テーブル内の列名を適切に変更します
                 echo "</div>";
             }
             ?>
         </div>
-        <a href="proshow.php">制作物公開へ</a>
+        
+        <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
     </div>
 </body>
 
 </html>
+
+
