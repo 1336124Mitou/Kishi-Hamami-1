@@ -31,4 +31,12 @@ class Dbdata
         $stmt->execute($array_params);  // 成功：true、失敗：false
         return  $stmt;
     }
+
+    protected function getLastInsertedID() {
+        return $this->pdo->lastInsertId();
+    }
+
+    protected function rollbackLastInsert() {
+        $this->pdo->rollBack();
+    }
 }
