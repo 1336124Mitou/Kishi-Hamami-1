@@ -28,9 +28,9 @@ class Comment extends Dbdata
         }
     }
 
-    public function showAllAnswer($QID)
+    public function showAnswers($QID)
     {
-        $sql = "select * from Reply where RepID = (select RepID from RepQ where QuestionID = ?)";
+        $sql = "select * from Reply where RepID in (select RepID from RepQ where QuestionID = ?)";
         $stmt = $this->query($sql, [$QID]);
         $rep = $stmt->fetch();
         return $rep;
