@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事詳細</title>
-    <link rel="stylesheet" href="main.css">
+    <title>Comment List</title>
     <style>
         /* 記事 */
         #form1 {
@@ -23,197 +22,212 @@
             text-align: center;
         }
 
-        /*コメント入力ポップアップ*/
-        .comment-popup {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment .user {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .comment .text {
+            color: #555;
+        }
+
+        .comment .timestamp {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* モーダル */
+        .modal {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f9f9f9;
-            padding: 30px;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
             cursor: pointer;
         }
 
-        .comment-popup h2 {
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .comment-textarea {
-            width: 100%;
+        .comment-form textarea {
+            width: calc(100% - 22px);
             padding: 10px;
-            border-radius: 4px;
+            font-size: 14px;
             border: 1px solid #ccc;
+            border-radius: 4px;
             resize: vertical;
-            /* 垂直方向にのみリサイズ可能に */
         }
 
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
+        .comment-form button {
+            margin-top: 10px;
+            padding: 8px 20px;
             background-color: #007bff;
-            color: white;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
             transition: background-color 0.3s ease;
         }
 
-        .submit-btn:hover {
+        .comment-form button:hover {
             background-color: #0056b3;
         }
-
-        /* その他のスタイリング */
-        body:not(.overlay) {
-            transition: 0.5s;
-        }
-
-        body.overlay {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .home-link-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .home-link-container a {
-            text-decoration: none;
-            color: #333;
-            background-color: #ccc;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        #comment-list {
-            margin-top: 20px;
-        }
-
-        .comment-item {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .comment-item p {
-            margin: 0;
-        }
-
-        .comment-item button {
-            margin-left: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
     </style>
-
 </head>
 
 <body>
-<?php
-   require_once __DIR__ . '/header.php';
-   ?>
-    
+    <?php
+    require_once __DIR__ . '/header.php';
+    ?>
+
     <h1>テンプレート</h1>
     <form id="form1"></form>
-    <button onclick="toggleForm()">コメント入力</button>
+    <div class="container">
+        <?php
+        // データベース接続設定
+        $host = 'localhost'; // データベースのホスト名
+        $db   = 'kishi'; // 作成したデータベース名
+        $user = 'Kishi'; // データベースユーザー名
+        $pass = 'hamami'; // データベースパスワード
+        $charset = 'utf8';
 
-    <div id="form2" class="comment-popup">
-        <span class="close-btn" onclick="toggleForm()">&times;</span>
-        <h2>コメントを入力する</h2>
-        <form>
-            <div class="form-group">
-                <label for="comment">コメント：</label>
-                <textarea id="comment" name="comment" class="comment-textarea"></textarea>
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        // データベース接続
+        try {
+            $pdo = new PDO($dsn, $user, $pass, $options);
+        } catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+        }
+
+        // コメントをデータベースに挿入
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comment"])) {
+            $comment = $_POST["comment"];
+            if ($comment !== "こんにちは") {
+                $currentDateTime = date("Y-m-d H:i:s"); // 現在の日時を取得
+
+                $stmt = $pdo->prepare("INSERT INTO Report (Info, D, Tim) VALUES (:comment, :currentDate, :currentTime)");
+                $stmt->bindParam(':comment', $comment);
+                $stmt->bindParam(':currentDate', date("Y-m-d")); // 日付の形式を変更
+                $stmt->bindParam(':currentTime', date("H:i:s")); // 時刻の形式を変更
+                $stmt->execute();
+            }
+        }
+
+
+        // コメント取得
+        $stmt = $pdo->prepare('SELECT RepoID, Info, D, Tim FROM Report');
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+            echo '<div class="comment">';
+            echo '<span class="text">' . htmlspecialchars($row['Info']) . '</span>';
+            echo '<span class="timestamp">- ' . htmlspecialchars($row['D']) . ' ' . htmlspecialchars($row['Tim']) . '</span>';
+            echo '</div>';
+        }
+        ?>
+
+        <!-- コメント入力 -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <form id="commentForm" action="ndet2.php" method="post" class="comment-form">
+                    <textarea name="comment" placeholder="コメントを入力してください" required></textarea>
+                    <button type="submit">投稿</button>
+                </form>
             </div>
-            <input type="submit" value="送信" class="submit-btn">
-        </form>
-    </div>
-    <h2>コメント一覧</h2>
-    <div id="comment-list">
-        <!-- ここにコメントが追加される -->
+        </div>
+
+        <button id="openModalBtn" onclick="openModal()">コメント入力</button>
     </div>
 
     <script>
-        function toggleForm() {
-            var form = document.getElementById("form2");
-            var body = document.body;
-
-            if (form.style.display === "none" || form.style.display === "") {
-                form.style.display = "block";
-                body.classList.add("overlay");
-            } else {
-                form.style.display = "none";
-                body.classList.remove("overlay");
-            }
+        // モーダルを表示するための関数
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
         }
 
-        let comments = [];
+        // モーダルを閉じるための関数
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
 
-        function addComment(event) {
+        // コメント入力フォームの送信後にページをリロード
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            const commentText = document.getElementById("comment").value;
+            var form = this;
+            var formData = new FormData(form);
 
-            if (commentText.trim() !== "") {
-                comments.push(commentText); // comments配列にコメントを追加
-                displayComments(); // コメント一覧を表示
-                document.getElementById("comment").value = ""; // テキストエリアをクリア
-                toggleForm(); // フォームを閉じる
-            }
-        }
-
-
-        function displayComments() {
-            const commentList = document.getElementById("comment-list");
-            commentList.innerHTML = ""; // リストをクリア
-
-            comments.forEach((comment, index) => {
-                const commentItem = document.createElement("div");
-                commentItem.classList.add("comment-item");
-
-                const commentText = document.createElement("p");
-                commentText.textContent = comment;
-
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "削除";
-                deleteButton.addEventListener("click", () => deleteComment(index));
-
-                commentItem.appendChild(commentText);
-                commentItem.appendChild(deleteButton);
-
-                commentList.appendChild(commentItem);
-            });
-        }
-
-
-        function deleteComment(index) {
-            comments.splice(index, 1);
-            displayComments();
-        }
+            fetch(form.action, {
+                    method: form.method,
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    location.reload(); // ページをリロードしてコメントを表示
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 
-    <div class="home-link-container">
-        <a href="index.php">ホーム</a>
-    </div>
 </body>
 
 </html>
