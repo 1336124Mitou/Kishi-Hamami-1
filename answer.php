@@ -296,7 +296,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
                 <form method="POST" action="kaitouadd.php">
                     <h2>回答投稿</h2>
                     <div class="textarea">
-                        <textarea id="answer" name="Com" rows="5" cols="70"></textarea><br><br>
+                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea><br><br>
                         <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
                         <div class="post">
                             <input type="submit" value="投稿">
