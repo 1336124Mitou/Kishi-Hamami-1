@@ -96,8 +96,8 @@ $conn->close();
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h3>" . $project['ProName'] . "</h3>"; // テーブル内の列名を適切に変更します
-                echo "<p>" . $project['Proexample'] . "</p>"; // テーブル内の列名を適切に変更します
+                echo "<h3><a href='project.php?id=" . $project['ProID'] . "'>" . $project['ProName'] . "</a></h3>";
+                echo "<p>" . $project['Proexample'] . "</p>";
                 echo "</div>";
             }
             ?>

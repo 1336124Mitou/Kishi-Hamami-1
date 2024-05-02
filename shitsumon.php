@@ -13,10 +13,20 @@ class Quest extends DbData
     }
 
     // 質問を表示するするためにすべてのデータを取り出す
-    public function showAllQuestions() {
+    public function showAllQuestions()
+    {
         $sql = "select * from question order by QuestionID";
         $stmt = $this->query($sql, []);
         $showAll = $stmt->fetchAll();
         return $showAll;
+    }
+
+    //与えられたQuestionIDのデータを取り出す
+    public function showQuestion($QID)
+    {
+        $sql = "select * from question WHERE QuestionID = ?";
+        $stmt = $this->query($sql, [$QID]);
+        $showQ = $stmt->fetch();
+        return $showQ;
     }
 }
