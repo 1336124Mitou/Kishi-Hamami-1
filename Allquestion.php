@@ -143,16 +143,6 @@ if (empty($showQuestions)) {
             <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
         </div>
 
-        <main>
-            <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
-            <section class="question">
-                <form method="post" action="answer.php">
-                    <h2><a href="Qdet1.php">C言語についての質問</a></h2>
-                    <p><a href="Qdet1.php">質問内容:C言語のポインタがさっぱり分かりません。...</a></p>
-                    <p class="tag">#プログラミング言語</p><br>
-                </form>
-            </section>
-        </main>
 
         <?php
         //文字数の上限
