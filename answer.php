@@ -13,6 +13,7 @@ $question_id = $_POST["question_id"]; // 質問のIDを取得する
 //与えられたIDから質問を取得
 $showQuestion = $quest->showQuestion($question_id);
 
+//与えられた質問IDから回答を取得
 $showAnswers = $kaitou->showAllAnswer($question_id);
 
 // // フォームから送信されたデータを処理する
