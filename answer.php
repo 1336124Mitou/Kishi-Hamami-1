@@ -8,38 +8,17 @@ if (!isset($kaitou)) {
     require_once __DIR__ . '/kaitou.php';
     $kaitou = new Comment();
 }
-$question_id = $_POST["question_id"]; // 質問のIDを取得する
 
+//POSTが定義されているなら取得する
+if (isset($_POST["question_id"])) {
+    $question_id = $_POST["question_id"]; // 質問のIDを取得する
+}
 //与えられたIDから質問を取得
 $showQuestion = $quest->showQuestion($question_id);
 
 //与えられた質問IDから回答を取得
 $showAnswers = $kaitou->showAllAnswer($question_id);
 
-// // フォームから送信されたデータを処理する
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     // フォームから送信されたデータを取得する
-//     //$answer = $_POST["answer"];
-
-//     // データベースに接続するための情報
-//     $servername = "localhost";
-//     $username = "Kishi";
-//     $password = "hamami";
-//     $dbname = "kishi";
-
-//     // データベースに接続
-//     $conn = new mysqli($servername, $username, $password, $dbname);
-
-//     // 接続をチェック
-//     if ($conn->connect_error) {
-//         die("Connection failed: " . $conn->connect_error);
-//     }
-
-
-
-//     // データベースとの接続を閉じる
-//     $conn->close();
-// }
 ?>
 
 <!DOCTYPE html>
