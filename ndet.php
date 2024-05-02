@@ -185,7 +185,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <form id="commentForm" action="ndet2.php" method="post" class="comment-form">
+                <form id="commentForm" action="ndet.php" method="post" class="comment-form">
                     <textarea name="comment" placeholder="コメントを入力してください" required></textarea>
                     <button type="submit">投稿</button>
                 </form>

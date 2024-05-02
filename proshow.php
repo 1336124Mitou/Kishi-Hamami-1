@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div>
-                <input type="file" name="project" required accept=".zip, .rar, .7z, .pdf">
+                <input type="file" name="project" required accept=".zip,.pdf,.txt">
             </div>
             <!-- ファイル名を表示するためのスパン -->
             <span class="file-name" id="fileName"></span>
