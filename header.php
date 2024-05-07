@@ -22,8 +22,8 @@
                 <li><a id="indexLink" href="index.php" class="btn4">ホーム</a></li>
                 <li><a id="AllquestionLink" href="Allquestion.php" class="btn4">質問一覧</a></li>
                 <li><a id="AllprojectLink" href="Allproject.php" class="btn4">制作物一覧</a></li>
-                <!--<li><a id="profileLink" href="profile.php" class="btn4">プロフィール</a></li>
-                <li><a id="loginLink" href="login.php" class="btn4">ログイン</a></li>-->
+                <li><a id="profileLink" href="profile.php" class="btn4">プロフィール</a></li>
+                <li><a id="loginLink" href="login.php" class="btn4">ログイン</a></li>
                 <!--ヘッダー 追加はここから-->
             </ul>
         </nav>
