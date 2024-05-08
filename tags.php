@@ -35,4 +35,12 @@ class Tag extends DbData
         $showTagQ = $stmt->fetch();
         return $showTagQ;
     }
+
+    // 質問の絞り込みをするための関数
+    public function sortTagQ($TagID) {
+        $sql = "select * from Question where QuestionID in (select QuestionID from questiontags where TagID = ?";
+        $stmt = $this->query($sql, [$TagID]);
+        $rep = $stmt->fetchAll();
+        return $rep;
+    }
 }
