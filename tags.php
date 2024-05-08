@@ -9,4 +9,9 @@ class Tag extends DbData {
         $showTags = $stmt->fetchAll();
         return $showTags;
     }
+
+    public function addTagQ($QuestionID, $TagID) {
+        $sql = "INSERT INTO questiontags (QuestionID, TagID) VALUES (?, ?)";
+        $stmt = $this->exec($sql, [$QuestionID, $TagID]);
+    }
 }
