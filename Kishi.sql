@@ -74,6 +74,8 @@ CREATE TABLE QuestionTags (
     PRIMARY KEY (QuestionID, TagID)
 );
 
+INSERT INTO QuestionTags(QuestionID, TagID) VALUES (1, 1);
+
 -- 回答のテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS Reply;

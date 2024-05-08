@@ -119,11 +119,12 @@ if (empty($showQuestions)) {
                             <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
                             <!-- ユーザーIDを送る -->
                             <input type="hidden" name="userid" value="999">
-                            <select>
+                            <!-- タグIDをおくる -->
+                            <select name="Qtag">
                                 <?php
                                 foreach ($showTags as $showTag) {
                                 ?>
-                                    <option><?= $showTag['TagName'] ?></option>
+                                    <option value="<?= $showTag['TagID'] ?>"><?= $showTag['TagName'] ?></option>
                                 <?php
                                 }
                                 ?>
@@ -148,15 +149,16 @@ if (empty($showQuestions)) {
         //文字数の上限
         $limit = 20;
         foreach ($showQuestions as $showQuest) {
+            //質問を20文字まで表示する
             $q = mb_substr($showQuest['Question'], 0, $limit);
+            $qtag = $tags->showTagQ($showQuest['QuestionID']);
         ?>
             <main>
                 <section class="question">
                     <form method="post" name="answer" action="answer.php">
                         <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                        <!-- <a href="answer.php" onclick="javascript:answer.submit();"></a> -->
                         <h2 class="question"><?= $q ?></h2>
-                        <p class="tag">#template</p><br>
+                        <p class="tag"># <?= $qtag['TagName'] ?></p><br>
                         <input type="submit" value="詳細">
                     </form>
                 </section>
