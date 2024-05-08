@@ -59,6 +59,8 @@ CREATE TABLE Question (
     FOREIGN KEY (UsID) REFERENCES Usr(UsID)
 );
 
+INSERT INTO Question(D, Tim, Question, UsID) VALUES ('2023-12-09', '12:02:00', 'C#のフォームの表示のやり方に関する質問', 999);
+
 -- 質問のIDとタグIDを関連するテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS QuestionTags;
@@ -106,22 +108,26 @@ DROP TABLE if EXISTS Report;
 CREATE TABLE Report (
     RepoID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Info TEXT DEFAULT NULL,
+    Title VARCHAR(255) NOT NULL,
+    Naiyou TEXT DEFAULT NULL,
     D DATE NOT NULL,
     Tim TIME NOT NULL,
-    LNum INT NOT NULL DEFAULT 0
+    LNum INT DEFAULT 0
 );
 
--- 記事のIDとコメントのIDを関連するテーブル
--- tableがあるなら削除
-DROP TABLE if EXISTS RepR;
+INSERT INTO Report(Title, Naiyou, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
 
--- テーブルRepRの作成
-CREATE TABLE RepR (
-    RepID INT NOT NULL,
+-- 記事のIDとタグのIDを関連するテーブル
+-- tableがあるなら削除
+DROP TABLE if EXISTS RepoTags;
+
+-- テーブルRepoTagsの作成
+CREATE TABLE RepoTags (
     RepoID INT NOT NULL,
-    FOREIGN KEY (RepID) REFERENCES Reply(RepID),
+    TagID INT NOT NULL,
     FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
-    PRIMARY KEY (RepID, RepoID)
+    FOREIGN KEY (TagID) REFERENCES Tags(TagID),
+    PRIMARY KEY (RepoID, TagID)
 );
 
 -- 制作物のテーブル
