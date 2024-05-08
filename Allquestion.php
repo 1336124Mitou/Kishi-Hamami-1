@@ -161,7 +161,7 @@ if (empty($showQuestions)) {
                 <section class="question">
                     <form method="post" name="answer" action="answer.php">
                         <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                        <h2 class="question"><?= $q ?></h2>
+                        <h2 class="questionndata"><?= $q ?></h2>
                         <p class="tag"># <?= $qtag['TagName'] ?></p><br>
                         <input type="submit" value="詳細">
                     </form>
