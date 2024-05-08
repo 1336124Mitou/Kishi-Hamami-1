@@ -149,8 +149,12 @@ if (empty($showQuestions)) {
         //文字数の上限
         $limit = 20;
         foreach ($showQuestions as $showQuest) {
-            //質問を20文字まで表示する
-            $q = mb_substr($showQuest['Question'], 0, $limit);
+            //質問が20文字以上ならそこで区切って...を表示する
+            if (mb_strlen($showQuest['Question']) > $limit) {
+                $q = mb_substr($showQuest['Question'], 0, $limit) . '...';
+            } else {
+                $q = $showQuest['Question'];
+            }
             $qtag = $tags->showTagQ($showQuest['QuestionID']);
         ?>
             <main>
@@ -170,25 +174,7 @@ if (empty($showQuestions)) {
 }
     ?>
 
-    <main>
-        <section class="question">
-            <form method="post" action="answer.php">
-                <h2><a href="Qdet2.php">データベースについての質問</a></h2>
-                <p><a href="Qdet2.php">質問内容:データベースを作りたいのですが...</a></p>
-                <p class="tag">#データベース</p><br>
-            </form>
-        </section>
-    </main>
-    <main>
-        <section class="question">
-            <form method="post" action="answer.php">
-                <h2><a href="Qdet3.php">AIついての質問</a></h2>
-                <p><a href="Qdet3.php">質問内容:AIの活用方法を探しています。このような性能を...</a></p>
-                <p class="tag">#AI</p><br>
-            </form>
-        </section>
-        <!-- 他の質問も同様に追加 -->
-    </main>
+
     <script>
         function filterArticles(keyword) {
             var articles = document.querySelectorAll('.article');
