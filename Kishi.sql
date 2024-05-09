@@ -117,8 +117,6 @@ CREATE TABLE Report (
     LNum INT DEFAULT 0
 );
 
-INSERT INTO Report(Title, Naiyou, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
-
 -- 記事のIDとタグのIDを関連するテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS RepoTags;
