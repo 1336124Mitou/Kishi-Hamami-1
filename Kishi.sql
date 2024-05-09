@@ -111,11 +111,11 @@ CREATE TABLE Report (
     RepoID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Info TEXT DEFAULT NULL,
     Title VARCHAR(255) NOT NULL,
-    Naiyou TEXT DEFAULT NULL,
     D DATE NOT NULL,
-    Tim TIME NOT NULL,
-    LNum INT DEFAULT 0
+    Tim TIME NOT NULL
 );
+
+INSERT INTO Report(Title, Info, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
 
 -- 記事のIDとタグのIDを関連するテーブル
 -- tableがあるなら削除

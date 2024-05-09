@@ -199,6 +199,36 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         .post {
             text-align: right;
         }
+
+        .timestamp {
+            text-align: right;
+            color: #9c9998;
+        }
+
+        .comment {
+            word-wrap: break-word;
+        }
+
+        .timestamptwo {
+            margin-left: 200px;
+            color: #9c9998;
+        }
+
+        .likenum, .likes, .timestamptwo {
+            display: inline-block;
+            align-items: center;
+        }
+
+        .answer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .likes {
+            margin-right: 10px;
+        }
+
+
     </style>
 
     <script>
@@ -242,7 +272,9 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
             <p><?= $showQuestion['Question'] ?></p>
 
-            <p class="tag"># <?= $tag['TagName'] ?></p><br>
+            <p class="tag"># <?= $tag['TagName'] ?></p>
+
+            <p class="timestamp"><?= $showQuestion['D']?></p>
         </div>
     </main>
 
@@ -254,7 +286,12 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             ?>
 
 
-                <p><?= $showAnswer['Reply'] ?></p>
+                <p class="comment"><?= $showAnswer['Reply'] ?></p><br>
+                <div class="answer-info">
+                <p class="likenum"><?= $showAnswer['LNum']?></p>
+                <button class="likes">いいね！</button>
+                <p class="timestamptwo"><?= $showAnswer['D']?> <?= $showAnswer['Tim']?></p>
+                </div>
                 <hr>
 
             <?php
