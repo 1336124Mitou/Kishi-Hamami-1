@@ -132,6 +132,19 @@ CREATE TABLE RepoTags (
     PRIMARY KEY (RepoID, TagID)
 );
 
+-- 記事のIDと質問のIDを関連するテーブル
+-- テーブルがあるなら削除
+DROP TABLE if EXISTS RepR;
+
+-- テーブルRepRの作成
+CREATE TABLE RepR (
+    RepoID INT NOT NULL,
+    RepID INT NOT NULL,
+    FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
+    FOREIGN KEY (RepID) REFERENCES Reply(RepID)
+    PRIMARY KEY (RepoID, RepID)
+)
+
 -- 制作物のテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS Project;
