@@ -117,12 +117,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     #a1 {
         color: #007BFF;
     }
+
+    /* ボタンの微調整 */
+    input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
 </style>
 
 <body>
-   <?php
-   require_once __DIR__ . '/header.php';
-   ?>
+    <?php
+    require_once __DIR__ . '/header.php';
+    ?>
 
     <div class="main">
         <div class="main_con">
@@ -143,6 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
+                <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <!--記事一覧 ここから-->
                 <div id="kiji1" class="article" data-tags="Java">
                     <h2>プログラミング言語関連</h2>
