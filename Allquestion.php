@@ -5,158 +5,187 @@ if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセッ�
     $quest = new Quest();
     $tags = new Tag();
 }
+if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
+    $Filter = $_POST["Filter"];
+}
 
-$showQuestions = $quest->showAllQuestions();
-$showTags = $tags->showTags();
-if (empty($showQuestions)) {
-    echo '<h4>質問はありません';
+if (!isset($Filter)) {
+    $showQuestions = $quest->showAllQuestions();
 } else {
+    $showQuestions = $tags->sortTagQ($Filter);
+}
+$showTags = $tags->showTags();
 ?>
+<!DOCTYPE html>
+<html lang="ja">
 
-    <!DOCTYPE html>
-    <html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>質問一覧</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
+    <style>
+        main {
+            padding: 20px;
+        }
 
-    <head>
-        <meta charset="UTF-8">
-        <title>質問一覧</title>
-        <link rel="stylesheet" href="main.css">
-        <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
-        <style>
-            main {
-                padding: 20px;
-            }
+        .question {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
 
-            .question {
-                border-bottom: 1px solid #ccc;
-                padding-bottom: 20px;
-                margin-bottom: 20px;
-            }
+        .question h2 {
+            color: #4267b2;
+        }
 
-            .question h2 {
-                color: #4267b2;
-            }
+        .question a {
+            color: #4267b2;
+            text-decoration: none;
+        }
 
-            .question a {
-                color: #4267b2;
-                text-decoration: none;
-            }
+        footer {
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            text-align: center;
+        }
 
-            footer {
-                background-color: #f4f4f4;
-                padding: 10px 20px;
-                text-align: center;
-            }
+        p.tag {
+            border: 1px solid;
+            display: inline-block;
+            border-radius: 20px;
+            background-color: #ccc;
+        }
 
-            p.tag {
-                border: 1px solid;
-                display: inline-block;
-                border-radius: 20px;
-                background-color: #ccc;
-            }
+        /* ボタンの微調整 */
+        input.button {
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
 
-            /* ボタンの微調整 */
-            input.button {
-                border: 1px solid;
-                width: 150px;
-                height: 35px;
-                font-size: 15px;
-                align-self: center;
-                border-radius: 5px;
-                cursor: pointer;
-                color: white;
-                background-color: #007BFF;
-            }
+        .que {
+            text-align: right;
+        }
 
-            .que {
-                text-align: right;
-            }
+        .textarea {
+            resize: none;
+            text-align: center;
+        }
 
-            .textarea {
-                resize: none;
-                text-align: center;
-            }
+        input.submit {
+            display: inline-block;
+            color: #fff;
+            background: #007BFF;
+            border-radius: 20px;
+            padding: 0.5em 1.5em;
+            border-color: #007BFF;
+        }
 
-            input.submit {
-                display: inline-block;
-                color: #fff;
-                background: #007BFF;
-                border-radius: 20px;
-                padding: 0.5em 1.5em;
-                border-color: #007BFF;
-            }
+        input.submit:hover {
+            opacity: 0.7;
+        }
+    </style>
 
-            input.submit:hover {
-                opacity: 0.7;
-            }
-        </style>
+    <script>
+        function check(id) {
+            document.getElementById(id).checked = true;
+        }
+    </script>
+</head>
 
-        <script>
-            function check(id) {
-                document.getElementById(id).checked = true;
-            }
-        </script>
-    </head>
+<body>
+    <?php
+    //ヘッダーを読み込む
+    require_once __DIR__ . '/header.php';
+    ?>
+    <!-- クリック動作判定 -->
+    <input class="checkbox" type="checkbox" id="popup">
 
-    <body>
-        <?php
-        require_once __DIR__ . '/header.php';
-        ?>
-        <!-- クリック動作判定 -->
-        <input class="checkbox" type="checkbox" id="popup">
+    <!-- ポップアップ部分 -->
+    <div id="overlay">
+        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
 
-        <!-- ポップアップ部分 -->
-        <div id="overlay">
-            <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
-
-            <div id="window"> <!-- ウィンドウ部分 -->
-                <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
-                    <span></span>
-                </label>
-                <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                    <form method="POST" action="shitsumonadd.php">
-                        <h2>質問投稿</h2>
-                        <div class="textarea">
-                            <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
-                            <!-- ユーザーIDを送る -->
-                            <input type="hidden" name="userid" value="999">
-                            <select>
-                                <?php
-                                foreach ($showTags as $showTag) {
-                                ?>
-                                    <option><?= $showTag['TagName'] ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                            <div class="que">
-                                <!-- 投稿ボタン -->
-                                <input class="submit" type="submit" value="投稿">
-                            </div>
+        <div id="window"> <!-- ウィンドウ部分 -->
+            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                <span></span>
+            </label>
+            <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                <form method="POST" action="shitsumonadd.php">
+                    <h2>質問投稿</h2>
+                    <div class="textarea">
+                        <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
+                        <!-- ユーザーIDを送る -->
+                        <input type="hidden" name="userid" value="999">
+                        <!-- タグIDをおくる -->
+                        <select name="Qtag">
+                            <?php
+                            foreach ($showTags as $showTag) {
+                            ?>
+                                <option value="<?= $showTag['TagID'] ?>"><?= $showTag['TagName'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        <div class="que">
+                            <!-- 投稿ボタン -->
+                            <input class="submit" type="submit" value="投稿">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-
         </div>
 
-        <div class="que">
-            <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
-        </div>
+    </div>
 
-
+    <div class="que">
+        <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
+    </div>
+    <!-- ここまでポップアップ -->
+    <!-- 絞り込み機能 -->
+    <form method="post" action="">
+        <select name="Filter">
+            <option value="0">All</option>
+            <?php
+            foreach ($showTags as $showTag) {
+            ?>
+                <option value="<?= $showTag['TagID'] ?>"><?= $showTag['TagName'] ?></option>
+            <?php
+            }
+            ?>
+            <input type="submit" value="絞り込み">
+        </select>
+    </form>
+    <?php
+    if (empty($showQuestions)) { //質問が無いなら
+        echo '<h4>質問はありません';
+        echo '</body>';
+    } else { //質問があるなら
+    ?>
         <?php
         //文字数の上限
         $limit = 20;
         foreach ($showQuestions as $showQuest) {
-            $q = mb_substr($showQuest['Question'], 0, $limit);
+            //質問が20文字以上ならそこで区切って...を表示する
+            if (mb_strlen($showQuest['Question']) > $limit) {
+                $q = mb_substr($showQuest['Question'], 0, $limit) . '...';
+            } else {
+                $q = $showQuest['Question'];
+            }
+            $qtag = $tags->showTagQ($showQuest['QuestionID']);
         ?>
             <main>
                 <section class="question">
                     <form method="post" name="answer" action="answer.php">
                         <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                        <!-- <a href="answer.php" onclick="javascript:answer.submit();"></a> -->
-                        <h2 class="question"><?= $q ?></h2>
-                        <p class="tag">#template</p><br>
+                        <h2 class="questionndata"><?= $q ?></h2>
+                        <p class="tag"># <?= $qtag['TagName'] ?></p><br>
                         <input type="submit" value="詳細">
                     </form>
                 </section>
@@ -165,28 +194,10 @@ if (empty($showQuestions)) {
         }
         ?>
     <?php
-}
+    }
     ?>
 
-    <main>
-        <section class="question">
-            <form method="post" action="answer.php">
-                <h2><a href="Qdet2.php">データベースについての質問</a></h2>
-                <p><a href="Qdet2.php">質問内容:データベースを作りたいのですが...</a></p>
-                <p class="tag">#データベース</p><br>
-            </form>
-        </section>
-    </main>
-    <main>
-        <section class="question">
-            <form method="post" action="answer.php">
-                <h2><a href="Qdet3.php">AIついての質問</a></h2>
-                <p><a href="Qdet3.php">質問内容:AIの活用方法を探しています。このような性能を...</a></p>
-                <p class="tag">#AI</p><br>
-            </form>
-        </section>
-        <!-- 他の質問も同様に追加 -->
-    </main>
+
     <script>
         function filterArticles(keyword) {
             var articles = document.querySelectorAll('.article');
@@ -214,6 +225,6 @@ if (empty($showQuestions)) {
             });
         }
     </script>
-    </body>
+</body>
 
-    </html>
+</html>

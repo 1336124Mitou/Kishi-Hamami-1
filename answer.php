@@ -8,6 +8,11 @@ if (!isset($kaitou)) {
     require_once __DIR__ . '/kaitou.php';
     $kaitou = new Comment();
 }
+if (!isset($tags)) { //$tagsに必ずTagオブジェクトをセットするため
+    require_once __DIR__ . '/tags.php';
+    $tags = new Tag();
+}
+
 
 //POSTが定義されているなら取得する
 if (isset($_POST["question_id"])) {
@@ -228,14 +233,16 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     require_once __DIR__ . '/header.php';
     ?>
     <main>
+        <?php
+        $tag = $tags->showTagQ($question_id);
+        ?>
         <div class="frame">
             <h2>質問</h2>
             <hr>
 
             <p><?= $showQuestion['Question'] ?></p>
 
-            <p class="tag">#プログラミング言語</p>
-            <p class="tag">#C言語</p><br>
+            <p class="tag"># <?= $tag['TagName'] ?></p><br>
         </div>
     </main>
 
