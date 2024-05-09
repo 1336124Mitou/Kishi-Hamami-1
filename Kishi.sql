@@ -141,7 +141,7 @@ CREATE TABLE RepR (
     FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
     FOREIGN KEY (RepID) REFERENCES Reply(RepID),
     PRIMARY KEY (RepoID, RepID)
-)
+);
 
 -- 制作物のテーブル
 -- tableがあるなら削除
