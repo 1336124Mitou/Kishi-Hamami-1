@@ -32,11 +32,13 @@ class Dbdata
         return  $stmt;
     }
 
-    protected function getLastInsertedID() {
+    protected function getLastInsertedID()
+    {
         return $this->pdo->lastInsertId();
     }
 
-    protected function rollbackLastInsert() {
+    protected function rollbackLastInsert()
+    {
         $this->pdo->rollBack();
     }
 }
