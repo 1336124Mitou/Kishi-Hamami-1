@@ -30,6 +30,10 @@ if (!isset($kiji)) {
             /* 高さは固定 */
             resize: none;
         }
+
+        .link {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -49,6 +53,10 @@ if (!isset($kiji)) {
 
             <input type="submit" value="投稿">
         </form>
+    </div>
+    <div class="link">
+        <br>
+        <a href="index.php">ホーム</a>
     </div>
 </body>
 
