@@ -10,7 +10,7 @@ if (!isset($kiji)) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" contant="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記事投稿</title>
     <style>
         .okuru {
@@ -18,13 +18,16 @@ if (!isset($kiji)) {
         }
 
         #Title {
-            width: 600px;
+            width: 80%;
+            /* 画面幅の80%に設定 */
             resize: none;
         }
 
         #report {
-            width: 600px;
+            width: 80%;
+            /* 画面幅の80%に設定 */
             height: 300px;
+            /* 高さは固定 */
             resize: none;
         }
     </style>
