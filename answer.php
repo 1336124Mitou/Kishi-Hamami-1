@@ -298,6 +298,22 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 </main>
 
 
+<<<<<<< HEAD
+=======
+                <p class="comment"><?= $showAnswer['Reply'] ?></p><br>
+                <div class="answer-info">
+                <p class="likenum"><?= $showAnswer['LNum']?></p>
+                <button class="likes">いいね！</button>
+                <p class="timestamptwo"><?= $showAnswer['D']?> <?= $showAnswer['Tim']?></p>
+                </div>
+                <hr>
+
+            <?php
+            }
+            ?>
+            <input class="button" onclick="check('popup');" type="button" value="回答追加">
+
+>>>>>>> 05366df1d4ffe49c28860bc00b07018205bdd90b
         </div>
 
     </main>

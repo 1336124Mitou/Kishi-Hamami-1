@@ -1,24 +1,63 @@
+<?php
+if (!isset($kiji)) {
+    require_once __DIR__ . '/kiji.php';
+    $kiji = new Report();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" contant="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記事投稿</title>
-    <style></style>
+    <style>
+        .okuru {
+            text-align: center;
+        }
+
+        #Title {
+            width: 80%;
+            /* 画面幅の80%に設定 */
+            resize: none;
+        }
+
+        #report {
+            width: 80%;
+            /* 画面幅の80%に設定 */
+            height: 300px;
+            /* 高さは固定 */
+            resize: none;
+        }
+
+        .link {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- ページのタイトル -->
-    <h1>記事投稿</h1>
+    <div class="okuru">
+        <!-- ページのタイトル -->
+        <h1>記事投稿</h1>
 
-    <form method="POST" action="kijiadd.php">
-        <!-- 記事タイトル入力 -->
-        <text id="title
+        <form method="POST" action="kijiadd.php">
+            <!-- 記事タイトル入力 -->
+            <h4>記事のタイトル</h4>
+            <textarea id="Title" name="Title" placeholder="ここに記事のタイトルを書いてください" required></textarea>
 
-        <!-- 記事入力 -->
-        <textarea id=" report" name="RDet" placeholder="ここに記事を入力してください。" oninput="changeTextColor(this)"></textarea>
-    </form>
+            <!-- 記事入力 -->
+            <h4>記事内容</h4>
+            <textarea id="report" name="RDet" placeholder="ここに記事を入力してください。" oninput="changeTextColor(this)" required></textarea><br>
+
+            <input type="submit" value="投稿">
+        </form>
+    </div>
+    <div class="link">
+        <br>
+        <a href="index.php">ホーム</a>
+    </div>
 </body>
 
 </html>

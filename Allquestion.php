@@ -149,17 +149,22 @@ $showTags = $tags->showTags();
     </div>
     <!-- ここまでポップアップ -->
     <!-- 絞り込み機能 -->
-    <form method="post" action="">
-        <select name="Filter">
-            <option value="0">All</option>
+    絞り込み<form method="post" action="">
+        <select name="Filter" onchange="submit(this.form)">
+            <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                ?>>All</option>
             <?php
             foreach ($showTags as $showTag) {
+                if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                    $selected = 'selected';
+                } else {
+                    $selected = '';
+                }
             ?>
-                <option value="<?= $showTag['TagID'] ?>"><?= $showTag['TagName'] ?></option>
+                <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
             <?php
             }
             ?>
-            <input type="submit" value="絞り込み">
         </select>
     </form>
     <?php

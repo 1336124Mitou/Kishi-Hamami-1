@@ -36,6 +36,15 @@ class Tag extends DbData
         return $showTagQ;
     }
 
+    // 記事IDから記事一覧にタグを表示するための関数
+    public function showTagR($RepoID)
+    {
+        $sql = "select * from Tags where TagID in (select TagID from repotags where RepoID = ?)";
+        $stmt = $this->query($sql, [$RepoID]);
+        $showTagQ = $stmt->fetch();
+        return $showTagQ;
+    }
+
     // 質問の絞り込みをするための関数
     public function sortTagQ($TagID)
     {
