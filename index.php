@@ -1,38 +1,3 @@
-<?php
-// データベース接続設定
-$servername = "localhost";
-$username = "Kishi";
-$password = "hamami";
-$dbname = "kishi";
-
-// POSTリクエストを処理する
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // フォームから送信されたデータを取得する
-    $title = $_POST["title"];
-    $content = $_POST["content"];
-    $tags = $_POST["tags"];
-
-    // データベースに接続
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // 接続をチェック
-    if ($conn->connect_error) {
-        die("接続に失敗しました: " . $conn->connect_error);
-    }
-
-    // 記事をデータベースに挿入
-    $sql = "INSERT INTO Report (Title, Content, Tags) VALUES ('$title', '$content', '$tags')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "新しい記事が作成されました";
-    } else {
-        echo "エラー: " . $sql . "<br>" . $conn->error;
-    }
-
-    // データベース接続を閉じる
-    $conn->close();
-}
-?>
 <!DOCTYPE html>
 <html lang="ja">
 
