@@ -111,13 +111,11 @@ CREATE TABLE Report (
     RepoID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Info TEXT DEFAULT NULL,
     Title VARCHAR(255) NOT NULL,
-    Naiyou TEXT DEFAULT NULL,
     D DATE NOT NULL,
-    Tim TIME NOT NULL,
-    LNum INT DEFAULT 0
+    Tim TIME NOT NULL
 );
 
-INSERT INTO Report(Title, Naiyou, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
+INSERT INTO Report(Title, Info, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
 
 -- 記事のIDとタグのIDを関連するテーブル
 -- tableがあるなら削除
@@ -130,6 +128,19 @@ CREATE TABLE RepoTags (
     FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
     FOREIGN KEY (TagID) REFERENCES Tags(TagID),
     PRIMARY KEY (RepoID, TagID)
+);
+
+-- 記事のIDと質問のIDを関連するテーブル
+-- テーブルがあるなら削除
+DROP TABLE if EXISTS RepR;
+
+-- テーブルRepRの作成
+CREATE TABLE RepR (
+    RepoID INT NOT NULL,
+    RepID INT NOT NULL,
+    FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
+    FOREIGN KEY (RepID) REFERENCES Reply(RepID),
+    PRIMARY KEY (RepoID, RepID)
 );
 
 -- 制作物のテーブル

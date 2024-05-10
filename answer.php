@@ -199,6 +199,36 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         .post {
             text-align: right;
         }
+
+        .timestamp {
+            text-align: right;
+            color: #9c9998;
+        }
+
+        .comment {
+            word-wrap: break-word;
+        }
+
+        .timestamptwo {
+            margin-left: 200px;
+            color: #9c9998;
+        }
+
+        .likenum, .likes, .timestamptwo {
+            display: inline-block;
+            align-items: center;
+        }
+
+        .answer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .likes {
+            margin-right: 10px;
+        }
+
+
     </style>
 
     <script>
@@ -228,7 +258,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     </script>
 </head>
 
-<body>
+<>
     <?php
     require_once __DIR__ . '/header.php';
     ?>
@@ -242,25 +272,31 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
             <p><?= $showQuestion['Question'] ?></p>
 
-            <p class="tag"># <?= $tag['TagName'] ?></p><br>
+            <p class="tag"># <?= $tag['TagName'] ?></p>
+
+            <p class="timestamp"><?= $showQuestion['D']?></p>
         </div>
     </main>
 
     <main>
-        <div class="frame">
-            <h2>回答</h2>
-            <?php
-            foreach ($showAnswers as $showAnswer) {
-            ?>
+    <div class="frame">
+        <h2>回答</h2>
+     <!-- 回答部分 -->
+<?php foreach ($showAnswers as $showAnswer) { ?>
+   
+        <p class="comment"><?= $showAnswer['Reply'] ?></p><br>
+        <div class="answer-info">
+        <p class="likenum"><?= $showAnswer['LNum']?></p>
+        <!-- いいねボタン -->
+        <button class="likes" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>)">いいね！</button>
+        <p class="timestamptwo"><?= $showAnswer['D']?> <?= $showAnswer['Tim']?></p>
+    </div>
+    <hr>
+        <?php } ?>
+        <input class="button" onclick="check('popup');" type="button" value="回答追加">
+    </div>
+</main>
 
-
-                <p><?= $showAnswer['Reply'] ?></p>
-                <hr>
-
-            <?php
-            }
-            ?>
-            <input class="button" onclick="check('popup');" type="button" value="回答追加">
 
         </div>
 
@@ -283,7 +319,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
                 <form method="POST" action="kaitouadd.php">
                     <h2>回答投稿</h2>
                     <div class="textarea">
-                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea><br><br>
+                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>
                         <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
                         <div class="post">
                             <input type="submit" value="投稿">
@@ -297,7 +333,24 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
     </div>
 
+<script>
+    function likeAnswer(answerId) {
+    // サーバーにいいねのリクエストを送信する
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "like.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // レスポンスを処理する
+            var response = xhr.responseText;
+            console.log(response); // 応答をログに出力するなどの処理
+            // ここでいいねの数を更新するなどの追加の処理を実行する
+        }
+    };
+    xhr.send("answer_id=" + answerId);
+}
 
+</script>
 
     <footer>
         <p></p>
