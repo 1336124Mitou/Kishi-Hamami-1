@@ -91,6 +91,36 @@ $showTags = $tags->showTags();
         input.submit:hover {
             opacity: 0.7;
         }
+
+        .filter {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .filter::after {
+            position: absolute;
+            right: 15px;
+            width: 10px;
+            height: 7px;
+            background-color: #535353;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            content: '';
+            pointer-events: none;
+        }
+
+        .filter select {
+            appearance: none;
+            min-width: 230px;
+            height: 2.8em;
+            padding: .4em calc(.8em + 30px) .4em .8em;
+            border: 1px solid #d0d0d0;
+            border-radius: 3px;
+            background-color: #fff;
+            color: #333333;
+            font-size: 1em;
+            cursor: pointer;
+        }
     </style>
 
     <script>
@@ -149,24 +179,27 @@ $showTags = $tags->showTags();
     </div>
     <!-- ここまでポップアップ -->
     <!-- 絞り込み機能 -->
-    絞り込み<form method="post" action="">
-        <select name="Filter" onchange="submit(this.form)">
-            <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
-                                ?>>All</option>
-            <?php
-            foreach ($showTags as $showTag) {
-                if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
-                    $selected = 'selected';
-                } else {
-                    $selected = '';
+    <label class="filter">
+        絞り込み
+        <form method="post" action="">
+            <select name="Filter" onchange="submit(this.form)">
+                <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                    ?>>All</option>
+                <?php
+                foreach ($showTags as $showTag) {
+                    if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                        $selected = 'selected';
+                    } else {
+                        $selected = '';
+                    }
+                ?>
+                    <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                <?php
                 }
-            ?>
-                <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
-            <?php
-            }
-            ?>
-        </select>
-    </form>
+                ?>
+            </select>
+        </form>
+    </label>
     <?php
     if (empty($showQuestions)) { //質問が無いなら
         echo '<h4>質問はありません';
