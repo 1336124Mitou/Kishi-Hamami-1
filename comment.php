@@ -6,7 +6,7 @@ class Comment extends Dbdata
 {
     public function addCom($kiji, $RepoID)
     {
-        $sql_report = "INSERT INTO Report (Report, D, Tim) VALUES (?, ?, ?)";
+        $sql_report = "INSERT INTO Reply (Reply, D, Tim) VALUES (?, ?, ?)";
         $result_report = $this->exec($sql_report, [$kiji, date("Y-m-d"), date("H:i:s")]);
 
         if ($result_report) {
