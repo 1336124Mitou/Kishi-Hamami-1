@@ -15,7 +15,7 @@ class Report extends Dbdata
     // 記事を表示するためにすべてのデータを取り出す
     public function showAllReports()
     {
-        $sql = "select * from report order by RepoID";
+        $sql = "select * from report order by D, Tim desc";
         $stmt = $this->query($sql, []);
         $showAll = $stmt->fetchAll();
         return $showAll;

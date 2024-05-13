@@ -79,6 +79,7 @@ $showKiji = $kiji->showAllReports();
     button {
         background-color: #fff;
         border-color: #fff;
+        margin-left: 5px;
     }
 
     p.tag {
@@ -103,6 +104,22 @@ $showKiji = $kiji->showAllReports();
         cursor: pointer;
         color: white;
         background-color: #007BFF;
+    }
+
+    .kiji {
+        margin-left: 13px;
+    }
+    .extra {
+        display: flex;
+        align-items: center;
+    }
+
+    #kijidata {
+        color: #4267b2;
+    }
+    
+    #date {
+        margin-left: 200px;
     }
 </style>
 
@@ -135,10 +152,15 @@ $showKiji = $kiji->showAllReports();
                 <section class="kiji">
                         <form method="post" name="kiji" action="ndet.php">
                             <input type="hidden" name="kijiID" value="<?= $showReport['RepoID']?>">
-                            <h2 class="kijidata"><?= $showReport['Title'] ?></h2>
-                            <input type="submit" value="詳細">
+                            <h2 id="kijidata"><?= $showReport['Title'] ?></h2>
+                            <div class="extra">
+                                <input type="submit" value="詳細" id="more">
+                                <p id="date"><?= $showReport['D']?> <?= $showReport['Tim']?></p>
+                            </div>
                         </form>
                 </section>
+
+                <hr>
 
                 <?php
                         }
