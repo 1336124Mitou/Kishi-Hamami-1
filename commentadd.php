@@ -1,13 +1,24 @@
 <?php
-// 投稿された記事コメントのIDを受け取る
-$kiji = $_POST['Com'];
-$Repo = $_POST['RepoID'];
+// 必要なPOSTデータが受け取られたかどうかを確認します。
+if(isset($_POST['Com']) && isset($_POST['RepoID'])) {
+    // 投稿されたコメントと記事のIDを取得する
+    $commentText = $_POST['Com'];
+    $reportID = $_POST['RepoID'];
 
-require_once __DIR__ . '/comment.php';
+    // Comentクラスを追加し、オブジェクトを起動します。
+    require_once __DIR__ . '/comment.php';
+    $comment = new Comment();
 
-$comment = new Comment();
-session_start();
-$comment->addCom($kiji, $Repo);
-//受け取った$Ouestを$question_idとして定義する
-$kijiID = $Repo;
-require_once __DIR__ . '/ndet.php';
+    // コメントをデータベースに追加します。
+    $comment->addCom($commentText, $reportID);
+
+    // もし必要であれば、$kijiIDに$reportIDを設定する。
+    $kijiID = $reportID;
+
+    // 記事詳細ページに戻るようにします
+    require_once __DIR__ . '/ndet.php';
+} else {
+    // もし必要なPOSTデータが受け取られない場合はこの対応になります。
+    echo "Error: Required POST data is missing.";
+}
+?>
