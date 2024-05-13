@@ -221,6 +221,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         .timestamptwo {
             display: inline-block;
             align-items: center;
+
         }
 
         .answer-info {
@@ -230,8 +231,10 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
         .date-and-like {
             display: flex;
-            align-items: center;
             /* 中央揃え */
+            align-items: center;
+            /* 要素内を1行で表示 */
+            white-space: nowrap;
         }
 
         .likes {
