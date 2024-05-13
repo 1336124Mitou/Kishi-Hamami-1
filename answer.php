@@ -304,7 +304,8 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             </div>
             <hr>
         <?php } ?>
-    </div>
+        <input class="button" onclick="check('popup');" type="button" value="回答追加">
+    </div>  
 </main>
 
 
