@@ -14,9 +14,16 @@ if (!isset($kiji)) {
     $kiji = new Report();
 }
 
+if (!isset($likeR)) {
+    require_once __DIR__ . '/likeR.php';
+    $likeR = new LikeRepo();
+}
+
 if (isset($_POST["kijiID"])) {
     $kijiID = $_POST["kijiID"];
 }
+
+$like = $likeR->showLikeR($kijiID);
 
 $showkiji = $kiji->showReport($kijiID);
 $showComments = $comment->showAllAnswer($kijiID);
@@ -161,11 +168,39 @@ $showComments = $comment->showAllAnswer($kijiID);
         .checkbox {
             display: none;
         }
+
+
+        .like {
+            /* position: absolute; */
+            display: inline-flex;
+            margin: auto;
+        }
     </style>
 
     <script>
         function check(id) {
             document.getElementById(id).checked = true;
+        }
+
+        function likeAnswer(replyId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "likeRadd.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    updateLikesDisplay();
+                }
+            };
+            xhr.send("ReplyID=" + replyId);
+        }
+
+        function updateLikesDisplay() {
+            //likesDisplayの数値を文字列として取得
+            var likesCount = document.getElementById('likesDisplay').innerText;
+            //文字列を数値に変換して1足す
+            var newCownt = Number(likesCount) + 1;
+            //likesDisplayの表示更新
+            document.getElementById('likesDisplay').innerText = newCownt;
         }
     </script>
 </head>
@@ -175,15 +210,18 @@ $showComments = $comment->showAllAnswer($kijiID);
     require_once __DIR__ . '/header.php';
     ?>
 
-    <h1><?= $showkiji['Title'] ?></h1>
-    <form id="form1"><?= $showkiji['Info'] ?></form>
-    <form method="post" action="LikeR">
-        <!-- いいねボタン -->
-        <div>
-            <p class="likenum" id="likesDisplay">0</p>
-            <input type="submit" class="likes" value="いいね！">
+    <div class="honbun">
+        <h1><?= $showkiji['Title'] ?></h1>
+        <form id="form1"><?= $showkiji['Info'] ?></form>
+        <br>
+        <div class="like">
+            <!-- いいねボタン -->
+            <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
+            <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
         </div>
-    </form>
+
+        <button type="submit" class="likes" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+    </div>
     <main>
         <div class="frame">
             <h2>回答</h2>
