@@ -3,7 +3,10 @@ if (!isset($kiji)) {
     require_once __DIR__ . '/kiji.php';
     $kiji = new Report();
 }
-
+if (!isset($tag)) {
+    require_once __DIR__ . '/tags.php';
+    $tags = new Tag();
+}
 $showKiji = $kiji->showAllReports();
 ?>
 
@@ -109,6 +112,7 @@ $showKiji = $kiji->showAllReports();
     .kiji {
         margin-left: 13px;
     }
+
     .extra {
         display: flex;
         align-items: center;
@@ -117,7 +121,7 @@ $showKiji = $kiji->showAllReports();
     #kijidata {
         color: #4267b2;
     }
-    
+
     #date {
         margin-left: 200px;
     }
@@ -144,29 +148,32 @@ $showKiji = $kiji->showAllReports();
             <div class="articles">
                 <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <?php
-                    $showKiji = array_reverse($showKiji);
+                $showKiji = array_reverse($showKiji);
 
-                    if (empty($showKiji)) { // 記事がない場合
-                        echo '<h4>記事はありません';
-                    } else {
-                        foreach ($showKiji as $showReport) {
+                if (empty($showKiji)) { // 記事がない場合
+                    echo '<h4>記事はありません';
+                } else {
+                    foreach ($showKiji as $showReport) {
+                        //記事IDからタグを取得する
+                        $rtag = $tags->showTagR($showReport['RepoID']);
                 ?>
-                <section class="kiji">
-                        <form method="post" name="kiji" action="ndet.php">
-                            <input type="hidden" name="kijiID" value="<?= $showReport['RepoID']?>">
-                            <h2 id="kijidata"><?= $showReport['Title'] ?></h2>
-                            <div class="extra">
-                                <input type="submit" value="詳細" id="more">
-                                <p id="date"><?= $showReport['D']?> <?= $showReport['Tim']?></p>
-                            </div>
-                        </form>
-                </section>
+                        <section class="kiji">
+                            <form method="post" name="kiji" action="ndet.php">
+                                <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
+                                <h2 id="kijidata"><?= $showReport['Title'] ?></h2>
+                                <p class="tag"># <?= $rtag['TagName'] ?></p>
+                                <div class="extra">
+                                    <input type="submit" value="詳細" id="more">
+                                    <p id="date"><?= $showReport['D'] ?> <?= $showReport['Tim'] ?></p>
+                                </div>
+                            </form>
+                        </section>
 
-                <hr>
+                        <hr>
 
                 <?php
-                        }
                     }
+                }
                 ?>
             </div>
         </div>
