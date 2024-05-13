@@ -144,6 +144,8 @@ $showKiji = $kiji->showAllReports();
             <div class="articles">
                 <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <?php
+                    $showKiji = array_reverse($showKiji);
+
                     if (empty($showKiji)) { // 記事がない場合
                         echo '<h4>記事はありません';
                     } else {
