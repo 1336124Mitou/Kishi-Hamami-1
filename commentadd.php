@@ -1,6 +1,6 @@
 <?php
 // 投稿された記事コメントのIDを受け取る
-$kiji = $_POST['kiji'];
+$kiji = $_POST['Com'];
 $Repo = $_POST['RepoID'];
 
 require_once __DIR__ . '/comment.php';
