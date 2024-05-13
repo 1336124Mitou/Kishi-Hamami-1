@@ -19,7 +19,7 @@ if (isset($_POST["kijiID"])) {
 }
 
 $showkiji = $kiji->showReport($report_id);
-// $showComments = $comment->showComment($report_id);
+$showComments = $comment->showAllAnswer($report_id);
 ?>
 
 <!DOCTYPE html>
@@ -146,6 +146,20 @@ $showkiji = $kiji->showReport($report_id);
         .comment-form button:hover {
             background-color: #0056b3;
         }
+
+        /* クリックでオーバーレイ表示 */
+        #popup:checked~#overlay {
+            visibility: visible;
+        }
+
+        #popup:checked~#overlay #window {
+            animation: fadein 500ms forwards;
+            animation-timing-function: ease-in-out;
+        }
+
+        .checkbox {
+            display: none;
+        }
     </style>
 </head>
 
@@ -164,7 +178,7 @@ $showkiji = $kiji->showReport($report_id);
             ?>
 
 
-                <p><?= $showComment['Report'] ?></p>
+                <p><?= $showComment['Reply'] ?></p>
                 <hr>
 
             <?php

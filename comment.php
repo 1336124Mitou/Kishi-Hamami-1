@@ -30,7 +30,7 @@ class Comment extends Dbdata
 
     public function showAllAnswer($RID)
     {
-        $sql = "select * from Report where RepID in (select RepID from RepR where RepoID = ?)";
+        $sql = "select * from Reply where RepID in (select RepID from RepR where RepoID = ?)";
         $stmt = $this->query($sql, [$RID]);
         $rep = $stmt->fetchAll();
         return $rep;
