@@ -271,6 +271,9 @@ $showTags = $tags->showTags();
             });
         }
     </script>
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
 
 </html>

@@ -168,8 +168,15 @@ $showComments = $comment->showAllAnswer($report_id);
     require_once __DIR__ . '/header.php';
     ?>
 
-    <h1><?= $showkiji['Title']?></h1>
-    <form id="form1"><?= $showkiji['Info']?></form>
+    <h1><?= $showkiji['Title'] ?></h1>
+    <form id="form1"><?= $showkiji['Info'] ?></form>
+    <form method="post" action="LikeR">
+        <!-- いいねボタン -->
+        <div>
+            <p class="likenum" id="likesDisplay">0</p>
+            <input type="submit" class="likes" value="いいね！">
+        </div>
+    </form>
     <main>
         <div class="frame">
             <h2>回答</h2>
@@ -214,6 +221,9 @@ $showComments = $comment->showAllAnswer($report_id);
             </div>
         </div>
     </div>
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
 
 </html>

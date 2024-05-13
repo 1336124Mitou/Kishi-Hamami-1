@@ -148,7 +148,8 @@ $showKiji = $kiji->showAllReports();
             <div class="articles">
                 <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <?php
-                function sortByDateTime($a, $b) {
+                function sortByDateTime($a, $b)
+                {
                     // 日を比較する
                     $dateComparison = strcmp($b['D'], $a['D']); // 降順に並び替える
                     if ($dateComparison != 0) {
@@ -179,7 +180,6 @@ $showKiji = $kiji->showAllReports();
                                 </div>
                             </form>
                         </section>
-
                         <hr>
 
                 <?php
@@ -190,6 +190,10 @@ $showKiji = $kiji->showAllReports();
         </div>
     </div>
 
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
+
 
 </html>
