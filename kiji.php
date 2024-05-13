@@ -10,6 +10,10 @@ class Report extends Dbdata
     {
         $sql = "insert into report(Title, info, D, Tim) values( ?, ?, ?, ?)";
         $result = $this->exec($sql, [$Title, $RepoDet, date("Y/m/d"), date("H:i")]);
+
+        $lastRID = $this->pdo->lastInsertId();
+
+        return $lastRID;
     }
 
     // 記事を表示するためにすべてのデータを取り出す
