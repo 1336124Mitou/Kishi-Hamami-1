@@ -148,7 +148,18 @@ $showKiji = $kiji->showAllReports();
             <div class="articles">
                 <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <?php
-                $showKiji = array_reverse($showKiji);
+                function sortByDateTime($a, $b) {
+                    // 日を比較する
+                    $dateComparison = strcmp($b['D'], $a['D']); // 降順に並び替える
+                    if ($dateComparison != 0) {
+                        return $dateComparison;
+                    }
+                    // もし日が同じであれば、時刻を比較します。
+                    return strcmp($b['Tim'], $a['Tim']); //降順に並び替える
+                }
+
+                // 並び変えた結果を表示します
+                usort($showKiji, 'sortByDateTime');
 
                 if (empty($showKiji)) { // 記事がない場合
                     echo '<h4>記事はありません';
