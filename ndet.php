@@ -15,11 +15,11 @@ if (!isset($kiji)) {
 }
 
 if (isset($_POST["kijiID"])) {
-    $report_id = $_POST["kijiID"];
+    $kijiID = $_POST["kijiID"];
 }
 
-$showkiji = $kiji->showReport($report_id);
-$showComments = $comment->showAllAnswer($report_id);
+$showkiji = $kiji->showReport($kijiID);
+$showComments = $comment->showAllAnswer($kijiID);
 ?>
 
 <!DOCTYPE html>
@@ -206,7 +206,7 @@ $showComments = $comment->showAllAnswer($report_id);
                     <h2>コメント投稿</h2>
                     <div class="textarea">
                         <textarea id="answer" name="Com" rows="5" cols="70" required></textarea><br><br>
-                        <input type="hidden" name="RepoID" value="<?= $report_id ?>">
+                        <input type="hidden" name="RepoID" value="<?= $kijiID ?>">
                         <div class="post">
                             <input type="submit" value="投稿">
                         </div>

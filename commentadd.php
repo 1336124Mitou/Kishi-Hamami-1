@@ -9,5 +9,5 @@ $comment = new Comment();
 session_start();
 $comment->addCom($kiji, $Repo);
 //受け取った$Ouestを$question_idとして定義する
-$report_id = $Repo;
+$kijiID = $Repo;
 require_once __DIR__ . '/ndet.php';
