@@ -1,10 +1,14 @@
 <?php
 if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
     require_once __DIR__ . '/shitsumon.php';
-    require_once __DIR__ . '/tags.php';
     $quest = new Quest();
+}
+
+if (!isset($tags)) { // $tagに必ずtagオブジェクトをセットするため
+    require_once __DIR__ . '/tags.php';
     $tags = new Tag();
 }
+
 if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
     $Filter = $_POST["Filter"];
 }

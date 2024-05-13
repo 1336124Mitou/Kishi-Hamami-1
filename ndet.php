@@ -1,10 +1,28 @@
+<?php
+if (!isset($comment)) {
+    require_once __DIR__ . '/comment.php';
+    $comment = new Comment();
+}
+
+if (!isset($tags)) {
+    require_once __DIR__ . '/tags.php';
+    $tags = new Tag();
+}
+
+if (isset($_POST["report_id"])) {
+    $report_id = $_POST["report_id"];
+}
+
+$showComments = $comment->showComment($report_id);
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment List</title>
+    <title>記事</title>
     <style>
         /* 記事 */
         #form1 {
@@ -132,102 +150,50 @@
 
     <h1>テンプレート</h1>
     <form id="form1"></form>
-    <div class="container">
-        <?php
-        // データベース接続設定
-        $host = 'localhost'; // データベースのホスト名
-        $db   = 'kishi'; // 作成したデータベース名
-        $user = 'Kishi'; // データベースユーザー名
-        $pass = 'hamami'; // データベースパスワード
-        $charset = 'utf8';
+    <main>
+        <div class="frame">
+            <h2>回答</h2>
+            <?php
+            foreach ($showComments as $showComment) {
+            ?>
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        ];
 
-        // データベース接続
-        try {
-            $pdo = new PDO($dsn, $user, $pass, $options);
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
-        }
+                <p><?= $showComment['Report'] ?></p>
+                <hr>
 
-        // コメントをデータベースに挿入
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comment"])) {
-            $comment = $_POST["comment"];
-            if ($comment !== "こんにちは") {
-                $currentDateTime = date("Y-m-d H:i:s"); // 現在の日時を取得
-
-                $stmt = $pdo->prepare("INSERT INTO Report (Info, D, Tim) VALUES (:comment, :currentDate, :currentTime)");
-                $stmt->bindParam(':comment', $comment);
-                $stmt->bindParam(':currentDate', date("Y-m-d")); // 日付の形式を変更
-                $stmt->bindParam(':currentTime', date("H:i:s")); // 時刻の形式を変更
-                $stmt->execute();
+            <?php
             }
-        }
+            ?>
+            <input class="button" onclick="check('popup');" type="button" value="コメント追加">
 
+        </div>
 
-        // コメント取得
-        $stmt = $pdo->prepare('SELECT RepoID, Info, D, Tim FROM Report');
-        $stmt->execute();
-        while ($row = $stmt->fetch()) {
-            echo '<div class="comment">';
-            echo '<span class="text">' . htmlspecialchars($row['Info']) . '</span>';
-            echo '<span class="timestamp">- ' . htmlspecialchars($row['D']) . ' ' . htmlspecialchars($row['Tim']) . '</span>';
-            echo '</div>';
-        }
-        ?>
+    </main>
 
-        <!-- コメント入力 -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <form id="commentForm" action="ndet.php" method="post" class="comment-form">
-                    <textarea name="comment" placeholder="コメントを入力してください" required></textarea>
-                    <button type="submit">投稿</button>
+    <!-- クリック動作判定 -->
+    <input class="checkbox" type="checkbox" id="popup">
+
+    <!-- ポップアップ部分 -->
+    <div id="overlay">
+        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+        <div id="window"> <!-- ウィンドウ部分 -->
+            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                <span></span>
+            </label>
+            <div id="msg"> <!-- ウィンドウのコンテンツ -->
+                <form method="POST" action="commentadd.php">
+                    <h2>コメント投稿</h2>
+                    <div class="textarea">
+                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea><br><br>
+                        <input type="hidden" name="RepoID" value="<?= $report_id ?>">
+                        <div class="post">
+                            <input type="submit" value="投稿">
+                        </div>
                 </form>
             </div>
         </div>
-
-        <button id="openModalBtn" onclick="openModal()">コメント入力</button>
     </div>
-
-    <script>
-        // モーダルを表示するための関数
-        function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        }
-
-        // モーダルを閉じるための関数
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        // コメント入力フォームの送信後にページをリロード
-        document.getElementById("commentForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var form = this;
-            var formData = new FormData(form);
-
-            fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    location.reload(); // ページをリロードしてコメントを表示
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
-
 </body>
 
 </html>
