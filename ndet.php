@@ -9,11 +9,17 @@ if (!isset($tags)) {
     $tags = new Tag();
 }
 
-if (isset($_POST["report_id"])) {
-    $report_id = $_POST["report_id"];
+if (!isset($kiji)) {
+    require_once __DIR__ . '/kiji.php';
+    $kiji = new Report();
 }
 
-$showComments = $comment->showComment($report_id);
+if (isset($_POST["kijiID"])) {
+    $report_id = $_POST["kijiID"];
+}
+
+$showkiji = $kiji->showReport();
+// $showComments = $comment->showComment($report_id);
 ?>
 
 <!DOCTYPE html>
@@ -148,7 +154,7 @@ $showComments = $comment->showComment($report_id);
     require_once __DIR__ . '/header.php';
     ?>
 
-    <h1>テンプレート</h1>
+    <h1><?=</h1>
     <form id="form1"></form>
     <main>
         <div class="frame">

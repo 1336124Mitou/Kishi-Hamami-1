@@ -206,7 +206,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         }
 
         .comment {
-    word-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .timestamptwo {
@@ -223,14 +223,14 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             display: flex;
             align-items: center;
         }
-                .date-and-like {
-    display: flex;
-    align-items: center; /* 中央揃え */
-                }
+        .date-and-like {
+            display: flex;
+            align-items: center; /* 中央揃え */
+        }
 
-.likes {
-    margin-left: 10px; /* いいねボタンと日付の間のスペースを調整するための余白 */
-}
+        .likes {
+            margin-left: 10px; /* いいねボタンと日付の間のスペースを調整するための余白 */
+        }
 
     </style>
 
