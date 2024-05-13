@@ -18,7 +18,7 @@ if (isset($_POST["kijiID"])) {
     $report_id = $_POST["kijiID"];
 }
 
-$showkiji = $kiji->showReport();
+$showkiji = $kiji->showReport($report_id);
 // $showComments = $comment->showComment($report_id);
 ?>
 
@@ -154,8 +154,8 @@ $showkiji = $kiji->showReport();
     require_once __DIR__ . '/header.php';
     ?>
 
-    <h1><?=</h1>
-    <form id="form1"></form>
+    <h1><?= $showkiji['Title']?></h1>
+    <form id="form1"><?= $showkiji['Info']?></form>
     <main>
         <div class="frame">
             <h2>回答</h2>
