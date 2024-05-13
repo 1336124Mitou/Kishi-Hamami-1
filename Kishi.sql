@@ -130,6 +130,8 @@ CREATE TABLE RepoTags (
     PRIMARY KEY (RepoID, TagID)
 );
 
+INSERT INTO RepoTags(RepoID, TagID) VALUES(1, 1);
+
 -- 記事のIDと質問のIDを関連するテーブル
 -- テーブルがあるなら削除
 DROP TABLE if EXISTS RepR;

@@ -76,6 +76,8 @@ $showTags = $tags->showTags();
 
         .que {
             text-align: right;
+            float: right;
+            margin: 10px;
         }
 
         .textarea {
@@ -100,6 +102,7 @@ $showTags = $tags->showTags();
             display: inline-flex;
             align-items: center;
             position: relative;
+            margin: 10px;
         }
 
         .filter::after {
@@ -115,7 +118,7 @@ $showTags = $tags->showTags();
 
         .filter select {
             appearance: none;
-            min-width: 230px;
+            min-width: 50px;
             height: 2.8em;
             padding: .4em calc(.8em + 30px) .4em .8em;
             border: 1px solid #d0d0d0;
@@ -184,9 +187,10 @@ $showTags = $tags->showTags();
     <!-- ここまでポップアップ -->
     <!-- 絞り込み機能 -->
     <label class="filter">
-        絞り込み
+
         <form method="post" action="">
             <select name="Filter" onchange="submit(this.form)">
+                <option disabled selected>絞り込む</option>
                 <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
                                     ?>>All</option>
                 <?php

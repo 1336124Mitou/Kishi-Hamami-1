@@ -11,6 +11,7 @@ require_once __DIR__ . '/tags.php';
 $Quest =  new Quest();
 $Tag = new Tag();
 session_start();
+//質問の内容を登録してIDを取得
 $QId = $Quest->addQuestion($Det, $UsID);
 $Tag->addTagQ($QId, $Qtag);
 
