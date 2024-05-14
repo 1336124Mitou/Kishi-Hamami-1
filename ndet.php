@@ -170,9 +170,14 @@ $showComments = $comment->showAllAnswer($kijiID);
         }
 
 
-        .like {
+        .likenum {
             /* position: absolute; */
-            display: inline-flex;
+
+            text-align: center;
+        }
+
+        .likebutton {
+            display: block;
             margin: auto;
         }
     </style>
@@ -214,13 +219,12 @@ $showComments = $comment->showAllAnswer($kijiID);
         <h1><?= $showkiji['Title'] ?></h1>
         <form id="form1"><?= $showkiji['Info'] ?></form>
         <br>
-        <div class="like">
-            <!-- いいねボタン -->
-            <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
-            <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
-        </div>
-
-        <button type="submit" class="likes" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+    </div>
+    <div class="like">
+        <!-- いいねボタン -->
+        <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
+        <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
+        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
     </div>
     <main>
         <div class="frame">
