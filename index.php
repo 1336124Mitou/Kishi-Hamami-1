@@ -109,6 +109,17 @@ $showKiji = $kiji->showAllReports();
         background-color: #007BFF;
     }
 
+    .textarea {
+        resize: none;
+        text-align: center;
+    }
+
+    .upload {
+        text-align: right;
+        float: right;
+        margin: 10px;
+    }
+
     .kiji {
         margin-left: 13px;
     }
@@ -146,7 +157,10 @@ $showKiji = $kiji->showAllReports();
             <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
-                <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
+                <div class="upload">
+                    <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
+                </div>
+                <br>
                 <?php
                 function sortByDateTime($a, $b)
                 {

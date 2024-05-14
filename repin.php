@@ -41,6 +41,18 @@ $showTags = $tags->showTags();
         .link {
             text-align: center;
         }
+
+        input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
     </style>
 </head>
 
@@ -70,7 +82,7 @@ $showTags = $tags->showTags();
                 ?>
             </select><br><br>
 
-            <input type="submit" value="投稿">
+            <input class="button" type="submit" value="投稿">
         </form>
     </div>
     <div class="link">
