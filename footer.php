@@ -10,6 +10,7 @@
         text-decoration: none;
         margin: 0;
         position: relative;
+        text-align: center;
     }
 
     .top::after {
@@ -34,6 +35,11 @@
         /* ホバー時の動作 */
         transform: scale(1, 1);
         transform-origin: left top;
+    }
+
+    footer {
+        padding: 10px 20px;
+        text-align: center;
     }
 </style>
 <footer>

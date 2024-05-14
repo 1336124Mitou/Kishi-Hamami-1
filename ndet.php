@@ -181,37 +181,41 @@ $showComments = $comment->showAllAnswer($kijiID);
             margin: auto;
         }
 
+        .top {
+            text-align: center;
+        }
+
         input.button {
-        border: 1px solid;
-        width: 150px;
-        height: 35px;
-        font-size: 15px;
-        align-self: center;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        background-color: #007BFF;
-    }
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
 
-    .post {
-        text-align: right;
-        float: right;
-        margin: 10px;
-    }
+        .post {
+            text-align: right;
+            float: right;
+            margin: 10px;
+        }
 
-    input.submit {
-        display: inline-block;
-        color: #fff;
-        background: #007BFF;
-        border-radius: 20px;
-        padding: 0.5em 1.5em;
-        border-color: #007BFF;
-    }
+        input.submit {
+            display: inline-block;
+            color: #fff;
+            background: #007BFF;
+            border-radius: 20px;
+            padding: 0.5em 1.5em;
+            border-color: #007BFF;
+        }
 
-    .textarea {
-        resize: none;
-        text-align: center;
-    }
+        .textarea {
+            resize: none;
+            text-align: center;
+        }
     </style>
 
     <script>
