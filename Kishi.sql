@@ -17,10 +17,11 @@ DROP TABLE if EXISTS Usr;
 
 -- テーブルUsrの作成
 CREATE TABLE Usr (
-    UsID INT PRIMARY KEY AUTO_INCREMENT,
+    UsID VARCHAR(50) PRIMARY KEY,
     UsName VARCHAR(255) UNIQUE NOT NULL,
-    Email VARCHAR(255) UNIQUE NOT NULL,
-    Passw VARCHAR(255) NOT NULL
+    Passw VARCHAR(255) NOT NULL,
+    Prof TEXT NOT NULL,
+    ProfPic BLOB
 );
 
 INSERT INTO Usr(UsID, UsName, Email, Passw) values(999, 'testuser', 'aaa', 'aaa');
@@ -189,11 +190,11 @@ CREATE TABLE Likes (
     UNIQUE KEY unique_repo_like (UsID, RepoID)
 );
 
--- 制作物のIDとタグのIDを関連するテーブル
+-- ユーザのデータが他のデータとちゃんと関連するためのテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS USlink;
 
--- テーブルProjTagsの作成
+-- USlinkのテーブルを作成する
 CREATE TABLE USlink (
     UsID INT NOT NULL,
     ProID INT DEFAULT NULL,

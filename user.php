@@ -20,3 +20,11 @@ class RU extends Dbdata
         }
     }
 }
+
+class User extends Dbdata
+{
+    public function NewUser($USID, $Name, $password, $ProInfo, $ProPic)
+    {
+        
+    }
+}
