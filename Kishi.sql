@@ -190,11 +190,11 @@ CREATE TABLE Likes (
     UNIQUE KEY unique_repo_like (UsID, RepoID)
 );
 
--- 制作物のIDとタグのIDを関連するテーブル
+-- ユーザのデータが他のデータとちゃんと関連するためのテーブル
 -- tableがあるなら削除
 DROP TABLE if EXISTS USlink;
 
--- テーブルProjTagsの作成
+-- USlinkのテーブルを作成する
 CREATE TABLE USlink (
     UsID INT NOT NULL,
     ProID INT DEFAULT NULL,
