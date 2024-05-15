@@ -9,7 +9,7 @@ class Report extends Dbdata
     public function addReport($RepoDet, $Title)
     {
         $sql = "insert into report(Title, info, D, Tim) values( ?, ?, ?, ?)";
-        $result = $this->exec($sql, [$Title, $RepoDet, date("Y/m/d"), date("H:i")]);
+        $result = $this->exec($sql, [$Title, $RepoDet, date("Y/m/d"), date("H:i:s")]);
 
         $lastRID = $this->pdo->lastInsertId();
 
@@ -19,7 +19,7 @@ class Report extends Dbdata
     // 記事を表示するためにすべてのデータを取り出す
     public function showAllReports()
     {
-        $sql = "select * from report order by D, Tim desc";
+        $sql = "select * from report";
         $stmt = $this->query($sql, []);
         $showAll = $stmt->fetchAll();
         return $showAll;
