@@ -53,4 +53,13 @@ class Tag extends DbData
         $rep = $stmt->fetchAll();
         return $rep;
     }
+
+    // 記事の絞り込みをするための関数
+    public function sortTagR($TagID)
+    {
+        $sql = "select * from report where RepoID in (select RepoID from RepoTags where TagID = ?)";
+        $stmt = $this->query($sql, [$TagID]);
+        $rep = $stmt->fetchAll();
+        return $rep;
+    }
 }
