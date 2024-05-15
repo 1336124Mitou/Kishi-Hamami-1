@@ -86,9 +86,7 @@ CREATE TABLE Reply (
     Reply TEXT NOT NULL,
     LNum INT NOT NULL DEFAULT 0,
     D DATE NOT NULL,
-    Tim TIME NOT NULL,
-    UsID INT NOT NULL,
-    FOREIGN KEY (UsID) REFERENCES Usr(UsID)
+    Tim TIME NOT NULL
 );
 
 -- 質問のIDと回答のIDを関連するテーブル
@@ -115,9 +113,7 @@ CREATE TABLE Report (
     Title VARCHAR(255) NOT NULL,
     LNum VARCHAR(255) DEFAULT 0,
     D DATE NOT NULL,
-    Tim TIME NOT NULL,
-    UsID INT NOT NULL,
-    FOREIGN KEY (UsID) REFERENCES Usr(UsID)
+    Tim TIME NOT NULL
 );
 
 INSERT INTO Report(Title, Info, D, Tim) VALUES ('C#の新しいフォームの作り方', 'テンプレート記事のために、具体的な内容を後で書くことにしました。:P', '2022-10-31', '13:13:00');
@@ -159,9 +155,7 @@ CREATE TABLE Project (
     ProID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     ProName VARCHAR(255) NOT NULL,
     ProjFile LONGBLOB NOT NULL,
-    Proexample VARCHAR(255) NOT NULL,
-    UsID INT NOT NULL,
-    FOREIGN KEY (UsID) REFERENCES Usr(UsID)
+    Proexample VARCHAR(255) NOT NULL
 );
 
 -- 制作物のIDとタグのIDを関連するテーブル
@@ -193,4 +187,21 @@ CREATE TABLE Likes (
     FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
     UNIQUE KEY unique_like (UsID, RepID),
     UNIQUE KEY unique_repo_like (UsID, RepoID)
+);
+
+-- 制作物のIDとタグのIDを関連するテーブル
+-- tableがあるなら削除
+DROP TABLE if EXISTS USlink;
+
+-- テーブルProjTagsの作成
+CREATE TABLE USlink (
+    UsID INT NOT NULL,
+    ProID INT NOT NULL,
+    RepID INT DEFAULT NULL,
+    RepoID INT DEFAULT NULL,
+    FOREIGN KEY (ProID) REFERENCES Project(ProID),
+    FOREIGN KEY (UsID) REFERENCES Usr(UsID),
+    FOREIGN KEY (RepID) REFERENCES Reply(RepID),
+    FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
+    PRIMARY KEY (ProID, RepoID, UsID, RepID)
 );
