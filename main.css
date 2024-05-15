@@ -42,7 +42,7 @@ header h1 {
     /* ナビゲーションのテキストのフォントサイズを20pxに設定 */
 }
 
-nav ul {
+.nav ul {
     overflow: hidden;
     list-style: none;
     margin: 0 auto;

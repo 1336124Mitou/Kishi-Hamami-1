@@ -3,6 +3,13 @@ if (!isset($kiji)) {
     require_once __DIR__ . '/kiji.php';
     $kiji = new Report();
 }
+
+if (!isset($tags)) { // $tagに必ずtagオブジェクトをセットするため
+    require_once __DIR__ . '/tags.php';
+    $tags = new Tag();
+}
+
+$showTags = $tags->showTags();
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +41,18 @@ if (!isset($kiji)) {
         .link {
             text-align: center;
         }
+
+        input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
     </style>
 </head>
 
@@ -51,7 +70,19 @@ if (!isset($kiji)) {
             <h4>記事内容</h4>
             <textarea id="report" name="RDet" placeholder="ここに記事を入力してください。" oninput="changeTextColor(this)" required></textarea><br>
 
-            <input type="submit" value="投稿">
+            <!-- タグ選択するコンボボックス -->
+            <h4>タグの選択</h4>
+            <select name="RTag">
+                <?php
+                    foreach ($showTags as $showtag) {
+                ?>
+                    <option value="<?= $showtag['TagID'] ?>"><?= $showtag['TagName'] ?></option>
+                <?php
+                    }
+                ?>
+            </select><br><br>
+
+            <input class="button" type="submit" value="投稿">
         </form>
     </div>
     <div class="link">

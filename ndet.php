@@ -9,11 +9,24 @@ if (!isset($tags)) {
     $tags = new Tag();
 }
 
-if (isset($_POST["report_id"])) {
-    $report_id = $_POST["report_id"];
+if (!isset($kiji)) {
+    require_once __DIR__ . '/kiji.php';
+    $kiji = new Report();
 }
 
-$showComments = $comment->showComment($report_id);
+if (!isset($likeR)) {
+    require_once __DIR__ . '/likeR.php';
+    $likeR = new LikeRepo();
+}
+
+if (isset($_POST["kijiID"])) {
+    $kijiID = $_POST["kijiID"];
+}
+
+$like = $likeR->showLikeR($kijiID);
+
+$showkiji = $kiji->showReport($kijiID);
+$showComments = $comment->showAllAnswer($kijiID);
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +35,7 @@ $showComments = $comment->showComment($report_id);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popup.css">
     <title>記事</title>
     <style>
         /* 記事 */
@@ -140,7 +154,96 @@ $showComments = $comment->showComment($report_id);
         .comment-form button:hover {
             background-color: #0056b3;
         }
+
+        /* クリックでオーバーレイ表示 */
+        #popup:checked~#overlay {
+            visibility: visible;
+        }
+
+        #popup:checked~#overlay #window {
+            animation: fadein 500ms forwards;
+            animation-timing-function: ease-in-out;
+        }
+
+        .checkbox {
+            display: none;
+        }
+
+
+        .likenum {
+            /* position: absolute; */
+
+            text-align: center;
+        }
+
+        .likebutton {
+            display: block;
+            margin: auto;
+        }
+
+        .top {
+            text-align: center;
+        }
+
+        input.button {
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
+
+        .post {
+            text-align: right;
+            float: right;
+            margin: 10px;
+        }
+
+        input.submit {
+            display: inline-block;
+            color: #fff;
+            background: #007BFF;
+            border-radius: 20px;
+            padding: 0.5em 1.5em;
+            border-color: #007BFF;
+        }
+
+        .textarea {
+            resize: none;
+            text-align: center;
+        }
     </style>
+
+    <script>
+        function check(id) {
+            document.getElementById(id).checked = true;
+        }
+
+        function likeAnswer(replyId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "likeRadd.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    updateLikesDisplay();
+                }
+            };
+            xhr.send("ReplyID=" + replyId);
+        }
+
+        function updateLikesDisplay() {
+            //likesDisplayの数値を文字列として取得
+            var likesCount = document.getElementById('likesDisplay').innerText;
+            //文字列を数値に変換して1足す
+            var newCownt = Number(likesCount) + 1;
+            //likesDisplayの表示更新
+            document.getElementById('likesDisplay').innerText = newCownt;
+        }
+    </script>
 </head>
 
 <body>
@@ -148,8 +251,17 @@ $showComments = $comment->showComment($report_id);
     require_once __DIR__ . '/header.php';
     ?>
 
-    <h1>テンプレート</h1>
-    <form id="form1"></form>
+    <div class="honbun">
+        <h1><?= $showkiji['Title'] ?></h1>
+        <form id="form1"><?= $showkiji['Info'] ?></form>
+        <br>
+    </div>
+    <div class="like">
+        <!-- いいねボタン -->
+        <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
+        <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
+        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+    </div>
     <main>
         <div class="frame">
             <h2>回答</h2>
@@ -158,7 +270,7 @@ $showComments = $comment->showComment($report_id);
             ?>
 
 
-                <p><?= $showComment['Report'] ?></p>
+                <p><?= $showComment['Reply'] ?></p>
                 <hr>
 
             <?php
@@ -186,14 +298,18 @@ $showComments = $comment->showComment($report_id);
                     <h2>コメント投稿</h2>
                     <div class="textarea">
                         <textarea id="answer" name="Com" rows="5" cols="70" required></textarea><br><br>
-                        <input type="hidden" name="RepoID" value="<?= $report_id ?>">
+                        <input type="hidden" name="RepoID" value="<?= $kijiID ?>">
                         <div class="post">
-                            <input type="submit" value="投稿">
+                            <input class="submit" type="submit" value="投稿">
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
 
 </html>

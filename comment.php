@@ -6,7 +6,7 @@ class Comment extends Dbdata
 {
     public function addCom($kiji, $RepoID)
     {
-        $sql_report = "INSERT INTO Report (Report, D, Tim) VALUES (?, ?, ?)";
+        $sql_report = "INSERT INTO Reply (Reply, D, Tim) VALUES (?, ?, ?)";
         $result_report = $this->exec($sql_report, [$kiji, date("Y-m-d"), date("H:i:s")]);
 
         if ($result_report) {
@@ -30,7 +30,7 @@ class Comment extends Dbdata
 
     public function showAllAnswer($RID)
     {
-        $sql = "select * from Report where RepID in (select RepID from RepR where RepoID = ?)";
+        $sql = "select * from Reply where RepID in (select RepID from RepR where RepoID = ?)";
         $stmt = $this->query($sql, [$RID]);
         $rep = $stmt->fetchAll();
         return $rep;

@@ -77,6 +77,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             margin-bottom: 10px;
             border: 1px solid #333333;
             border-radius: 10px;
+            word-break: break-all;
         }
 
         .checkbox {
@@ -203,6 +204,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         .timestamp {
             text-align: right;
             color: #9c9998;
+            float: right;
         }
 
         .comment {
@@ -214,9 +216,12 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             color: #9c9998;
         }
 
-        .likenum, .likes, .timestamptwo {
+        .likenum,
+        .likes,
+        .timestamptwo {
             display: inline-block;
             align-items: center;
+
         }
 
         .answer-info {
@@ -224,11 +229,18 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             align-items: center;
         }
 
-        .likes {
-            margin-right: 10px;
+        .date-and-like {
+            display: flex;
+            /* 中央揃え */
+            align-items: center;
+            /* 要素内を1行で表示 */
+            white-space: nowrap;
         }
 
-
+        .likes {
+            margin-left: 10px;
+            /* いいねボタンと日付の間のスペースを調整するための余白 */
+        }
     </style>
 
     <script>
@@ -258,103 +270,111 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     </script>
 </head>
 
-<>
+
+<?php
+require_once __DIR__ . '/header.php';
+?>
+<main>
     <?php
-    require_once __DIR__ . '/header.php';
+    $tag = $tags->showTagQ($question_id);
     ?>
-    <main>
-        <?php
-        $tag = $tags->showTagQ($question_id);
-        ?>
-        <div class="frame">
-            <h2>質問</h2>
-            <hr>
-
-            <p><?= $showQuestion['Question'] ?></p>
-
-            <p class="tag"># <?= $tag['TagName'] ?></p>
-
-            <p class="timestamp"><?= $showQuestion['D']?></p>
-        </div>
-    </main>
-
-    <main>
     <div class="frame">
-        <h2>回答</h2>
-     <!-- 回答部分 -->
-<?php foreach ($showAnswers as $showAnswer) { ?>
-   
-        <p class="comment"><?= $showAnswer['Reply'] ?></p><br>
-        <div class="answer-info">
-        <p class="likenum"><?= $showAnswer['LNum']?></p>
-        <!-- いいねボタン -->
-        <button class="likes" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>)">いいね！</button>
-        <p class="timestamptwo"><?= $showAnswer['D']?> <?= $showAnswer['Tim']?></p>
-    </div>
-    <hr>
-        <?php } ?>
+        <h2>質問</h2>
+        <hr>
+
+        <p><?= $showQuestion['Question'] ?></p>
+
+        <p class="tag"># <?= $tag['TagName'] ?></p><br>
+
+        <p class="timestamp"><?= $showQuestion['D'] ?></p>
         <input class="button" onclick="check('popup');" type="button" value="回答追加">
     </div>
 </main>
 
-
-        </div>
-
-    </main>
-
-
-
-    <!-- クリック動作判定 -->
-    <input class="checkbox" type="checkbox" id="popup">
-
-    <!-- ポップアップ部分 -->
-    <div id="overlay">
-        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
-
-        <div id="window"> <!-- ウィンドウ部分 -->
-            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
-                <span></span>
-            </label>
-            <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                <form method="POST" action="kaitouadd.php">
-                    <h2>回答投稿</h2>
-                    <div class="textarea">
-                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>
-                        <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
-                        <div class="post">
-                            <input type="submit" value="投稿">
+<main>
+    <div class="frame">
+        <h2>回答</h2>
+        <!-- 回答部分 -->
+        <?php foreach ($showAnswers as $showAnswer) { ?>
+            <div class="answer-info">
+                <div class="interaction">
+                    <!-- コメント -->
+                    <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
+                    <!-- 日付といいねボタン -->
+                    <div class="date-and-like">
+                        <!-- いいねボタン -->
+                        <div>
+                            <p class="likenum" id="likesDisplay<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></p>
+                            <button class="likes" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>)">いいね！</button>
                         </div>
-                </form>
+                        <!-- 日付 -->
+                        <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
+                    </div>
+                </div>
             </div>
-        </div>
+            <hr>
+        <?php } ?>
     </div>
+</main>
 
 
-
-    </div>
 
 <script>
-    function likeAnswer(answerId) {
-    // サーバーにいいねのリクエストを送信する
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "like.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // レスポンスを処理する
-            var response = xhr.responseText;
-            console.log(response); // 応答をログに出力するなどの処理
-            // ここでいいねの数を更新するなどの追加の処理を実行する
-        }
-    };
-    xhr.send("answer_id=" + answerId);
-}
+    function check(id) {
+        document.getElementById(id).checked = true;
+    }
 
+    function likeAnswer(answerId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "like.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                updateLikesDisplay(answerId, response);
+            }
+        };
+        xhr.send("answer_id=" + answerId);
+    }
+
+    function updateLikesDisplay(answerId, likesCount) {
+        document.getElementById('likesDisplay' + answerId).innerHTML = likesCount;
+    }
 </script>
 
-    <footer>
-        <p></p>
-    </footer>
+
+
+<!-- クリック動作判定 -->
+<input class="checkbox" type="checkbox" id="popup">
+
+<!-- ポップアップ部分 -->
+<div id="overlay">
+    <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+    <div id="window"> <!-- ウィンドウ部分 -->
+        <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+            <span></span>
+        </label>
+        <div id="msg"> <!-- ウィンドウのコンテンツ -->
+            <form method="POST" action="kaitouadd.php">
+                <h2>回答投稿</h2>
+                <div class="textarea">
+                    <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>
+                    <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
+                    <div class="post">
+                        <input type="submit" value="投稿">
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<?php
+require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+?>
 </body>
 
 </html>

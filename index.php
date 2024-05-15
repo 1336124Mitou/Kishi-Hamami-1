@@ -3,7 +3,10 @@ if (!isset($kiji)) {
     require_once __DIR__ . '/kiji.php';
     $kiji = new Report();
 }
-
+if (!isset($tag)) {
+    require_once __DIR__ . '/tags.php';
+    $tags = new Tag();
+}
 $showKiji = $kiji->showAllReports();
 ?>
 
@@ -79,6 +82,7 @@ $showKiji = $kiji->showAllReports();
     button {
         background-color: #fff;
         border-color: #fff;
+        margin-left: 5px;
     }
 
     p.tag {
@@ -104,6 +108,34 @@ $showKiji = $kiji->showAllReports();
         color: white;
         background-color: #007BFF;
     }
+
+    .textarea {
+        resize: none;
+        text-align: center;
+    }
+
+    .upload {
+        text-align: right;
+        float: right;
+        margin: 10px;
+    }
+
+    .kiji {
+        margin-left: 13px;
+    }
+
+    .extra {
+        display: flex;
+        align-items: center;
+    }
+
+    #kijidata {
+        color: #4267b2;
+    }
+
+    #date {
+        margin-left: 200px;
+    }
 </style>
 
 <body>
@@ -125,20 +157,44 @@ $showKiji = $kiji->showAllReports();
             <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
-                <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
+                <div class="upload">
+                    <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
+                </div>
+                <br>
                 <?php
+                function sortByDateTime($a, $b)
+                {
+                    // 日を比較する
+                    $dateComparison = strcmp($b['D'], $a['D']); // 降順に並び替える
+                    if ($dateComparison != 0) {
+                        return $dateComparison;
+                    }
+                    // もし日が同じであれば、時刻を比較します。
+                    return strcmp($b['Tim'], $a['Tim']); //降順に並び替える
+                }
+
+                // 並び変えた結果を表示します
+                usort($showKiji, 'sortByDateTime');
+
                 if (empty($showKiji)) { // 記事がない場合
                     echo '<h4>記事はありません';
                 } else {
                     foreach ($showKiji as $showReport) {
+                        //記事IDからタグを取得する
+                        $rtag = $tags->showTagR($showReport['RepoID']);
                 ?>
                         <section class="kiji">
                             <form method="post" name="kiji" action="ndet.php">
                                 <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
-                                <h2 class="kijidata"><?= $showReport['Title'] ?></h2>
-                                <input type="submit" value="詳細">
+                                <h2 id="kijidata"><?= $showReport['Title'] ?></h2>
+                                <p class="tag"># <?= $rtag['TagName'] ?></p>
+                                <div class="extra">
+                                    <input type="submit" value="詳細" id="more">
+                                    <p id="date"><?= $showReport['D'] ?> <?= $showReport['Tim'] ?></p>
+                                </div>
                             </form>
                         </section>
+                        <hr>
 
                 <?php
                     }
@@ -148,6 +204,10 @@ $showKiji = $kiji->showAllReports();
         </div>
     </div>
 
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
+
 
 </html>
