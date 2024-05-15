@@ -224,7 +224,7 @@ $showTags = $tags->showTags();
                                 <p class="tag"># <?= $rtag['TagName'] ?></p>
                                 <div class="extra">
                                     <input type="submit" value="詳細" id="more">
-                                    <p id="date"><?= $showReport['D'] ?> <?= $showReport['Tim'] ?></p>
+                                    <p id="date"><?= $showReport['D'] ?> <?= substr($showReport['Tim'], 0, 5) ?></p>
                                 </div>
                             </form>
                         </section>
