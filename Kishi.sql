@@ -24,7 +24,7 @@ CREATE TABLE Usr (
     ProfPic BLOB
 );
 
-INSERT INTO Usr(UsID, UsName, Email, Passw) values(999, 'testuser', 'aaa', 'aaa');
+INSERT INTO Usr(UsID, UsName, Passw, prof) values('kd1@gmail.com', 'testuser', 'aaa', 'aaa');
 
 -- タグのテーブル
 -- tableがあるなら削除
@@ -56,11 +56,11 @@ CREATE TABLE Question (
     D DATE NOT NULL,
     Tim TIME NOT NULL,
     Question TEXT NOT NULL,
-    UsID INT NOT NULL,
+    UsID VARCHAR(50) NOT NULL,
     FOREIGN KEY (UsID) REFERENCES Usr(UsID)
 );
 
-INSERT INTO Question(D, Tim, Question, UsID) VALUES ('2023-12-09', '12:02:00', 'C#のフォームの表示のやり方に関する質問', 999);
+INSERT INTO Question(D, Tim, Question, UsID) VALUES ('2023-12-09', '12:02:00', 'C#のフォームの表示のやり方に関する質問', 'kd1@gmail.com');
 
 -- 質問のIDとタグIDを関連するテーブル
 -- tableがあるなら削除
