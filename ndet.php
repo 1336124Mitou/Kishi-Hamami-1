@@ -277,20 +277,20 @@ $showComments = $comment->showAllAnswer($kijiID);
     </div>
     <main>
         <div class="frame">
-            <h2>回答</h2>
+            <h2>コメント</h2>
             <?php
             foreach ($showComments as $showComment) {
             ?>
 
                 <p><?= $showComment['Reply'] ?></p>
 
-                <p class="date"><?= $showComment['D']?> <?= $showComment['Tim']?></p>
+                <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
                 <!-- for later/後で追加 
                 <div class="infor">
-                    <p class="likenumtwo" id="likeDisplay"><?=$like["LNum"] ?></p>
+                    <p class="likenumtwo" id="likeDisplay"><?= $like["LNum"] ?></p>
                     <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
 
-                    <p class="date"><?= $showComment['D']?> <?= $showComment['Tim']?></p>
+                    <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
                 </div>
                 -->
                 <hr>

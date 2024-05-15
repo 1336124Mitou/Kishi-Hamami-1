@@ -145,7 +145,11 @@ $showKiji = $kiji->showAllReports();
 
     <div class="main">
         <div class="main_con">
+            <div class="upload">
+                <input class="button" onclick="location.href='repin.php'" type="button" value="記事投稿">
+            </div>
             <h2>記事一覧</h2>
+
             <!-- 絞り込み機能追加 -->
             <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
             <br>
@@ -157,9 +161,7 @@ $showKiji = $kiji->showAllReports();
             <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
-                <div class="upload">
-                    <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
-                </div>
+
                 <br>
                 <?php
                 function sortByDateTime($a, $b)
