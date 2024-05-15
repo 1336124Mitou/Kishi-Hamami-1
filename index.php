@@ -127,22 +127,22 @@ $showKiji = $kiji->showAllReports();
             <div class="articles">
                 <input class="button" onclick="location.href='repin.php'" type="button" value="記事公開">
                 <?php
-                    if (empty($showKiji)) { // 記事がない場合
-                        echo '<h4>記事はありません';
-                    } else {
-                        foreach ($showKiji as $showReport) {
+                if (empty($showKiji)) { // 記事がない場合
+                    echo '<h4>記事はありません';
+                } else {
+                    foreach ($showKiji as $showReport) {
                 ?>
-                <section class="kiji">
-                        <form method="post" name="kiji" action="ndet.php">
-                            <input type="hidden" name="kijiID" value="<?= $showReport['RepoID']?>">
-                            <h2 class="kijidata"><?= $showReport['Title'] ?></h2>
-                            <input type="submit" value="詳細">
-                        </form>
-                </section>
+                        <section class="kiji">
+                            <form method="post" name="kiji" action="ndet.php">
+                                <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
+                                <h2 class="kijidata"><?= $showReport['Title'] ?></h2>
+                                <input type="submit" value="詳細">
+                            </form>
+                        </section>
 
                 <?php
-                        }
                     }
+                }
                 ?>
             </div>
         </div>
