@@ -18,3 +18,13 @@ class LikeRepo extends Dbdata
         return $showLike;
     }
 }
+
+/*
+class LikeCom extends Dbdata
+{
+    public function addlikeC($ComID)
+    {
+        $sql = "UPDATE"
+    }
+}
+*/

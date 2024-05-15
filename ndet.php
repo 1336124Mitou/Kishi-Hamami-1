@@ -175,6 +175,20 @@ $showComments = $comment->showAllAnswer($kijiID);
             display: inline-flex;
             margin: auto;
         }
+
+        /* 後で追加
+        .likenumtwo,
+        .likestwo,
+        .date {
+            display: inline-block;
+            align-items: center;
+        }
+
+        .date {
+            margin-left: 250px;
+            color: #888;
+        }
+        */
     </style>
 
     <script>
@@ -229,8 +243,15 @@ $showComments = $comment->showAllAnswer($kijiID);
             foreach ($showComments as $showComment) {
             ?>
 
-
                 <p><?= $showComment['Reply'] ?></p>
+                <!-- for later/後で追加 
+                <div class="infor">
+                    <p class="likenumtwo" id="likeDisplay"><?=$like["LNum"] ?></p>
+                    <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+
+                    <p class="date"><?= $showComment['D']?> <?= $showComment['Tim']?></p>
+                </div>
+                -->
                 <hr>
 
             <?php
