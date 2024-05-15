@@ -53,16 +53,19 @@
             margin: 20px 0;
         }
         .profile-stat {
-            text-align: center;
-        }
-        .profile-stat span {
-            display: block;
-            font-size: 18px;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
         .profile-stat label {
             font-size: 12px;
             color: #777;
+            margin-right: 10px;
+        }
+        .profile-stat hr {
+            flex-grow: 1;
+            border: none;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
@@ -72,25 +75,17 @@
 
     <div class="profile-container">
     <div class="profile-header">
-        <img src="profile-image.jpg" alt="プロフィール画像" class="profile-img">
+        <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
             <div class="profile-name">山田 太郎</div>
             <div class="profile-username">@yamada_taro</div>
         </div>
     </div>
-    <div class="profile-bio">こんにちは！Web開発者で、趣味は読書と旅行です。</div>
+    <div class="profile-bio">なんか自己紹介とか！</div>
     <div class="profile-stats">
         <div class="profile-stat">
-            <span>150</span>
-            <label>投稿</label>
-        </div>
-        <div class="profile-stat">
-            <span>300</span>
-            <label>フォロワー</label>
-        </div>
-        <div class="profile-stat">
-            <span>180</span>
-            <label>フォロー中</label>
+            <label>プロフィール</label>
+            <hr>
         </div>
     </div>
     </div>
