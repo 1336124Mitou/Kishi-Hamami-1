@@ -170,9 +170,14 @@ $showComments = $comment->showAllAnswer($kijiID);
         }
 
 
-        .like {
+        .likenum {
             /* position: absolute; */
-            display: inline-flex;
+
+            text-align: center;
+        }
+
+        .likebutton {
+            display: block;
             margin: auto;
         }
 
@@ -189,6 +194,41 @@ $showComments = $comment->showAllAnswer($kijiID);
             color: #888;
         }
         */
+        .top {
+            text-align: center;
+        }
+
+        input.button {
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
+
+        .post {
+            text-align: right;
+            float: right;
+            margin: 10px;
+        }
+
+        input.submit {
+            display: inline-block;
+            color: #fff;
+            background: #007BFF;
+            border-radius: 20px;
+            padding: 0.5em 1.5em;
+            border-color: #007BFF;
+        }
+
+        .textarea {
+            resize: none;
+            text-align: center;
+        }
     </style>
 
     <script>
@@ -228,13 +268,12 @@ $showComments = $comment->showAllAnswer($kijiID);
         <h1><?= $showkiji['Title'] ?></h1>
         <form id="form1"><?= $showkiji['Info'] ?></form>
         <br>
-        <div class="like">
-            <!-- いいねボタン -->
-            <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
-            <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
-        </div>
-
-        <button type="submit" class="likes" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+    </div>
+    <div class="like">
+        <!-- いいねボタン -->
+        <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
+        <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
+        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
     </div>
     <main>
         <div class="frame">
