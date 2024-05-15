@@ -7,7 +7,17 @@ if (!isset($tag)) {
     require_once __DIR__ . '/tags.php';
     $tags = new Tag();
 }
-$showKiji = $kiji->showAllReports();
+if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
+    $Filter = $_POST["Filter"];
+}
+
+if (!isset($Filter)) { //$Filterが空なら全て表示する
+    $showKiji = $kiji->showAllReports();
+} else {
+    $showKiji = $tags->sortTagR($Filter);
+}
+
+$showTags = $tags->showTags();
 ?>
 
 <!DOCTYPE html>
@@ -152,6 +162,28 @@ $showKiji = $kiji->showAllReports();
 
             <!-- 絞り込み機能追加 -->
             <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
+            <label class="filter">
+
+                <form method="post" action="">
+                    <select name="Filter" onchange="submit(this.form)">
+                        <option disabled selected>絞り込む</option>
+                        <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                            ?>>All</option>
+                        <?php
+                        foreach ($showTags as $showTag) {
+                            if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                                $selected = 'selected';
+                            } else {
+                                $selected = '';
+                            }
+                        ?>
+                            <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </form>
+            </label>
             <br>
             <p>並べ替え</p>
             <!--並べ替え機能 ここから-->
