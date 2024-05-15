@@ -283,6 +283,8 @@ $showComments = $comment->showAllAnswer($kijiID);
             ?>
 
                 <p><?= $showComment['Reply'] ?></p>
+
+                <p class="date"><?= $showComment['D']?> <?= $showComment['Tim']?></p>
                 <!-- for later/後で追加 
                 <div class="infor">
                     <p class="likenumtwo" id="likeDisplay"><?=$like["LNum"] ?></p>
