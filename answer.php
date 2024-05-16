@@ -357,6 +357,8 @@ require_once __DIR__ . '/header.php';
         </label>
         <div id="msg"> <!-- ウィンドウのコンテンツ -->
             <form method="POST" action="kaitouadd.php">
+                <!-- ユーザーのIDを取得する -->
+                <input type="hidden" name="userID" value="kd1@gmail.com">
                 <h2>回答投稿</h2>
                 <div class="textarea">
                     <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>

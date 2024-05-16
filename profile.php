@@ -18,10 +18,11 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
+            width: 700px;
             text-align: center;
             padding: 20px;
             margin-left: 120px;
+            position: relative;
         }
         .profile-header {
             display: flex;
@@ -39,7 +40,7 @@
             font-weight: bold;
         }
         .profile-username {
-            font-size: 18px;
+            font-size: 14px;
             color: #777;
         }
         .profile-bio {
@@ -50,22 +51,44 @@
         .profile-stats {
             display: flex;
             justify-content: space-around;
+            align-items: flex-start;
             margin: 20px 0;
         }
         .profile-stat {
             display: flex;
             align-items: center;
             width: 100%;
+            margin-bottom: 10px;
         }
         .profile-stat label {
             font-size: 12px;
             color: #777;
-            margin-right: 10px;
+            margin-left: 100px;
         }
         .profile-stat hr {
             flex-grow: 1;
             border: none;
             border-top: 1px solid #ddd;
+        }
+        .email-address {
+            font-size: 14px;
+            color: #555;
+            margin-left: -145px;
+        }
+        .edit-profile-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .edit-profile-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -74,20 +97,22 @@
     <?php require_once __DIR__ . '/header.php'; ?>
 
     <div class="profile-container">
+    <button class="edit-profile-button">プロフィールを編集</button>
     <div class="profile-header">
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
-            <div class="profile-name">山田 太郎</div>
-            <div class="profile-username">@yamada_taro</div>
+            <div class="profile-name">岸本 昂己</div>
+            <div class="profile-username">@koki_kishimoto</div>
         </div>
     </div>
-    <div class="profile-bio">なんか自己紹介とか！</div>
+    <div class="profile-bio">なんでも頑張ります！</div>
     <div class="profile-stats">
         <div class="profile-stat">
             <label>プロフィール</label>
             <hr>
         </div>
     </div>
+    <div class="email-address">メールアドレス：kd1347722@st.kobedenshi.ac.jp</div>
     </div>
 
 </body>
