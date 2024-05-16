@@ -27,6 +27,7 @@
         .profile-header {
             display: flex;
             align-items: center;
+            text-align: left;
         }
         .profile-img {
             width: 80px;
@@ -34,6 +35,9 @@
             border-radius: 50%;
             object-fit: cover;
             margin-right: 20px;
+        }
+        .profile-details {
+            text-align: left;
         }
         .profile-name {
             font-size: 24px;
@@ -92,21 +96,21 @@
     <?php require_once __DIR__ . '/header.php'; ?>
 
     <div class="profile-container">
-    <button class="edit-profile-button">プロフィールを編集</button>
-    <div class="profile-header">
-        <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
-        <div>
-            <div class="profile-name">岸本 昂己</div>
-            <div class="profile-emailaddress">kd1347722@st.kobedenshi.ac.jp</div>
+        <button class="edit-profile-button">プロフィールを編集</button>
+        <div class="profile-header">
+            <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
+            <div class="profile-details">
+                <div class="profile-name">岸本 昂己</div>
+                <div class="profile-emailaddress">kd1347722@st.kobedenshi.ac.jp</div>
+            </div>
         </div>
-    </div>
-    <div class="profile-stats">
-        <div class="profile-stat">
-            <label>プロフィール</label>
-            <hr>
+        <div class="profile-stats">
+            <div class="profile-stat">
+                <label>プロフィール</label>
+                <hr>
+            </div>
         </div>
-    </div>
-    <div class="profile-bio">なんでも頑張ります！</div>
+        <div class="profile-bio">なんでも頑張ります！</div>
     </div>
 
 </body>
