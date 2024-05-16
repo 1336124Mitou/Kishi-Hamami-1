@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
+<?php
+if (!isset($user)) { //user変数が無ければ
+    require_once __DIR__ . '/user.php';
+    $user = new User();
+}
+?>
 
 <head>
+    <?php require_once __DIR__ . '/header.php';
+    //プロフィール情報を抽出
+    $profile = $user->myProfile($_SESSION['userId']);
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale-1.0">
     <title>ログイン</title>
@@ -38,9 +48,11 @@
             object-fit: cover;
             margin-right: 20px;
         }
+
         .profile-details {
             text-align: left;
         }
+
         .profile-name {
             font-size: 24px;
             font-weight: bold;
@@ -103,7 +115,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/header.php'; ?>
+
 
     <div class="profile-container">
         <button class="edit-profile-button">プロフィールを編集</button>
@@ -120,7 +132,7 @@
                 <hr>
             </div>
         </div>
-        <div class="profile-bio">なんでも頑張ります！</div>
+        <div class="profile-bio"><?= $profile['Prof'] ?></div>
     </div>
 
 </body>
