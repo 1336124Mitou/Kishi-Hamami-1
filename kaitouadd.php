@@ -2,6 +2,7 @@
 // 投稿されたコメントのIDを受け取る
 $Kai = $_POST['Com'];
 $Quest = $_POST['QuestionID'];
+// $UsID = $_POST['userID'];
 
 require_once __DIR__ . '/kaitou.php';
 

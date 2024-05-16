@@ -153,7 +153,7 @@ DROP TABLE if EXISTS Project;
 
 -- テーブルProjectの作成
 CREATE TABLE Project (
-    ProID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    ProID INT PRIMARY KEY AUTO_INCREMENT,
     ProName VARCHAR(255) NOT NULL,
     ProjFile LONGBLOB NOT NULL,
     Proexample VARCHAR(255) NOT NULL
@@ -190,19 +190,54 @@ CREATE TABLE Likes (
     UNIQUE KEY unique_repo_like (UsID, RepoID)
 );
 
--- ユーザのデータが他のデータとちゃんと関連するためのテーブル
--- tableがあるなら削除
-DROP TABLE if EXISTS USlink;
+-- ユーザーと関連する記事データのリンクを保持するテーブル
+-- テーブルがあるから削除
+DROP TABLE IF EXISTS URlink;
 
--- USlinkのテーブルを作成する
-CREATE TABLE USlink (
+-- URlinkのテーブルを作成する
+CREATE TABLE URlink (   
+    UsID VARCHAR(50) NOT NULL,
+    RepoID INT DEFAULT NULL,
+    FOREIGN KEY (UsID) REFERENCES Usr(UsID),
+    FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
+    PRIMARY KEY (UsID, RepoID)
+);
+
+-- ユーザーと関連する制作物データのリンクを保持するテーブル
+-- テーブルがあるから削除
+DROP TABLE IF EXISTS UPlink;
+
+-- UPlinkのテーブルを作成する
+CREATE TABLE UPlink (   
     UsID VARCHAR(50) NOT NULL,
     ProID INT DEFAULT NULL,
-    RepID INT DEFAULT NULL,
-    RepoID INT DEFAULT NULL,
+    FOREIGN KEY (UsID) REFERENCES Usr(UsID),
     FOREIGN KEY (ProID) REFERENCES Project(ProID),
+    PRIMARY KEY (UsID, ProID)
+);
+
+-- ユーザーと関連する回答データのリンクを保持するテーブル
+-- テーブルがあるから削除
+DROP TABLE IF EXISTS URelink;
+
+-- URelinkのテーブルを作成する
+CREATE TABLE URelink (   
+    UsID VARCHAR(50) NOT NULL,
+    RepID INT DEFAULT NULL,
     FOREIGN KEY (UsID) REFERENCES Usr(UsID),
     FOREIGN KEY (RepID) REFERENCES Reply(RepID),
-    FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
-    PRIMARY KEY (ProID, RepoID, UsID, RepID)
+    PRIMARY KEY (UsID, RepID)
+);
+
+-- ユーザーと関連する質問データのリンクを保持するテーブル
+-- テーブルがあるから削除
+DROP TABLE IF EXISTS UQlink;
+
+-- UQlinkのテーブルを作成する
+CREATE TABLE UQlink (   
+    UsID VARCHAR(50) NOT NULL,
+    QuestionID INT DEFAULT NULL,
+    FOREIGN KEY (UsID) REFERENCES Usr(UsID),
+    FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),
+    PRIMARY KEY (UsID, QuestionID)
 );

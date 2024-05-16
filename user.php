@@ -3,14 +3,19 @@
 // スーパークラスであるDbDataを利用
 require_once __DIR__ . '/dbdata.php';
 
-class RU extends Dbdata
+// ユーザーのデータと記事のデータを関連させる
+class UR extends Dbdata
 {
-    public function insertUSlink($UsID, $RepoID)
+    public function insertURlink($UsID, $RepoID)
     {
-        // sql文
-        $sql = "INSERT INTO USlink (UsID, RepoID) VALUES (?, ?)";
+        // SQL query to insert data into USlink table with UsID and RepoID
+        $sql = "INSERT INTO URlink (UsID, RepoID) VALUES (?, ?)";
+
+        // Execute the SQL query with provided UsID and RepoID
+        $result = $this->exec($sql, [$UsID, $RepoID]);
     }
 }
+
 
 class User extends Dbdata
 {
