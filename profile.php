@@ -18,7 +18,7 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
+            width: 700px;
             text-align: center;
             padding: 20px;
             margin-left: 120px;
@@ -39,7 +39,7 @@
             font-weight: bold;
         }
         .profile-username {
-            font-size: 18px;
+            font-size: 14px;
             color: #777;
         }
         .profile-bio {
@@ -61,6 +61,7 @@
             font-size: 12px;
             color: #777;
             margin-right: 10px;
+            margin-left: 100px;
         }
         .profile-stat hr {
             flex-grow: 1;
@@ -77,11 +78,11 @@
     <div class="profile-header">
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
-            <div class="profile-name">山田 太郎</div>
-            <div class="profile-username">@yamada_taro</div>
+            <div class="profile-name">岸本 昂己</div>
+            <div class="profile-username">@koki_kishimoto</div>
         </div>
     </div>
-    <div class="profile-bio">なんか自己紹介とか！</div>
+    <div class="profile-bio">なんでも頑張ります！</div>
     <div class="profile-stats">
         <div class="profile-stat">
             <label>プロフィール</label>
