@@ -13,5 +13,5 @@ session_start();
 $kaitou->addCom($Kai, $Quest);
 //受け取った$Ouestを$question_idとして定義する
 $question_id = $Quest;
-$User->insertURelink($UsID, $Quest);
+$User->insertURelink($UsID, $question_id);
 require_once __DIR__ . '/answer.php';

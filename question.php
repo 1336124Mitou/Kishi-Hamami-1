@@ -63,6 +63,8 @@
     <h1>質問入力</h1>
 
     <form method="POST" action="shitsumonadd.php">
+        <!-- ユーザーのIDを取得する -->
+        <input type="hidden" name="userID" value="kd1@gmail.com">
         <!-- テキストボックス -->
         <textarea id="quest" name="QDet" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
 
