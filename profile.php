@@ -22,6 +22,7 @@
             text-align: center;
             padding: 20px;
             margin-left: 120px;
+            position: relative;
         }
         .profile-header {
             display: flex;
@@ -50,23 +51,44 @@
         .profile-stats {
             display: flex;
             justify-content: space-around;
+            align-items: flex-start;
             margin: 20px 0;
         }
         .profile-stat {
             display: flex;
             align-items: center;
             width: 100%;
+            margin-bottom: 10px;
         }
         .profile-stat label {
             font-size: 12px;
             color: #777;
-            margin-right: 10px;
             margin-left: 100px;
         }
         .profile-stat hr {
             flex-grow: 1;
             border: none;
             border-top: 1px solid #ddd;
+        }
+        .email-address {
+            font-size: 14px;
+            color: #555;
+            margin-left: -145px;
+        }
+        .edit-profile-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .edit-profile-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -75,6 +97,7 @@
     <?php require_once __DIR__ . '/header.php'; ?>
 
     <div class="profile-container">
+    <button class="edit-profile-button">プロフィールを編集</button>
     <div class="profile-header">
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
@@ -89,6 +112,7 @@
             <hr>
         </div>
     </div>
+    <div class="email-address">メールアドレス：kd1347722@st.kobedenshi.ac.jp</div>
     </div>
 
 </body>
