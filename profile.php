@@ -50,23 +50,29 @@
         .profile-stats {
             display: flex;
             justify-content: space-around;
+            align-items: flex-start;
             margin: 20px 0;
         }
         .profile-stat {
             display: flex;
             align-items: center;
             width: 100%;
+            margin-bottom: 10px;
         }
         .profile-stat label {
             font-size: 12px;
             color: #777;
-            margin-right: 10px;
             margin-left: 100px;
         }
         .profile-stat hr {
             flex-grow: 1;
             border: none;
             border-top: 1px solid #ddd;
+        }
+        .email-address {
+            font-size: 14px;
+            color: #555;
+            margin-left: -145px;
         }
     </style>
 </head>
@@ -89,6 +95,7 @@
             <hr>
         </div>
     </div>
+    <div class="email-address">メールアドレス：kd1347722@st.kobedenshi.ac.jp</div>
     </div>
 
 </body>
