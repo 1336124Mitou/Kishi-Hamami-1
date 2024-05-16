@@ -6,7 +6,9 @@
     <meta name="viewport" content="width-device-width, initial-scale-1.0">
     <title>ログイン</title>
     <style>
-
+        .error {
+            color: red;
+        }
     </style>
 </head>
 
@@ -14,7 +16,7 @@
     <?php
     session_start();
     if (isset($_SESSION['login_error'])) { // ログイン時エラーメッセージがあれば
-        echo '<p class="error_class">' . $_SESSION['login_error'] . '</p>'; // そのエラーメッセージを表示し、
+        echo '<p class="error">' . 'ログインできませんでした。' . '<br>' . $_SESSION['login_error'] . '</p>'; // そのエラーメッセージを表示し、
         unset($_SESSION['login_error']); // セッション情報から削除する
     } else {
         echo '<p>利用するにあたってはログインしてください。</p>';
