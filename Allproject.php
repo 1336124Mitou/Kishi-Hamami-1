@@ -106,7 +106,7 @@ $conn->close();
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h2><a href='project.php?id=" . $project['ProID'] . "'>" . $project['ProName'] . "</a></h2>";
+                echo "<h2>" . $project['ProName'] . "</h2>";
                 echo "<p>" . $project['Proexample'] . "</p>";
                 echo "<form method='get' action='project.php'>";
                 echo "<input type='hidden' name='id' value='" . $project['ProID'] . "'>";
