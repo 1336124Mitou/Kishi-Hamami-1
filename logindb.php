@@ -4,7 +4,7 @@ $userId = $_POST['email'];
 $password = $_POST['password'];
 
 require_once __DIR__ . '/user.php';
-$user = new RU();
+$user = new User();
 $result = $user->logincheck($userId, $password);
 
 session_start();

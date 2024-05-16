@@ -6,13 +6,6 @@ require_once __DIR__ . '/dbdata.php';
 // ユーザーのデータと記事のデータを関連させる
 class UR extends Dbdata
 {
-    public function logincheck($UsID, $pass)
-    {
-        $sql = "select * from Usr where UsID = ? and Passw = ?";
-        $stmt = $this->query($sql, [$UsID, $pass]);
-        $result = $stmt->fetch();
-        return $result;
-    }
     public function insertUSlink($UsID, $RepoID)
     {
         // SQL query to insert data into USlink table with UsID and RepoID
@@ -55,7 +48,26 @@ class UQ extends Dbdata
 
 class User extends Dbdata
 {
-    public function NewUser($USID, $Name, $password, $ProInfo, $ProPic)
+    public function NewUser($USID, $Name, $password, $passCheck, $ProInfo, $ProPic)
     {
+        $sql = "SELECT * FROM usr WHERE UsID = ?";
+        $stmt = $this->query($sql, [$USID]);
+        $result = $stmt->fetch();
+        if ($result) {
+            return 'この'. $USID . 'は既に登録されています。';
+        }
+        if ($password == $passCheck) {
+            $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) values(?, ?, ?, ?, ?)";
+            $result = $this->exec($sql, [$USID, $Name, $password, $ProInfo, $ProPic]);
+        } else {
+            return 'パスワードの入力が間違っています';
+        }
+    }
+    public function logincheck($UsID, $pass)
+    {
+        $sql = "select * from Usr where UsID = ? and Passw = ?";
+        $stmt = $this->query($sql, [$UsID, $pass]);
+        $result = $stmt->fetch();
+        return $result;
     }
 }

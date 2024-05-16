@@ -1,4 +1,9 @@
 <?php
+session_start();
+//セッションにデータが無ければログイン画面に遷移する
+if (empty($_SESSION['userId'])) {
+    header('Location: login.php');
+}
 // フォームから送信されたデータを処理する
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // フォームから送信されたデータを取得する
@@ -63,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             position: relative;
-			left: -20px;
+            left: -20px;
         }
 
         div {
@@ -151,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-        /   // ファイル名を表示する関数
+        /   / / ファイル名を表示する関数
         document.querySelector('input[name="project"]').addEventListener('change', function(e) {
             const fileName = e.target.files[0].name;
             document.getElementById('fileName').textContent = '選択されたファイル: ' + fileName;
