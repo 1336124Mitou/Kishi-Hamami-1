@@ -14,6 +14,5 @@ session_start();
 $RID = $Report->addReport($RDet, $Title);
 $Tag->addTagR($RID, $RTag);
 
-header("Location:http://localhost/Kishi-Hamami-1/index.php");
+header("Location:index.php");
 exit();
-//require_once __DIR__ . '/index.php';

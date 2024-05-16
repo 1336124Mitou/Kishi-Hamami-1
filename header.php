@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
+<?php
+session_start();
+if (empty($_SESSION['userId'])) {
+    header('Location: login.php');
+}
+
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -53,7 +60,7 @@
                 document.querySelectorAll(".nav a").forEach(function(link) {
                     link.classList.remove("active-link");
                 });
-                
+
                 // もしマッチがあった場合、そのクラスを更新し、index.phpのクラスも更新します
                 var linkId = page.split('.')[0] + "Link";
                 document.getElementById(linkId).classList.remove("btn4");
