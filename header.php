@@ -74,8 +74,8 @@ if (empty($_SESSION['userId'])) {
             <!-- ポップアップメニュー -->
             <div id="popupMenu" class="popup-menu">
                 <a href="profile.php">マイプロフィール</a>
-                <a href="">プロフィール変更</a>
-                <a href="logout.php">ログアウト</a>
+                <a href="">プロフィール編集</a>
+                <a href="logout.php" class="logout">ログアウト</a>
             </div>
             <h1>プログラミング情報共有サイト（仮）</h1>
             <nav>
