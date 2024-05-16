@@ -22,6 +22,7 @@
             text-align: center;
             padding: 20px;
             margin-left: 120px;
+            position: relative;
         }
         .profile-header {
             display: flex;
@@ -74,6 +75,21 @@
             color: #555;
             margin-left: -145px;
         }
+        .edit-profile-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .edit-profile-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -81,6 +97,7 @@
     <?php require_once __DIR__ . '/header.php'; ?>
 
     <div class="profile-container">
+    <button class="edit-profile-button">プロフィールを編集</button>
     <div class="profile-header">
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>

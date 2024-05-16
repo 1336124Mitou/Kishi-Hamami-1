@@ -43,16 +43,16 @@ $showTags = $tags->showTags();
         }
 
         input.button {
-        border: 1px solid;
-        width: 150px;
-        height: 35px;
-        font-size: 15px;
-        align-self: center;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        background-color: #007BFF;
-    }
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
     </style>
 </head>
 
@@ -62,6 +62,8 @@ $showTags = $tags->showTags();
         <h1>記事投稿</h1>
 
         <form method="POST" action="kijiadd.php">
+            <!-- ユーザーのIDを取得する -->
+            <input type="hidden" name="userID" value="kd1@gmail.com">
             <!-- 記事タイトル入力 -->
             <h4>記事のタイトル</h4>
             <textarea id="Title" name="Title" placeholder="ここに記事のタイトルを書いてください" required></textarea>
@@ -74,11 +76,11 @@ $showTags = $tags->showTags();
             <h4>タグの選択</h4>
             <select name="RTag">
                 <?php
-                    foreach ($showTags as $showtag) {
+                foreach ($showTags as $showtag) {
                 ?>
                     <option value="<?= $showtag['TagID'] ?>"><?= $showtag['TagName'] ?></option>
                 <?php
-                    }
+                }
                 ?>
             </select><br><br>
 
