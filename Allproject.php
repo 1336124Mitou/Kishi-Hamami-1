@@ -117,9 +117,11 @@ $conn->close();
             ?>
             
         </div>
-        
-        <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
     </div>
+
+    <?php
+    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+    ?>
 </body>
 
 </html>
