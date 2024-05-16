@@ -39,7 +39,7 @@
             font-size: 24px;
             font-weight: bold;
         }
-        .profile-username {
+        .profile-emailaddress {
             font-size: 14px;
             color: #777;
         }
@@ -70,11 +70,6 @@
             border: none;
             border-top: 1px solid #ddd;
         }
-        .email-address {
-            font-size: 14px;
-            color: #555;
-            margin-left: -145px;
-        }
         .edit-profile-button {
             background-color: #007bff;
             color: white;
@@ -102,17 +97,16 @@
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
             <div class="profile-name">岸本 昂己</div>
-            <div class="profile-username">@koki_kishimoto</div>
+            <div class="profile-emailaddress">kd1347722@st.kobedenshi.ac.jp</div>
         </div>
     </div>
-    <div class="profile-bio">なんでも頑張ります！</div>
     <div class="profile-stats">
         <div class="profile-stat">
             <label>プロフィール</label>
             <hr>
         </div>
     </div>
-    <div class="email-address">メールアドレス：kd1347722@st.kobedenshi.ac.jp</div>
+    <div class="profile-bio">なんでも頑張ります！</div>
     </div>
 
 </body>
