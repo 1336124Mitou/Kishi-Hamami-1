@@ -35,52 +35,62 @@ $conn->close();
     <title>投稿一覧</title>
     <link href="main.css" rel="stylesheet">
     <style>
-    .main {
-        padding: 20px;
-    }
+      main {
+            padding: 20px;
+        }
 
-    h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #000000;
-    }
+        .project-item {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
 
-    .project-item {
-        background-color: #7e7e7e;
-        border-radius: 5px;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
+    .project-item h2 {
+            color: #4267b2;
+        }
 
-    .project-item h3 {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #000000;
-    }
+        .project-item a {
+            color: #4267b2;
+            text-decoration: none;
+        }
 
-    .project-item p {
-        font-size: 16px;
-        color: #333333;
-    }
+        /* ボタンの微調整 */
+        input.button {
+            border: 1px solid;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            align-self: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+        }
 
-    /* ボタンの微調整 */
-    input.button {
-        border: 1px solid;
-        width: 150px;
-        height: 35px;
-        font-size: 15px;
-        align-self: center;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        background-color: #007BFF;
-    }
+        .que {
+            text-align: right;
+            float: right;
+            margin: 10px;
+        }
 
-    .show {
-        text-align: right;
-    }
+        .textarea {
+            resize: none;
+            text-align: center;
+        }
+
+        input.submit {
+            display: inline-block;
+            color: #fff;
+            background: #007BFF;
+            border-radius: 20px;
+            padding: 0.5em 1.5em;
+            border-color: #007BFF;
+        }
+
+        input.submit:hover {
+            opacity: 0.7;
+        }
+
 </style>
 </head>
 
@@ -96,11 +106,16 @@ $conn->close();
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h3><a href='project.php?id=" . $project['ProID'] . "'>" . $project['ProName'] . "</a></h3>";
+                echo "<h2>" . $project['ProName'] . "</h2>";
                 echo "<p>" . $project['Proexample'] . "</p>";
+                echo "<form method='get' action='project.php'>";
+                echo "<input type='hidden' name='id' value='" . $project['ProID'] . "'>";
+                echo "<input type='submit' value='詳細'>";
+                echo "</form>";
                 echo "</div>";
             }
             ?>
+            
         </div>
         
         <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
@@ -108,5 +123,4 @@ $conn->close();
 </body>
 
 </html>
-
 
