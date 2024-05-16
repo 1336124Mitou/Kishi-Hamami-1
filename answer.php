@@ -30,6 +30,9 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 <html lang="ja">
 
 <head>
+    <?php
+    require_once __DIR__ . '/header.php';
+    ?>
     <meta charset="UTF-8">
     <title>質問詳細</title>
 
@@ -271,9 +274,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 </head>
 
 
-<?php
-require_once __DIR__ . '/header.php';
-?>
+
 <main>
     <?php
     $tag = $tags->showTagQ($question_id);

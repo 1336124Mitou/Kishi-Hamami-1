@@ -6,13 +6,6 @@ require_once __DIR__ . '/dbdata.php';
 // ユーザーのデータと記事のデータを関連させる
 class UR extends Dbdata
 {
-    public function logincheck($UsID, $pass)
-    {
-        $sql = "select * from Usr where UsID = ? and Passw = ?";
-        $stmt = $this->query($sql, [$UsID, $pass]);
-        $result = $stmt->fetch();
-        return $result;
-    }
     public function insertUSlink($UsID, $RepoID)
     {
         // SQL query to insert data into USlink table with UsID and RepoID
@@ -57,5 +50,12 @@ class User extends Dbdata
 {
     public function NewUser($USID, $Name, $password, $ProInfo, $ProPic)
     {
+    }
+    public function logincheck($UsID, $pass)
+    {
+        $sql = "select * from Usr where UsID = ? and Passw = ?";
+        $stmt = $this->query($sql, [$UsID, $pass]);
+        $result = $stmt->fetch();
+        return $result;
     }
 }

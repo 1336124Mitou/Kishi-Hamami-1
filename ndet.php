@@ -36,6 +36,9 @@ $showComments = $comment->showAllAnswer($kijiID);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="popup.css">
+    <?php
+    require_once __DIR__ . '/header.php';
+    ?>
     <title>記事</title>
     <style>
         /* 記事 */
@@ -260,9 +263,6 @@ $showComments = $comment->showAllAnswer($kijiID);
 </head>
 
 <body>
-    <?php
-    require_once __DIR__ . '/header.php';
-    ?>
 
     <div class="honbun">
         <h1><?= $showkiji['Title'] ?></h1>

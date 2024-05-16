@@ -1,4 +1,9 @@
 <?php
+session_start();
+//セッションにデータが無ければログイン画面に遷移する
+if (empty($_SESSION['userId'])) {
+    header('Location: login.php');
+}
 if (!isset($kiji)) {
     require_once __DIR__ . '/kiji.php';
     $kiji = new Report();
