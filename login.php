@@ -15,6 +15,8 @@
 <body>
     <?php
     session_start();
+    unset($_SESSION['userId']);
+    unset($_SESSION['userName']);
     if (isset($_SESSION['login_error'])) { // ログイン時エラーメッセージがあれば
         echo '<p class="error">' . 'ログインできませんでした。' . '<br>' . $_SESSION['login_error'] . '</p>'; // そのエラーメッセージを表示し、
         unset($_SESSION['login_error']); // セッション情報から削除する
