@@ -65,7 +65,7 @@ class User extends Dbdata
     }
     public function logincheck($UsID, $pass)
     {
-        $sql = "select * from Usr where UsID = ? and Passw = ?";
+        $sql = "SELECT * FROM Usr WHERE UsID = ? AND Passw = ?";
         $stmt = $this->query($sql, [$UsID, $pass]);
         $result = $stmt->fetch();
         return $result;
@@ -74,6 +74,17 @@ class User extends Dbdata
     public function myProfile($UsID)
     {
         $sql = "select * from Usr where UsID = ?";
+        $stmt = $this->query($sql, [$UsID]);
+        $result = $stmt->fetch();
+        return $result;
+    }
+
+    public function passchange($UsID, $newPass)
+    {
+        $sql = "UPDATE Usr SET passw = ? WHERE UsID = ?";
+        $result = $this->exec($sql, [$newPass, $UsID]);
+        //データベースから新しいパスワードを取得する
+        $sql = "SELECT * FROM Usr WHERE UsID = ?";
         $stmt = $this->query($sql, [$UsID]);
         $result = $stmt->fetch();
         return $result;
