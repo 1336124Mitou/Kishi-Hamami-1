@@ -64,6 +64,43 @@ if (empty($_SESSION['userId'])) {
             right: 0;
             /* アイコンの右端に揃える */
         }
+
+        .logoutbutton {
+            cursor: pointer;
+        }
+
+        .logout {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: solid 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* 表示の優先度を設定 このコードでは一番手前に表示する*/
+            z-index: 2;
+        }
+
+        /* オーバーレイ */
+        .overlay2 {
+            /* デフォルトでは見えないようにする */
+            display: none;
+            /* 位置を固定 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* 画面いっぱいに広がるようにする */
+            width: 100%;
+            height: 100vh;
+            /* rgbaを使って60%の黒いオーバーレイにする */
+            background: rgba(0, 0, 0, 0.6);
+            /* 表示する際の変化の所要時間 */
+            transition: .3s;
+            /* 表示の優先度を設定 指定なしや0より手前に表示する*/
+            z-index: 1;
+        }
     </style>
 </head>
 
@@ -75,9 +112,10 @@ if (empty($_SESSION['userId'])) {
             <div id="popupMenu" class="popup-menu">
                 <a href="profile.php">マイプロフィール</a>
                 <a href="update_profile.php">プロフィール編集</a>
-                <a href="logout.php" class="logout">ログアウト</a>
+                <a href="passchan.php">パスワード設定</a>
+                <p class="logoutbutton" id="logoutbutton">ログアウト</p>
             </div>
-            <h1>プログラミング情報共有サイト（仮）</h1>
+            <h1 id="Title">プログラミング情報共有サイト（仮）</h1>
             <nav>
                 <ul class="nav">
                     <!--ヘッダー ここから-->
@@ -88,7 +126,15 @@ if (empty($_SESSION['userId'])) {
                 </ul>
             </nav>
         </div>
+        <div class="logout" id="logout">
+            <p class="logoutTitle">本当にログアウトしますか?</p>
+            <button class="yes" id="yes" onclick="location.href='logout.php'">はい</button>
+            <button class="no" id="no">いいえ</button>
+        </div>
     </header>
+
+    <!-- オーバーレイ -->
+    <div class="overlay2" id="overlay2"></div>
 
     <script>
         // 現ページのURLを取得します
@@ -135,6 +181,25 @@ if (empty($_SESSION['userId'])) {
                     popupMenu.classList.remove('show');
                 }
             }
+        }
+
+
+        const overlay = document.getElementById("overlay2");
+        const logout = document.getElementById("logout");
+        //ログアウト確認のモーダルウィンドウを表示
+        document.getElementById("logoutbutton").onclick = function() {
+            logout.style.display = "block";
+            overlay.style.display = "block";
+        }
+
+        overlay.onclick = function() {
+            logout.style.display = "none";
+            overlay.style.display = "none";
+        }
+
+        document.getElementById("no").onclick = function() {
+            logout.style.display = "none";
+            overlay.style.display = "none";
         }
     </script>
 </body>

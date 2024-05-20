@@ -54,7 +54,7 @@ class User extends Dbdata
         $stmt = $this->query($sql, [$USID]);
         $result = $stmt->fetch();
         if ($result) {
-            return 'この'. $USID . 'は既に登録されています。';
+            return 'この' . $USID . 'は既に登録されています。';
         }
         if ($password == $passCheck) {
             $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) values(?, ?, ?, ?, ?)";
@@ -67,6 +67,14 @@ class User extends Dbdata
     {
         $sql = "select * from Usr where UsID = ? and Passw = ?";
         $stmt = $this->query($sql, [$UsID, $pass]);
+        $result = $stmt->fetch();
+        return $result;
+    }
+
+    public function myProfile($UsID)
+    {
+        $sql = "select * from Usr where UsID = ?";
+        $stmt = $this->query($sql, [$UsID]);
         $result = $stmt->fetch();
         return $result;
     }
