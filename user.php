@@ -54,13 +54,15 @@ class User extends Dbdata
         $stmt = $this->query($sql, [$USID]);
         $result = $stmt->fetch();
         if ($result) {
-            return 'この' . $USID . 'は既に登録されています。';
+            // return 'この' . $USID . 'は既に登録されています。';
+            return 1;
         }
         if ($password == $passCheck) {
             $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) values(?, ?, ?, ?, ?)";
             $result = $this->exec($sql, [$USID, $Name, $password, $ProInfo, $ProPic]);
         } else {
-            return 'パスワードの入力が間違っています';
+            // return 'パスワードの入力が間違っています';
+            return 2;
         }
     }
     public function logincheck($UsID, $pass)
