@@ -6,7 +6,7 @@ require_once __DIR__ . '/dbdata.php';
 // ユーザーのデータと記事のデータを関連させる
 class UR extends Dbdata
 {
-    public function insertUSlink($UsID, $RepoID)
+    public function insertURlink($UsID, $RepoID)
     {
         // SQL query to insert data into USlink table with UsID and RepoID
         $sql = "INSERT INTO URlink (UsID, RepoID) VALUES (?, ?)";
