@@ -13,12 +13,15 @@ class User extends Dbdata
         $result = $stmt->fetch();
 
         if ($result) {
-            return 'この' . $UsID . 'は既に登録されています。';
+            // return 'この' . $USID . 'は既に登録されています。';
+            return 1;
         }
-
-        // パスワードが一致するか確認
-        if ($password !== $passCheck) {
-            return 'パスワードの入力が間違っています';
+        if ($password == $passCheck) {
+            $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) values(?, ?, ?, ?, ?)";
+            $result = $this->exec($sql, [$UsID, $Name, $password, $ProInfo, $ProPic]);
+        } else {
+            // return 'パスワードの入力が間違っています';
+            return 2;
         }
 
         // 新しいユーザーをデータベースに挿入
