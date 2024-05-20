@@ -8,6 +8,8 @@ class Comment extends Dbdata
     {
         $sql_reply = "INSERT INTO Reply (Reply, D, Tim) VALUES (?, ?, ?)";
         $result_reply = $this->exec($sql_reply, [$Com, date("Y-m-d"), date("H:i:s")]);
+        // 最後に入力された回答のIDを取得する
+        $lastAId = $this->pdo->lastInsertId();
 
         if ($result_reply) {
             // Replyテーブルにデータの保存がうまくいけば、INSERT INTO RepQ文を実行する
@@ -16,7 +18,7 @@ class Comment extends Dbdata
             $result_repq = $this->exec($sql_repq, [$RepID, $QuestionID]);
 
             if ($result_repq) {
-                return true; // 両方のINSERTが成功しました。
+                return $lastAId; // 両方のINSERTが成功しました。
             } else {
                 // Rollback the insertion into Reply table since insertion into RepQ failed
                 // INSERT INTO RepQが失敗したので、INSERT INTO Replyに戻します。
