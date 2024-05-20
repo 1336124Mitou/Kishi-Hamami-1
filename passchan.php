@@ -65,19 +65,32 @@
         .password-form button:hover {
             background-color: #0056b3;
         }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 
 <body>
     <div class="password-container">
+        <?php
+        if (isset($error)) { //エラーメッセージがあれば表示する
+            echo '<p class="error">' . $error . '</p>';
+        }
+        if (isset($mess)) { //エラーメッセージ以外のメッセージがあれば表示する
+            echo '<p class="mess">' . $mess . '</p>';
+        }
+        ?>
         <div class="password-header">パスワード変更</div>
-        <form class="password-form">
+        <form class="password-form" method="post" action="passchandb.php">
             <label for="current-password">現在のパスワード</label>
             <input type="password" id="current-password" name="current_password" required>
             <label for="new-password">新しいパスワード</label>
             <input type="password" id="new-password" name="new_password" required>
             <label for="confirm-password">新しいパスワード (確認)</label>
             <input type="password" id="confirm-password" name="confirm_password" required>
+            <input type="hidden" name="userId" value="<?= $_SESSION['userId'] ?>">
             <button type="submit">変更する</button>
         </form>
     </div>
