@@ -122,10 +122,10 @@ $profile = $user->myProfile($_SESSION['userId']);
     <div class="update-container">
         <div class="update-header">プロフィール更新</div>
         <?php if ($error): ?>
-            <div class="form-group error"><?= $error ?></div>
+            <div class="form-group error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
         <?php if ($success): ?>
-            <div class="form-group success"><?= $success ?></div>
+            <div class="form-group success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
         <form action="update_profile.php" method="POST">
             <div class="form-group">

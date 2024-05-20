@@ -69,12 +69,24 @@ class User extends Dbdata
 
     // ユーザーのプロフィールを更新するメソッド
     public function updateProfile($userId, $newUserName, $newBio) {
-        // データベースの更新処理を行う
-        // この部分は具体的に、ユーザーのプロフィール情報を更新するSQLクエリを実行する処理を実装します
-        // 例えば、UPDATE文を使用してユーザーの名前とプロフィール情報を更新する
-        $sql = "UPDATE usr SET Usname = ?, Prof = ? WHERE UsId = ?";
-        $this->exec($sql, [$newUserName, $newBio, $userId]);
+        try {
+            // データベースの更新処理を行う
+            $sql = "UPDATE usr SET UsName = ?, Prof = ? WHERE UsId = ?";
+            $stmt = $this->exec($sql, [$newUserName, $newBio, $userId]);
+    
+            // 更新された行数を確認
+            if ($stmt->rowCount() > 0) {
+                return true; // 更新成功
+            } else {
+                return false; // 更新なし
+            }
+        } catch (Exception $e) {
+            // エラーハンドリング
+            error_log("Error updating profile: " . $e->getMessage());
+            return false;
+        }
     }
+    
 }
 
 ?>
