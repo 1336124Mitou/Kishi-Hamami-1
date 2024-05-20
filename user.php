@@ -70,4 +70,12 @@ class User extends Dbdata
         $result = $stmt->fetch();
         return $result;
     }
+
+    public function myProfile($UsID)
+    {
+        $sql = "select * from Usr where UsID = ?";
+        $stmt = $this->query($sql, [$UsID]);
+        $result = $stmt->fetch();
+        return $result;
+    }
 }
