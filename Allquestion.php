@@ -158,8 +158,7 @@ $showTags = $tags->showTags();
                     <h2>質問投稿</h2>
                     <div class="textarea">
                         <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
-                        <!-- ユーザーのIDを取得する -->
-                        <input type="hidden" name="userid" value="kd1@gmail.com">
+
                         <!-- タグIDをおくる -->
                         <select name="Qtag">
                             <?php
