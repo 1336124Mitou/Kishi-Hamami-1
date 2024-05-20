@@ -24,12 +24,6 @@ class User extends Dbdata
             return 2;
         }
 
-        // 新しいユーザーをデータベースに挿入
-        $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) VALUES (?, ?, ?, ?, ?)";
-        $this->exec($sql, [$UsID, $Name, $password, $ProInfo, $ProPic]);
-
-        return true; // 登録成功を示す true を返す
-
 
     }
 
