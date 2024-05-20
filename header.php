@@ -112,6 +112,7 @@ if (empty($_SESSION['userId'])) {
             <div id="popupMenu" class="popup-menu">
                 <a href="profile.php">マイプロフィール</a>
                 <a href="">プロフィール編集</a>
+                <a href="passchan.php">パスワード設定</a>
                 <p class="logoutbutton" id="logoutbutton">ログアウト</p>
             </div>
             <h1 id="Title">プログラミング情報共有サイト（仮）</h1>
