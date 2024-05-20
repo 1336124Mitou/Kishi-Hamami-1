@@ -128,6 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>制作物公開</h1>
     <div>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+            <!-- ユーザーのIDを取得する -->
+            <input type="hidden" name="userID" value="kd1@gmail.com">
             <div class="form-group">
                 <label for="projectName">作品名:</label>
                 <input type="text" id="projectName" name="projectName" required>
