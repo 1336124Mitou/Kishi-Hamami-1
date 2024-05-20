@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 //セッションにデータが無ければログイン画面に遷移する
 if (empty($_SESSION['userId'])) {
     header('Location: login.php');

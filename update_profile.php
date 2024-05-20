@@ -1,7 +1,47 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['userId'])) {
+    header('Location: login.php');
+    exit;
+}
+
+require_once __DIR__ . '/user2.php';
+$user = new User();
+
+// プロフィール情報を抽出
+$profile = $user->myProfile($_SESSION['userId']);
+
+$error = '';
+$success = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userName = $_POST['userName'];
+    $prof = $_POST['prof'];
+
+    // 入力検証
+    if (empty($userName) || empty($prof)) {
+        $error = 'すべてのフィールドを入力してください。';
+    } else {
+        // プロフィール更新
+        if ($user->updateProfile($_SESSION['userId'], $userName, $prof)) {
+            $success = 'プロフィールが更新されました。';
+            // 最新のプロフィール情報を取得
+            $profile = $user->myProfile($_SESSION['userId']);
+        } else {
+            $error = 'プロフィールの更新に失敗しました。';
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
+    <?php require_once __DIR__ . '/header.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プロフィール更新</title>
@@ -14,49 +54,25 @@
             padding: 0;
         }
 
-        .profile-container {
+        .update-container {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 700px;
             text-align: center;
             padding: 20px;
-            margin: 40px auto;
+            margin: 50px auto;
             position: relative;
         }
 
-        .profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-
-        .profile-name {
+        .update-header {
             font-size: 24px;
             font-weight: bold;
-        }
-
-        .profile-emailaddress {
-            font-size: 14px;
-            color: #777;
-        }
-
-        .profile-bio {
-            font-size: 14px;
-            color: #555;
-            margin: 10px 0;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin: 15px 0;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -66,72 +82,66 @@
             margin-bottom: 5px;
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="email"],
+        .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 10px;
             font-size: 14px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .form-group input[type="file"] {
-            padding: 10px;
         }
 
         .form-group textarea {
+            resize: vertical;
             height: 100px;
-            resize: none;
         }
 
-        .save-button {
+        .form-group .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        .form-group .success {
+            color: green;
+            font-size: 12px;
+        }
+
+        .update-button {
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 5px;
             padding: 10px 20px;
             font-size: 14px;
             cursor: pointer;
-            margin-top: 20px;
         }
 
-        .save-button:hover {
+        .update-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
-
 <body>
-    <?php require_once __DIR__ . '/header.php'; ?>
-
-    <div class="profile-container">
-        <h2>プロフィール更新</h2>
-        <form action="update_profile.php" method="post" enctype="multipart/form-data">
+    <div class="update-container">
+        <div class="update-header">プロフィール更新</div>
+        <?php if ($error): ?>
+            <div class="form-group error"><?= $error ?></div>
+        <?php endif; ?>
+        <?php if ($success): ?>
+            <div class="form-group success"><?= $success ?></div>
+        <?php endif; ?>
+        <form action="update_profile.php" method="POST">
             <div class="form-group">
-                <label for="profile-img">プロフィール画像</label>
-                <input type="file" id="profile-img" name="profile-img">
+                <label for="userName">ユーザー名</label>
+                <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
             <div class="form-group">
-                <label for="name">名前</label>
-                <!--名前をSQLに更新できるように修正予定-->
-                <input type="text" id="name" name="name" value="岸本 昂己" required>
+                <label for="prof">プロフィール</label>
+                <textarea id="prof" name="prof" required><?= htmlspecialchars($profile['Prof'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
-            <div class="form-group">
-                <label for="email">メールアドレス</label>
-                <!--メールアドレスをSQLに更新できるように修正予定-->
-                <input type="email" id="email" name="email" value="kd1347722@st.kobedenshi.ac.jp" required>
-            </div>
-            <div class="form-group">
-                <label for="bio">自己紹介</label>
-                <!--自己紹介をSQLに更新できるように修正予定-->
-                <textarea id="bio" name="bio">なんでも頑張ります！</textarea>
-            </div>
-            <button type="submit" class="save-button">保存</button>
+            <button type="submit" class="update-button">更新</button>
         </form>
     </div>
-
 </body>
-
 </html>
+
