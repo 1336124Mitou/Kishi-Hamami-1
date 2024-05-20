@@ -39,10 +39,10 @@ class URe extends Dbdata
 // ユーザーのデータと質問のデータを関連させる
 class UQ extends Dbdata
 {
-    public function insertUQlink($UsID, $QuestioinID)
+    public function insertUQlink($UsID, $QuestionID)
     {
-        $sql = "INSERT INTO UQlink (UsID, Qustion) VALUES (?, ?)";
-        $result = $this->exec($sql, [$UsID, $QuestioinID]);
+        $sql = "INSERT INTO UQlink (UsID, QuestionID) VALUES (?, ?)";
+        $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
 }
 
