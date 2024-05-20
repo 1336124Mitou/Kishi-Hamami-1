@@ -69,6 +69,8 @@
         .error {
             color: red;
         }
+
+        
         .modal {
             display: none;
             position: fixed;
@@ -83,23 +85,15 @@
             padding-top: 60px;
         }
         .modal-content {
-            background-color: #fefefe;
+            background-color: #007bff;
+            color: white;
             margin: 5% auto;
-            padding: 20px;
+            padding: 5px;
             border: 1px solid #888;
-            width: 80%;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+            width: 30%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -108,7 +102,7 @@
     <!-- 変更成功メッセージ内容の記述 -->
     <div id="successModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close"></span>
             <p>パスワードの変更に成功しました</p>
         </div>
     </div>
