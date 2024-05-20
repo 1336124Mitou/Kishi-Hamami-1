@@ -68,6 +68,7 @@ if (empty($_SESSION['userId'])) {
         }
 
         .logoutbutton {
+            color: red;
             cursor: pointer;
         }
 
