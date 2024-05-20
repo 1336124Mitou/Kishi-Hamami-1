@@ -12,6 +12,7 @@ $conPass = $_POST['confirm_password'];
 require_once __DIR__ . '/user.php';
 $user = new User();
 $result = $user->logincheck($userId, $curPass);
+
 //現在のパスワードが違う場合、エラーメッセージを保存し、パスワード変更画面に遷移する
 if (empty($result['UsID'])) { //userIdが格納されていないなら
     $error = '現在のパスワードが正しくありません';
@@ -29,10 +30,7 @@ else {
     }
 }
 
-// 成功メッセージを表示する
+// 成功またはエラーメッセージを表示する
 include_once __DIR__ . '/passchan.php';
-
-if (isset($mess)) {
-    echo "<script>alert('パスワードの変更に成功しました');</script>";
-}
 ?>
+

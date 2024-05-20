@@ -8,17 +8,14 @@ if (!isset($_SESSION['userId'])) {
     exit;
 }
 
-require_once __DIR__ . '/user2.php';
+require_once __DIR__ . '/user.php';
 $user = new User();
-
-// プロフィール情報を抽出
-$profile = $user->myProfile($_SESSION['userId']);
 
 $error = '';
 $success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userName = $_POST['userName'];
+    $userName = $_POST['username'];
     $prof = $_POST['prof'];
 
     // 入力検証
@@ -28,15 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // プロフィール更新
         if ($user->updateProfile($_SESSION['userId'], $userName, $prof)) {
             $success = 'プロフィールが更新されました。';
-            // 最新のプロフィール情報を取得
-            $profile = $user->myProfile($_SESSION['userId']);
         } else {
             $error = 'プロフィールの更新に失敗しました。';
         }
     }
 }
-?>
 
+// プロフィール情報を抽出
+$profile = $user->myProfile($_SESSION['userId']);
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -125,15 +122,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="update-container">
         <div class="update-header">プロフィール更新</div>
         <?php if ($error): ?>
-            <div class="form-group error"><?= $error ?></div>
+            <div class="form-group error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
         <?php if ($success): ?>
-            <div class="form-group success"><?= $success ?></div>
+            <div class="form-group success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
         <form action="update_profile.php" method="POST">
             <div class="form-group">
-                <label for="userName">ユーザー名</label>
-                <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?>" required>
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" value="<?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
             <div class="form-group">
                 <label for="prof">プロフィール</label>
@@ -144,4 +141,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
-
