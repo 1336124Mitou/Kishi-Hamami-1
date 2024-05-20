@@ -86,13 +86,18 @@
             background-color: #0056b3;
         }
     </style>
+        <script>
+        function redirectToUpdateProfile() {
+            window.location.href = 'update_profile.php';
+        }
+    </script>
 </head>
 
 <body>
     <?php require_once __DIR__ . '/header.php'; ?>
 
     <div class="profile-container">
-    <button class="edit-profile-button">プロフィールを編集</button>
+    <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
     <div class="profile-header">
         <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
         <div>
