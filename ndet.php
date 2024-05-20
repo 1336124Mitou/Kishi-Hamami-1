@@ -114,9 +114,11 @@ $showComments = $comment->showAllAnswer($kijiID);
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 90%;
+            max-width: 600px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
         }
 
         .close {
@@ -133,13 +135,15 @@ $showComments = $comment->showAllAnswer($kijiID);
             cursor: pointer;
         }
 
-        .comment-form textarea {
-            width: calc(100% - 22px);
+        .comment-form textarea,
+        .textarea textarea {
+            width: 100%;
             padding: 10px;
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
+            box-sizing: border-box;
         }
 
         .comment-form button {
@@ -172,10 +176,7 @@ $showComments = $comment->showAllAnswer($kijiID);
             display: none;
         }
 
-
         .likenum {
-            /* position: absolute; */
-
             text-align: center;
         }
 
@@ -184,19 +185,6 @@ $showComments = $comment->showAllAnswer($kijiID);
             margin: auto;
         }
 
-        /* 後で追加
-        .likenumtwo,
-        .likestwo,
-        .date {
-            display: inline-block;
-            align-items: center;
-        }
-
-        .date {
-            margin-left: 250px;
-            color: #888;
-        }
-        */
         .top {
             text-align: center;
         }

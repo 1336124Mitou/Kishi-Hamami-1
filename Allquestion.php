@@ -83,6 +83,16 @@ $showTags = $tags->showTags();
         .textarea {
             resize: none;
             text-align: center;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            /* パディングとボーダーを含めて幅を計算する */
+        }
+
+        .textarea textarea {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         input.submit {
@@ -128,7 +138,15 @@ $showTags = $tags->showTags();
             font-size: 1em;
             cursor: pointer;
         }
+
+        @media (max-width: 768px) {
+            .textarea textarea {
+                font-size: 14px;
+                /* 小さい画面ではフォントサイズも調整すると良い */
+            }
+        }
     </style>
+
 
     <script>
         function check(id) {
