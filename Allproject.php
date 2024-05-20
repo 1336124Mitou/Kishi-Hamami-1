@@ -38,7 +38,6 @@ $conn->close();
       main {
             padding: 20px;
         }
-
         .project-item {
             border-bottom: 1px solid #ccc;
             padding-bottom: 20px;
@@ -53,7 +52,11 @@ $conn->close();
             color: #4267b2;
             text-decoration: none;
         }
-
+        footer {
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            text-align: center;
+        }
         /* ボタンの微調整 */
         input.button {
             border: 1px solid;
@@ -66,6 +69,7 @@ $conn->close();
             color: white;
             background-color: #007BFF;
         }
+       
 
         .que {
             text-align: right;
@@ -90,7 +94,6 @@ $conn->close();
         input.submit:hover {
             opacity: 0.7;
         }
-
 </style>
 </head>
 
@@ -115,10 +118,8 @@ $conn->close();
                 echo "</div>";
             }
             ?>
-            
         </div>
     </div>
-
     <?php
     require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
     ?>

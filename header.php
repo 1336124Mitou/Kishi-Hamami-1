@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 //セッションにデータが無ければログイン画面に遷移する
 if (empty($_SESSION['userId'])) {
     header('Location: login.php');
@@ -111,7 +113,7 @@ if (empty($_SESSION['userId'])) {
             <!-- ポップアップメニュー -->
             <div id="popupMenu" class="popup-menu">
                 <a href="profile.php">マイプロフィール</a>
-                <a href="">プロフィール編集</a>
+                <a href="update_profile.php">プロフィール編集</a>
                 <a href="passchan.php">パスワード設定</a>
                 <p class="logoutbutton" id="logoutbutton">ログアウト</p>
             </div>

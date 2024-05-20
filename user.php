@@ -6,7 +6,7 @@ require_once __DIR__ . '/dbdata.php';
 // ユーザーのデータと記事のデータを関連させる
 class UR extends Dbdata
 {
-    public function insertUSlink($UsID, $RepoID)
+    public function insertURlink($UsID, $RepoID)
     {
         // SQL query to insert data into USlink table with UsID and RepoID
         $sql = "INSERT INTO URlink (UsID, RepoID) VALUES (?, ?)";
@@ -39,10 +39,10 @@ class URe extends Dbdata
 // ユーザーのデータと質問のデータを関連させる
 class UQ extends Dbdata
 {
-    public function insertUQlink($UsID, $QuestioinID)
+    public function insertUQlink($UsID, $QuestionID)
     {
-        $sql = "INSERT INTO UQlink (UsID, Qustion) VALUES (?, ?)";
-        $result = $this->exec($sql, [$UsID, $QuestioinID]);
+        $sql = "INSERT INTO UQlink (UsID, QuestionID) VALUES (?, ?)";
+        $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
 }
 

@@ -64,13 +64,9 @@
 
     <form method="POST" action="shitsumonadd.php">
         <!-- ユーザーのIDを取得する -->
-        <input type="hidden" name="userID" value="kd1@gmail.com">
+        <input type="hidden" name="userid" value="kd1@gmail.com">
         <!-- テキストボックス -->
         <textarea id="quest" name="QDet" placeholder="ここに質問を書いてください。" oninput="changeTextColor(this)"></textarea>
-
-        <!-- ユーザーIDを送る -->
-        <input type="hidden" name="userid" value="999">
-
         <!-- タグ -->
         <select name="tag">
             <option value="タグ1">プログラミング言語</option>

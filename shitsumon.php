@@ -8,7 +8,7 @@ class Quest extends DbData
     // 質問の内容を保存します
     public function addQuestion($QDet, $UsID)
     {
-        $sql = "insert into question(D, Tim, Question, UsID) values( ?, ?, ?, ?)"; // 質問内容と投稿時刻を表示する
+        $sql = "INSERT INTO question(D, Tim, Question, UsID) VALUES( ?, ?, ?, ?)"; // 質問内容と投稿時刻を表示する
         $result = $this->exec($sql, [date("Y/m/d"), date("H:i"), $QDet, $UsID]);
 
         // 最後に入力された質問のIDを取得する
