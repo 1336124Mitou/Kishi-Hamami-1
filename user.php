@@ -39,10 +39,10 @@ class URe extends Dbdata
 // ユーザーのデータと質問のデータを関連させる
 class UQ extends Dbdata
 {
-    public function insertUQlink($UsID, $QuestioinID)
+    public function insertUQlink($UsID, $QuestionID)
     {
-        $sql = "INSERT INTO UQlink (UsID, Qustion) VALUES (?, ?)";
-        $result = $this->exec($sql, [$UsID, $QuestioinID]);
+        $sql = "INSERT INTO UQlink (UsID, QuestionID) VALUES (?, ?)";
+        $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
 }
 
@@ -54,7 +54,7 @@ class User extends Dbdata
         $stmt = $this->query($sql, [$USID]);
         $result = $stmt->fetch();
         if ($result) {
-            return 'この'. $USID . 'は既に登録されています。';
+            return 'この' . $USID . 'は既に登録されています。';
         }
         if ($password == $passCheck) {
             $sql = "INSERT INTO usr(UsID, UsName, Passw, Prof, ProfPic) values(?, ?, ?, ?, ?)";
