@@ -10,8 +10,9 @@ require_once __DIR__ . '/user.php';
 $kaitou = new Comment();
 $User = new URe();
 session_start();
-$kaitou->addCom($Kai, $Quest);
+$answer_id = $kaitou->addCom($Kai, $Quest);
+
 //受け取った$Ouestを$question_idとして定義する
 $question_id = $Quest;
-$User->insertURelink($UsID, $question_id);
+$User->insertURelink($UsID, $answer_id);
 require_once __DIR__ . '/answer.php';

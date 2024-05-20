@@ -23,9 +23,16 @@ elseif ($newPass != $conPass) {
 else {
     $result = $user->passchange($userId, $newPass);
     if ($result['Passw'] ==  $newPass) {
-        $mess = 'パスワードの変更に成功しました';
+        $mess = '';
     } else {
         $error = 'パスワードの変更に失敗しました';
     }
 }
-require_once __DIR__ . '/passchan.php';
+
+// 成功メッセージを表示する
+include_once __DIR__ . '/passchan.php';
+
+if (isset($mess)) {
+    echo "<script>alert('パスワードの変更に成功しました');</script>";
+}
+?>
