@@ -111,7 +111,7 @@ if (empty($_SESSION['userId'])) {
             <!-- ポップアップメニュー -->
             <div id="popupMenu" class="popup-menu">
                 <a href="profile.php">マイプロフィール</a>
-                <a href="">プロフィール編集</a>
+                <a href="update_profile.php">プロフィール編集</a>
                 <a href="passchan.php">パスワード設定</a>
                 <p class="logoutbutton" id="logoutbutton">ログアウト</p>
             </div>

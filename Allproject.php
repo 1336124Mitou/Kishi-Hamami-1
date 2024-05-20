@@ -118,7 +118,6 @@ $conn->close();
             
         </div>
     </div>
-
     <?php
     require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
     ?>
