@@ -1,20 +1,25 @@
 <?php
 session_start();
-//セッションにデータが無ければログイン画面に遷移する
+// セッションにデータが無ければログイン画面に遷移する
 if (empty($_SESSION['userId'])) {
     header('Location: login.php');
+    exit();
 }
+
 // フォームから送信されたデータを処理する
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // フォームから送信されたデータを取得する
     $projectName = $_POST["projectName"];
     $projectDescription = $_POST["projectDescription"];
+    $userID = $_POST["userID"];
 
     // ファイルがアップロードされた場合、一時ファイルの場所を取得する
-    $projectFile = $_FILES["project"]["tmp_name"];
+    if (isset($_FILES["project"]) && $_FILES["project"]["error"] == UPLOAD_ERR_OK) {
+        $projectFile = file_get_contents($_FILES["project"]["tmp_name"]);
+    } else {
+        die("ファイルアップロードエラー");
+    }
 
-    // ここでデータベースにデータを保存する処理を書く
-    // この例ではデータベースに接続する処理を追加しています
     // データベースに接続するための情報
     $servername = "localhost";
     $username = "Kishi";
@@ -26,20 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 接続をチェック
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("接続失敗: " . $conn->connect_error);
     }
 
     // ファイルをデータベースに保存する例
-    $sql = "INSERT INTO Project (ProName, Proexample, ProjFile) VALUES ('$projectName', '$projectDescription', '$projectFile')";
+    $sql = "INSERT INTO Project (ProName, Proexample, ProjFile) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
 
+    // プレースホルダーに変数をバインド
+    $stmt->bind_param("sss", $projectName, $projectDescription, $projectFile);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+    if ($stmt->execute() === TRUE) {
+        $projectID = $stmt->insert_id; // 最後に挿入されたプロジェクトのIDを取得
+        echo "新しいレコードが正常に作成されました";
+
+        // `UPlink`テーブルに関連付けを挿入
+        require_once __DIR__ . '/user.php';
+        $UP = new UP();
+        $UP->insertUPlink($userID, $projectID);
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "エラー: " . $stmt->error;
     }
 
     // データベースとの接続を閉じる
+    $stmt->close();
     $conn->close();
 }
 ?>
@@ -85,14 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: white;
         }
 
-        /* ファイル名表示用のスタイル */
         .file-name {
             margin-top: 10px;
             font-size: 14px;
             color: #555;
         }
 
-        /* 作品名と作品説明のスタイル */
         .form-group {
             margin-bottom: 20px;
             width: 100%;
@@ -102,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-
         }
 
         .form-group input,
@@ -134,18 +146,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="projectName">作品名:</label>
                 <input type="text" id="projectName" name="projectName" required>
             </div>
-
             <div class="form-group">
                 <label for="projectDescription">作品説明:</label>
                 <textarea id="projectDescription" name="projectDescription" rows="4" required></textarea>
             </div>
-
             <div>
                 <input type="file" name="project" required accept=".zip,.pdf,.txt">
             </div>
             <!-- ファイル名を表示するためのスパン -->
             <span class="file-name" id="fileName"></span>
-
             <div>
                 <input type="submit" value="送信する">
             </div>
@@ -155,10 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="index.php">ホーム</a>
         </div>
     </div>
-    </div>
-
     <script>
-        /   / / ファイル名を表示する関数
+        // ファイル名を表示する関数
         document.querySelector('input[name="project"]').addEventListener('change', function(e) {
             const fileName = e.target.files[0].name;
             document.getElementById('fileName').textContent = '選択されたファイル: ' + fileName;
