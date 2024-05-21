@@ -34,4 +34,19 @@ class Quest extends DbData
         $showQ = $stmt->fetch();
         return $showQ;
     }
+
+    public function deleteQuestion($QID)
+    {
+        $sql = "DELETE FROM UQlink WHERE QuestionID = ?";
+        $this->exec($sql, [$QID]);
+
+        $sql = "DELETE FROM RepQ WHERE QuestionID = ?";
+        $this->exec($sql, [$QID]);
+
+        $sql = "DELETE FROM QuestionTags WHERE QuestionID = ?";
+        $this->exec($sql, [$QID]);
+
+        $sql = "DELETE FROM Question WHERE QuestionID = ?";
+        $this->exec($sql, [$QID]);
+    }
 }

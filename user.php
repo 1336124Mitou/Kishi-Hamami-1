@@ -48,16 +48,27 @@ class UQ extends Dbdata
         $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
 
-    public function detailUQlink($QID) {
+    public function detailUQlink($QID)
+    {
         $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
         $stmt = $this->query($sql, [$QID]);
         $result = $stmt->fetch();
+    }
+
+    public function selectUQlink($QID)
+    {
+        $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
+        $stmt = $this->query($sql, [$QID]);
+        $result = $stmt->fetch();
+
+        return $result;
     }
 }
 
 class User extends Dbdata
 {
-    public function tokuteiUser($UID) {
+    public function tokuteiUser($UID)
+    {
         $sql = "SELECT * FROM usr WHERE UsID = ?";
         $stmt = $this->query($sql, [$UID]);
         $result = $stmt->fetch();

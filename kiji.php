@@ -36,19 +36,35 @@ class Report extends Dbdata
 
     public function deleteReport($RepoID)
     {
+        //コメントのIDをしゅとく
+        $sql = "SELECT * FROM RepR WHERE RepoID = ?";
+        $stmt = $this->query($sql, [$RepoID]);
+        $RepIDs = $stmt->fetchAll();
+
+        //記事とユーザーの関連を削除
         $sql = "DELETE FROM URlink WHERE RepoID = ?";
         $this->exec($sql, [$RepoID]);
 
+        //記事のいいねを削除
         $sql = "DELETE FROM Likes WHERE RepoID = ?";
         $this->exec($sql, [$RepoID]);
 
+        //記事とコメントの関連を削除
         $sql = "DELETE FROM RepR WHERE RepoID = ?";
         $this->exec($sql, [$RepoID]);
 
+        //記事とタグの削除
         $sql = "DELETE FROM RepoTags WHERE RepoID = ?";
         $this->exec($sql, [$RepoID]);
 
+        //記事を削除
         $sql = "DELETE FROM Report WHERE RepoID = ?";
         $this->exec($sql, [$RepoID]);
+
+        //記事のコメントを削除
+        foreach ($RepIDs as $RepID) {
+            $sql = "DELETE FROM Reply WHERE RepID = ?";
+            $this->exec($sql, [$RepID['RepID']]);
+        }
     }
 }
