@@ -244,3 +244,4 @@ CREATE TABLE UQlink (
     FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),
     PRIMARY KEY (UsID, QuestionID)
 );
+INSERT INTO UQlink(UsID, QuestionID) VALUES ('kd1@gmail.com', 1);
