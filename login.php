@@ -76,7 +76,7 @@
 
         .newaccount-button {
             display: inline-block;
-            width: 400px;
+            width: 380px;
             border-radius: 5px;
             font-size: 12pt;
             text-align: center;
@@ -88,6 +88,28 @@
             /* line-height: 1em;
             transition: .3s;
             border: 2px solid #000066; */
+        }
+
+        .newaccount-sentence {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .newaccount-sentence::before,
+        .newaccount-sentence::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background-color: #666;
+        }
+
+        .newaccount-sentence::before {
+            margin-right: 10px;
+        }
+
+        .newaccount-sentence::after {
+            margin-left: 10px;
         }
 
         .error {
@@ -124,6 +146,7 @@
     </div>
     <br>
     <div class="newaccount-box">
+        <p class="newaccount-sentence">新規登録はこちらから</p><br>
         <a class="newaccount-button" href="NAccount.php">新規登録する</a>
     </div>
     <?php
