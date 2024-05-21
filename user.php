@@ -54,6 +54,8 @@ class UQ extends Dbdata
         $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
         $stmt = $this->query($sql, [$QID]);
         $result = $stmt->fetch();
+
+        return $result;
     }
 }
 
