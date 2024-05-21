@@ -323,7 +323,7 @@ $user_id = 'kd1@gmail.com';
         <!-- 削除ボタン -->
         <div class="delete-button">
             <form method="POST" action="shitsumondelete.php">
-                <input type="hidden" name="kijiID" value="<?= $kijiID ?>">
+                <input type="hidden" name="QID" value="<?= $question_id ?>">
                 <input type="submit" value="削除">
             </form>
         </div>
