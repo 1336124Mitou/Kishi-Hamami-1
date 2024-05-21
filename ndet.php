@@ -19,6 +19,11 @@ if (!isset($likeR)) {
     $likeR = new LikeRepo();
 }
 
+if (!isset($user)) {
+    require_once __DIR__ . '/user.php';
+    $user = new UR();
+}
+
 if (isset($_POST["kijiID"])) {
     $kijiID = $_POST["kijiID"];
 }
@@ -27,6 +32,8 @@ $like = $likeR->showLikeR($kijiID);
 
 $showkiji = $kiji->showReport($kijiID);
 $showComments = $comment->showAllAnswer($kijiID);
+
+$userCheck = $user->selectURlink($kijiID);
 ?>
 
 <!DOCTYPE html>
@@ -220,6 +227,31 @@ $showComments = $comment->showAllAnswer($kijiID);
             resize: none;
             text-align: center;
         }
+
+        /* 削除ボタン */
+        .delete-button {
+            position: absolute;
+            top: 240px;
+            right: 10px;
+        }
+
+        .delete-button form {
+            display: inline;
+        }
+
+        .delete-button input {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-button input:hover {
+            background-color: #c82333;
+        }
     </style>
 
     <script>
@@ -253,6 +285,20 @@ $showComments = $comment->showAllAnswer($kijiID);
 <body>
 
     <div class="honbun">
+
+        <?php
+        if ($_SESSION['userId'] == $userCheck['UsID']) {
+        ?>
+            <!-- 削除ボタン -->
+            <div class="delete-button">
+                <form method="POST" action="deletekiji.php">
+                    <input type="hidden" name="kijiID" value="<?= $kijiID ?>">
+                    <input type="submit" value="削除">
+                </form>
+            </div>
+        <?php
+        }
+        ?>
         <h1><?= $showkiji['Title'] ?></h1>
         <form id="form1"><?= $showkiji['Info'] ?></form>
         <br>
