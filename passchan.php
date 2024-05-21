@@ -69,10 +69,44 @@
         .error {
             color: red;
         }
+
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #007bff;
+            color: white;
+            margin: 5% auto;
+            padding: 5px;
+            border: 1px solid #888;
+            width: 30%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+        }
     </style>
 </head>
 
 <body>
+    <!-- 変更成功メッセージ内容の記述 -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close"></span>
+            <p>パスワードの変更に成功しました</p>
+        </div>
+    </div>
+
     <div class="password-container">
         <?php
         if (isset($error)) { //エラーメッセージがあれば表示する
@@ -95,7 +129,30 @@
         </form>
     </div>
 
-    
+    <script>
+        // 変更成功メッセージ制御
+        function showModal() {
+            var modal = document.getElementById("successModal");
+            var span = document.getElementsByClassName("close")[0];
+
+            modal.style.display = "block";
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        <?php if (isset($mess)) { ?>
+            // ポップアップの表示
+            showModal();
+        <?php } ?>
+    </script>
 </body>
 
 </html>
