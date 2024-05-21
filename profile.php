@@ -127,7 +127,7 @@ if (!isset($user)) { //user変数が無ければ
         <div class="profile-header">
             <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
             <div>
-                <div class="profile-name"><?= $_SESSION['userName'] ?></div>
+                <div class="profile-name"><?= $profile['UsName'] ?></div>
                 <div class="profile-emailaddress"><?= $_SESSION['userId'] ?></div>
             </div>
         </div>
