@@ -9,6 +9,12 @@ if (!isset($tags)) { // $tagに必ずtagオブジェクトをセットするた�
     $tags = new Tag();
 }
 
+if (!isset($uq)) {
+    require_once __DIR__ . '/user.php';
+    $uq = new UQ();
+    $us = new User();
+}
+
 if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
     $Filter = $_POST["Filter"];
 }
@@ -243,12 +249,16 @@ $showTags = $tags->showTags();
                 $q = $showQuest['Question'];
             }
             $qtag = $tags->showTagQ($showQuest['QuestionID']);
+
+            $Uname = $uq->detailUQlink($showQuest['QuestionID']);
+            $urname = $us->tokuteiUser($Uname['UsID']);
         ?>
             <main>
                 <section class="question">
                     <form method="post" name="answer" action="answer.php">
                         <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
                         <h2 class="questionndata"><?= $q ?></h2>
+                        <p><?= $urname ?></p>
                         <p class="tag"># <?= $qtag['TagName'] ?></p><br>
                         <input type="submit" value="詳細">
                     </form>
