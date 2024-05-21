@@ -25,6 +25,7 @@ CREATE TABLE Usr (
 );
 
 INSERT INTO Usr(UsID, UsName, Passw, prof) values('kd1@gmail.com', 'testuser', 'aaa', 'aaa');
+INSERT INTO Usr(UsID, UsName, Passw, prof) VALUES ('kd2@gmail.com','test2user', 'bbb', '私は二人目のテストユーザーです。');
 
 -- タグのテーブル
 -- tableがあるなら削除
@@ -61,6 +62,7 @@ CREATE TABLE Question (
 );
 
 INSERT INTO Question(D, Tim, Question, UsID) VALUES ('2023-12-09', '12:02:00', 'C#のフォームの表示のやり方に関する質問', 'kd1@gmail.com');
+
 
 -- 質問のIDとタグIDを関連するテーブル
 -- tableがあるなら削除
@@ -202,6 +204,7 @@ CREATE TABLE URlink (
     FOREIGN KEY (RepoID) REFERENCES Report(RepoID),
     PRIMARY KEY (UsID, RepoID)
 );
+INSERT INTO URlink(UsID, RepoID) VALUES ('kd2@gmail.com',1);
 
 -- ユーザーと関連する制作物データのリンクを保持するテーブル
 -- テーブルがあるから削除

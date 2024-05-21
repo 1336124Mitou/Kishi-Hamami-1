@@ -11,6 +11,15 @@ class UR extends Dbdata
         // Execute the SQL query with provided UsID and RepoID
         $result = $this->exec($sql, [$UsID, $RepoID]);
     }
+
+    public function selectURlink($RepoID)
+    {
+        $sql = "SELECT * FROM URlink WHERE RepoID = ?";
+        $stmt = $this->query($sql, [$RepoID]);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
 }
 // ユーザーのデータと制作物のデータを関連させる
 class UP extends Dbdata
@@ -73,8 +82,6 @@ class User extends Dbdata
             // return 'パスワードの入力が間違っています';
             return 2;
         }
-
-
     }
 
     // ログインをチェックするメソッド
@@ -115,12 +122,13 @@ class User extends Dbdata
     }
 
     // ユーザーのプロフィールを更新するメソッド
-    public function updateProfile($userId, $newUserName, $newBio) {
+    public function updateProfile($userId, $newUserName, $newBio)
+    {
         try {
             // データベースの更新処理を行う
             $sql = "UPDATE usr SET UsName = ?, Prof = ? WHERE UsId = ?";
             $stmt = $this->exec($sql, [$newUserName, $newBio, $userId]);
-    
+
             // 更新された行数を確認
             if ($stmt->rowCount() > 0) {
                 return true; // 更新成功
@@ -133,7 +141,4 @@ class User extends Dbdata
             return false;
         }
     }
-    
 }
-
-?>
