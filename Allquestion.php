@@ -151,6 +151,11 @@ $showTags = $tags->showTags();
                 /* 小さい画面ではフォントサイズも調整すると良い */
             }
         }
+
+        .UserName {
+            font-size: 15px;
+            color: #878787;
+        }
     </style>
 
 
@@ -258,7 +263,7 @@ $showTags = $tags->showTags();
                     <form method="post" name="answer" action="answer.php">
                         <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
                         <h2 class="questionndata"><?= $q ?></h2>
-                        <p><?= $urname ?></p>
+                        <p class="UserName"><?= $urname['UsName'] ?></p>
                         <p class="tag"># <?= $qtag['TagName'] ?></p><br>
                         <input type="submit" value="詳細">
                     </form>

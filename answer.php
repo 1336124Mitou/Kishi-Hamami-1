@@ -27,7 +27,7 @@ $showQuestion = $quest->showQuestion($question_id);
 //与えられた質問IDから回答を取得
 $showAnswers = $kaitou->showAllAnswer($question_id);
 
-$userCheck = $user->selectUQlink($question_id);
+$userCheck = $user->detailUQlink($question_id);
 // ログインユーザーのセッションからユーザーIDを取得するか、テスト目的で直接設定する
 $user_id = 'kd1@gmail.com';
 ?>
@@ -282,6 +282,33 @@ $user_id = 'kd1@gmail.com';
                 font-size: 14px;
             }
         }
+
+        .like-button {
+            background-color: transparent;
+            /* 背景色を透明にする */
+            border: none;
+            /* 枠線を消す */
+            cursor: pointer;
+        }
+
+        .like-button svg {
+            width: 24px;
+            /* SVG の幅を調整 */
+            height: 24px;
+            /* SVG の高さを調整 */
+            stroke-width: 2px;
+            /* ストロークの幅を調整 */
+        }
+
+        .like-button .heart-path {
+            transition: fill 0.3s;
+            /* fill プロパティの変化をアニメーション化する */
+        }
+
+        .like-button.liked .heart-path {
+            fill: #fc49c7;
+            /* いいねが押されたときのハートの色 */
+        }
     </style>
 </head>
 
@@ -313,84 +340,27 @@ $user_id = 'kd1@gmail.com';
     </div>
 </main>
 
-<main>
-    <div class="frame">
-        <h2>回答</h2>
-
-        <!-- 回答部分 -->
-        <?php foreach ($showAnswers as $showAnswer) {
-            // ユーザーのいいね状態の確認
-            $user_like_result = $kaitou->checkUserLike($user_id, $showAnswer['RepID']);
-            $user_liked = $user_like_result->rowCount() > 0;
-        ?>
-            <div class="answer-info">
-                <div class="interaction">
-                    <!-- コメント -->
-                    <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
-                    <!-- 日付といいねボタン -->
-                    <div class="date-and-like">
-                        <!-- いいねボタン -->
-                        <div class="like-container">
-                            <button id="likeButton<?= $showAnswer['RepID'] ?>" class="like-button <?= $user_liked ? 'liked' : '' ?>" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>, '<?= $user_id ?>')">❤️</button>
-                            <span id="likeCount<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></span>
-                        </div>
-                        <!-- 日付 -->
-                        <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        <?php } ?>
-    </div>
+<div class="frame">
+    <h2>回答</h2>
+    <?php foreach ($showAnswers as $showAnswer) {
+        require 'like_button.php'; // like_button.phpを読み込む
+    ?>
+        <hr>
+    <?php } ?>
+</div>
 </main>
 
 <script>
     function check(id) {
         document.getElementById(id).checked = true;
     }
-
-    function likeAnswer(repID, userId) {
-        const likeButton = document.getElementById(`likeButton${repID}`);
-        const likeCount = document.getElementById(`likeCount${repID}`);
-        let liked = likeButton.classList.contains('liked');
-
-        liked = !liked;
-        likeButton.classList.toggle('liked', liked);
-        likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
-
-        fetch('like_update.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    answer_id: repID,
-                    user_id: userId,
-                    liked
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    likeCount.textContent = data.likes;
-                } else {
-                    liked = !liked;
-                    likeButton.classList.toggle('liked', liked);
-                    likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
-                }
-            });
-    }
 </script>
 
 <input class="checkbox" type="checkbox" id="popup">
-
 <div id="overlay">
     <label for="popup" id="bg_gray"></label>
-
     <div id="window">
-        <label for="popup" id="btn_cloth">
-            <span></span>
-        </label>
+        <label for="popup" id="btn_cloth"><span></span></label>
         <div id="msg">
             <form method="POST" action="kaitouadd.php">
                 <input type="hidden" name="userID" value="kd1@gmail.com">
@@ -401,14 +371,13 @@ $user_id = 'kd1@gmail.com';
                     <div class="post">
                         <input type="submit" value="投稿">
                     </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
-<?php
-require_once __DIR__ . '/footer.php';
-?>
+<?php require_once __DIR__ . '/footer.php'; ?>
 </body>
 
 </html>
