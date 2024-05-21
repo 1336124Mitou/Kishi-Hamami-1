@@ -149,9 +149,6 @@
         <p class="newaccount-sentence">新規登録はこちらから</p><br>
         <a class="newaccount-button" href="NAccount.php">新規登録する</a>
     </div>
-    <?php
-    //echo $_SESSION['userName'];
-    ?>
 </body>
 
 </html>
