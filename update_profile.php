@@ -136,7 +136,7 @@ $profile = $user->myProfile($_SESSION['userId']);
                 <label for="prof">プロフィール</label>
                 <textarea id="prof" name="prof" required><?= htmlspecialchars($profile['Prof'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
-            <button type="submit" class="update-button">更新</button>
+            <button class="update-button" onclick="location.href='profile.php'" type="submit">更新</button>
         </form>
     </div>
 </body>
