@@ -1,7 +1,6 @@
 <?php
 if (!isset($quest)) { // $questionに必ずquestionオブジェクトをセットするため
     require_once __DIR__ . '/shitsumon.php';
-
     $quest = new Quest();
 }
 if (!isset($kaitou)) {
@@ -13,17 +12,19 @@ if (!isset($tags)) { //$tagsに必ずTagオブジェクトをセットするた�
     $tags = new Tag();
 }
 
-
 //POSTが定義されているなら取得する
 if (isset($_POST["question_id"])) {
     $question_id = $_POST["question_id"]; // 質問のIDを取得する
 }
+
 //与えられたIDから質問を取得
 $showQuestion = $quest->showQuestion($question_id);
 
 //与えられた質問IDから回答を取得
 $showAnswers = $kaitou->showAllAnswer($question_id);
 
+// ログインユーザーのセッションからユーザーIDを取得するか、テスト目的で直接設定する
+$user_id = 'kd1@gmail.com';
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +55,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             text-align: center;
         }
 
-        /* ボタンの微調整 */
         input.button {
             border: 1px solid;
             width: 100px;
@@ -87,7 +87,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             display: none;
         }
 
-        /* ポップアップwindow部分 */
         #overlay {
             visibility: hidden;
             position: absolute;
@@ -98,7 +97,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             height: 100%;
         }
 
-        /* オーバーレイの背景部分 */
         #bg_gray {
             background: rgba(0, 0, 0, 0.5);
             width: 100%;
@@ -109,7 +107,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             z-index: 80;
         }
 
-        /* ウィンドウ部分 */
         #window {
             width: 50%;
             padding: 20px;
@@ -124,7 +121,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             opacity: 0;
         }
 
-        /* 閉じるボタン */
         #btn_cloth {
             position: absolute;
             top: 20px;
@@ -164,8 +160,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             transform: rotate(-90deg);
         }
 
-
-        /* クリックでオーバーレイ表示 */
         #popup:checked~#overlay {
             visibility: visible;
         }
@@ -181,9 +175,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             }
         }
 
-        /* オーバーレイのスタイル */
         #msg a {
-
             display: inline-block;
             color: #fff;
             background: #007BFF;
@@ -224,7 +216,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         .timestamptwo {
             display: inline-block;
             align-items: center;
-
         }
 
         .answer-info {
@@ -234,15 +225,12 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
         .date-and-like {
             display: flex;
-            /* 中央揃え */
             align-items: center;
-            /* 要素内を1行で表示 */
             white-space: nowrap;
         }
 
         .likes {
             margin-left: 10px;
-            /* いいねボタンと日付の間のスペースを調整するための余白 */
         }
 
         .textarea {
@@ -251,7 +239,6 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
             width: 100%;
             max-width: 100%;
             box-sizing: border-box;
-            /* パディングとボーダーを含めて幅を計算する */
         }
 
         .textarea textarea {
@@ -263,39 +250,10 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
         @media (max-width: 768px) {
             .textarea textarea {
                 font-size: 14px;
-                /* 小さい画面ではフォントサイズも調整すると良い */
             }
         }
     </style>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const num1 = document.getElementById('num1');
-            const button1 = document.getElementById('bt1');
-            const num2 = document.getElementById('num2');
-            const button2 = document.getElementById('bt2');
-
-            let count1 = 0;
-            let count2 = 0;
-
-            button1.addEventListener('click', function() {
-                count1++;
-                num1.innerHTML = count1;
-            });
-
-            button2.addEventListener('click', function() {
-                count2++;
-                num2.innerHTML = count2;
-            });
-        });
-
-        function check(id) {
-            document.getElementById(id).checked = true;
-        }
-    </script>
 </head>
-
-
 
 <main>
     <?php
@@ -304,11 +262,8 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     <div class="frame">
         <h2>質問</h2>
         <hr>
-
         <p><?= $showQuestion['Question'] ?></p>
-
         <p class="tag"># <?= $tag['TagName'] ?></p><br>
-
         <p class="timestamp"><?= $showQuestion['D'] ?></p>
         <input class="button" onclick="check('popup');" type="button" value="回答追加">
     </div>
@@ -318,7 +273,11 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     <div class="frame">
         <h2>回答</h2>
         <!-- 回答部分 -->
-        <?php foreach ($showAnswers as $showAnswer) { ?>
+        <?php foreach ($showAnswers as $showAnswer) {
+            // ユーザーのいいね状態の確認
+            $user_like_result = $kaitou->checkUserLike($user_id, $showAnswer['RepID']);
+            $user_liked = $user_like_result->rowCount() > 0;
+        ?>
             <div class="answer-info">
                 <div class="interaction">
                     <!-- コメント -->
@@ -326,9 +285,9 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
                     <!-- 日付といいねボタン -->
                     <div class="date-and-like">
                         <!-- いいねボタン -->
-                        <div>
-                            <p class="likenum" id="likesDisplay<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></p>
-                            <button class="likes" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>)">いいね！</button>
+                        <div class="like-container">
+                            <button id="likeButton<?= $showAnswer['RepID'] ?>" class="like-button <?= $user_liked ? 'liked' : '' ?>" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>, '<?= $user_id ?>')">❤️</button>
+                            <span id="likeCount<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></span>
                         </div>
                         <!-- 日付 -->
                         <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
@@ -340,47 +299,55 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     </div>
 </main>
 
-
-
 <script>
     function check(id) {
         document.getElementById(id).checked = true;
     }
 
-    function likeAnswer(answerId) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "like.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = xhr.responseText;
-                updateLikesDisplay(answerId, response);
-            }
-        };
-        xhr.send("answer_id=" + answerId);
-    }
+    function likeAnswer(repID, userId) {
+        const likeButton = document.getElementById(`likeButton${repID}`);
+        const likeCount = document.getElementById(`likeCount${repID}`);
+        let liked = likeButton.classList.contains('liked');
 
-    function updateLikesDisplay(answerId, likesCount) {
-        document.getElementById('likesDisplay' + answerId).innerHTML = likesCount;
+        liked = !liked;
+        likeButton.classList.toggle('liked', liked);
+        likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+
+        fetch('like_update.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    answer_id: repID,
+                    user_id: userId,
+                    liked
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    likeCount.textContent = data.likes;
+                } else {
+                    liked = !liked;
+                    likeButton.classList.toggle('liked', liked);
+                    likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+                }
+            });
     }
 </script>
 
-
-
-<!-- クリック動作判定 -->
 <input class="checkbox" type="checkbox" id="popup">
 
-<!-- ポップアップ部分 -->
 <div id="overlay">
-    <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+    <label for="popup" id="bg_gray"></label>
 
-    <div id="window"> <!-- ウィンドウ部分 -->
-        <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+    <div id="window">
+        <label for="popup" id="btn_cloth">
             <span></span>
         </label>
-        <div id="msg"> <!-- ウィンドウのコンテンツ -->
+        <div id="msg">
             <form method="POST" action="kaitouadd.php">
-                <!-- ユーザーのIDを取得する -->
                 <input type="hidden" name="userID" value="kd1@gmail.com">
                 <h2>回答投稿</h2>
                 <div class="textarea">
@@ -394,11 +361,8 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
     </div>
 </div>
 
-
-
-</div>
 <?php
-require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
+require_once __DIR__ . '/footer.php';
 ?>
 </body>
 

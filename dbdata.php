@@ -17,27 +17,27 @@ class Dbdata
     }
 
     // SELECT文実行用のメソッド
-    protected function query($sql, $array_params)
+    public function query($sql, $array_params = [])
     {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($array_params);
-        return  $stmt;  // PDOステートメントオブジェクトを返すのでfetch( )、fetchAll( )で結果セットを取得									
+        return $stmt; // PDOステートメントオブジェクトを返すのでfetch(), fetchAll()で結果セットを取得
     }
 
-    // INSERT、UPDATE、DELETE文実行用のメソッド	
-    protected function exec($sql,  $array_params)
+    // INSERT、UPDATE、DELETE文実行用のメソッド
+    public function exec($sql, $array_params = [])
     {
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($array_params);  // 成功：true、失敗：false
-        return  $stmt;
+        $stmt->execute($array_params); // 成功：true、失敗：false
+        return $stmt;
     }
 
-    protected function getLastInsertedID()
+    public function getLastInsertedID()
     {
         return $this->pdo->lastInsertId();
     }
 
-    protected function rollbackLastInsert()
+    public function rollbackLastInsert()
     {
         $this->pdo->rollBack();
     }

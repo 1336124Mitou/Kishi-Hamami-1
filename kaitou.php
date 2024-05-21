@@ -37,4 +37,11 @@ class Comment extends Dbdata
         $rep = $stmt->fetchAll();
         return $rep;
     }
+
+    public function checkUserLike($userId, $answerId)
+    {
+        $sql = "SELECT * FROM likes WHERE UsID = ? AND RepID = ?";
+        $stmt = $this->query($sql, [$userId, $answerId]);
+        return $stmt;
+    }
 }
