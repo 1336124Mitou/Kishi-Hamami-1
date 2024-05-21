@@ -252,6 +252,33 @@ $userCheck = $user->selectURlink($kijiID);
         .delete-button input:hover {
             background-color: #c82333;
         }
+
+        .infor {
+            display: flex;
+            align-items: center;
+            /* 垂直方向に中央揃え */
+            justify-content: space-between;
+            /* 子要素間のスペースを均等に配置 */
+        }
+
+        .likenumtwo {
+            margin-right: 10px;
+            /* 必要に応じて余白を調整 */
+        }
+
+        .likestwo {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .likestwo:hover {
+            background-color: #0056b3;
+        }
     </style>
 
     <script>
@@ -287,11 +314,12 @@ $userCheck = $user->selectURlink($kijiID);
     <div class="honbun">
 
         <?php
+        //ログインしているユーザーと記事を投稿したユーザーが同じなら削除ボタンを表示する
         if ($_SESSION['userId'] == $userCheck['UsID']) {
         ?>
             <!-- 削除ボタン -->
             <div class="delete-button">
-                <form method="POST" action="deletekiji.php">
+                <form method="POST" action="kijidelete.php">
                     <input type="hidden" name="kijiID" value="<?= $kijiID ?>">
                     <input type="submit" value="削除">
                 </form>
@@ -323,8 +351,6 @@ $userCheck = $user->selectURlink($kijiID);
                 <div class="infor">
                     <p class="likenumtwo" id="likeDisplay"><?= $like["LNum"] ?></p>
                     <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
-
-                    <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
                 </div>
                 <hr>
 

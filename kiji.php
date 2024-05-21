@@ -33,4 +33,22 @@ class Report extends Dbdata
         $showR = $stmt->fetch();
         return $showR;
     }
+
+    public function deleteReport($RepoID)
+    {
+        $sql = "DELETE FROM URlink WHERE RepoID = ?";
+        $this->exec($sql, [$RepoID]);
+
+        $sql = "DELETE FROM Likes WHERE RepoID = ?";
+        $this->exec($sql, [$RepoID]);
+
+        $sql = "DELETE FROM RepR WHERE RepoID = ?";
+        $this->exec($sql, [$RepoID]);
+
+        $sql = "DELETE FROM RepoTags WHERE RepoID = ?";
+        $this->exec($sql, [$RepoID]);
+
+        $sql = "DELETE FROM Report WHERE RepoID = ?";
+        $this->exec($sql, [$RepoID]);
+    }
 }
