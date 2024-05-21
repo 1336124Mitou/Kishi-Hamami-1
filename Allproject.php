@@ -1,24 +1,26 @@
 <?php
 // データベース接続などの設定
 
-// データベースへの接続
 $servername = "localhost";
 $username = "Kishi";
 $password = "hamami";
 $dbname = "kishi";
+
+// データベースへの接続
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 if ($conn->connect_error) {
     die("接続に失敗しました: " . $conn->connect_error);
 }
 
 // 制作物の情報を取得するSQLクエリ
-$sql = "SELECT * FROM Project"; // テーブル名が "Project" であることを前提とします
+$sql = "SELECT * FROM Project";
 $result = $conn->query($sql);
 
 // 取得した制作物の情報を配列に格納
 $projects = [];
 if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $projects[] = $row;
     }
 }
@@ -26,16 +28,20 @@ if ($result->num_rows > 0) {
 // データベース接続を閉じる
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <title>投稿一覧</title>
     <link href="main.css" rel="stylesheet">
     <style>
-      main {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .main {
             padding: 20px;
         }
         .project-item {
@@ -43,11 +49,9 @@ $conn->close();
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
-
-    .project-item h2 {
+        .project-item h2 {
             color: #4267b2;
         }
-
         .project-item a {
             color: #4267b2;
             text-decoration: none;
@@ -57,8 +61,7 @@ $conn->close();
             padding: 10px 20px;
             text-align: center;
         }
-        /* ボタンの微調整 */
-        input.button {
+        .button {
             border: 1px solid;
             width: 150px;
             height: 35px;
@@ -68,37 +71,44 @@ $conn->close();
             cursor: pointer;
             color: white;
             background-color: #007BFF;
+            margin-bottom: 20px;
         }
-       
-
+        .button:hover {
+            background-color: #0056b3;
+        }
         .que {
             text-align: right;
             float: right;
             margin: 10px;
         }
-
         .textarea {
             resize: none;
             text-align: center;
         }
-
-        input.submit {
+        .submit, .delete {
             display: inline-block;
             color: #fff;
-            background: #007BFF;
             border-radius: 20px;
             padding: 0.5em 1.5em;
-            border-color: #007BFF;
+            border: none;
+            cursor: pointer;
         }
-
-        input.submit:hover {
+        .submit {
+            background: #007BFF;
+        }
+        .submit:hover {
             opacity: 0.7;
         }
-</style>
+        .delete {
+            background: #FF0000;
+        }
+        .delete:hover {
+            opacity: 0.7;
+        }
+    </style>
 </head>
-
 <body>
-<?php require_once __DIR__ . '/header.php'; ?>
+    <?php require_once __DIR__ . '/header.php'; ?>
     <div class="main">
         <div class="show">
             <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
@@ -109,21 +119,22 @@ $conn->close();
             // 制作物の一覧を表示
             foreach ($projects as $project) {
                 echo "<div class='project-item'>";
-                echo "<h2>" . $project['ProName'] . "</h2>";
-                echo "<p>" . $project['Proexample'] . "</p>";
-                echo "<form method='get' action='project.php'>";
-                echo "<input type='hidden' name='id' value='" . $project['ProID'] . "'>";
-                echo "<input type='submit' value='詳細'>";
+                echo "<h2>" . htmlspecialchars($project['ProName'], ENT_QUOTES, 'UTF-8') . "</h2>";
+                echo "<p>" . htmlspecialchars($project['Proexample'], ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<form method='get' action='project.php' style='display:inline-block;'>";
+                echo "<input type='hidden' name='id' value='" . htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8') . "'>";
+                echo "<input type='submit' value='詳細' class='submit'>";
+                echo "</form>";
+                echo "<form method='post' action='delete_project.php' style='display:inline-block;' onsubmit='return confirm(\"本当に削除しますか？\");'>";
+                echo "<input type='hidden' name='id' value='" . htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8') . "'>";
+                echo "<input type='submit' value='削除' class='delete'>";
                 echo "</form>";
                 echo "</div>";
             }
             ?>
         </div>
     </div>
-    <?php
-    require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
-    ?>
+    <?php require_once __DIR__ . '/footer.php'; ?>
 </body>
-
 </html>
 
