@@ -48,19 +48,25 @@ class UQ extends Dbdata
         $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
 
+    // 特定のユーザーと質問のIDを取得する
     public function detailUQlink($QID) {
         $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
         $stmt = $this->query($sql, [$QID]);
         $result = $stmt->fetch();
+
+        return $result;
     }
 }
 
 class User extends Dbdata
 {
+    // 特定のユーザーのデータを取得する
     public function tokuteiUser($UID) {
         $sql = "SELECT * FROM usr WHERE UsID = ?";
         $stmt = $this->query($sql, [$UID]);
         $result = $stmt->fetch();
+
+        return $result;
     }
 
     // 新しいユーザーを登録するメソッド
