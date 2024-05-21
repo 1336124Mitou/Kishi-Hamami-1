@@ -1,88 +1,56 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
+$user_like_result = $kaitou->checkUserLike($user_id, $showAnswer['RepID']);
+$user_liked = $user_like_result->rowCount() > 0;
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>いいねボタン</title>
-    <style>
-        .like-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .like-button {
-            font-size: 24px;
-            background: none;
-            border: none;
-            /* 枠を消す */
-            cursor: pointer;
-            color: gray;
-        }
-
-
-        .like-button.liked {
-            color: pink !important;
-            /* ピンク色に変更 */
-        }
-
-
-        #likeCount {
-            margin-left: 8px;
-            font-size: 24px;
-        }
-    </style>
-</head>
-
-<body>
-    <?php
-    require 'dbdata.php';
-
-    $db = new Dbdata();
-
-    // いいね数の取得（例として特定のRepID = 1の回答に対するいいねを取得）
-    $repID = 1;
-    $result = $db->query("SELECT COUNT(*) AS like_count FROM Likes WHERE RepID = ?", [$repID]);
-    $row = $result->fetch();
-    $like_count = $row['like_count'];
-
-    // ユーザーのいいね状態の確認（ここではユーザーIDを 'kd1@gmail.com' と仮定）
-    $user_id = 'kd1@gmail.com'; // 実際のアプリではセッションなどから取得
-    $user_like_result = $db->query("SELECT 1 FROM Likes WHERE UsID = ? AND RepID = ?", [$user_id, $repID]);
-    $user_liked = $user_like_result->rowCount() > 0;
-    ?>
-    <div class="like-container">
-        <button id="likeButton" class="like-button <?php if ($user_liked) echo 'liked'; ?>">❤️</button>
-        <span id="likeCount"><?php echo $like_count; ?></span>
+<div class="answer-info">
+    <div class="interaction">
+        <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
+        <div class="date-and-like">
+            <div class="like-container">
+                <button id="likeButton<?= $showAnswer['RepID'] ?>" class="like-button <?= $user_liked ? 'liked' : '' ?>" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>, '<?= $user_id ?>')">
+                    <!-- SVG アイコン -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path class="heart-path" fill="<?= $user_liked ? 'pink' : 'white' ?>" stroke="<?= $user_liked ? 'none' : 'black' ?>" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </button>
+                <span id="likeCount<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></span>
+            </div>
+            <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
+        </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const likeButton = document.getElementById("likeButton");
-            const likeCount = document.getElementById("likeCount");
-            let liked = <?php echo $user_liked ? 'true' : 'false'; ?>;
-            const userId = "<?php echo $user_id; ?>";
-            const repID = <?php echo $repID; ?>;
+</div>
 
-            likeButton.addEventListener("click", () => {
-                liked = !liked;
-                likeButton.classList.toggle("liked", liked);
-                likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+<script>
+    function likeAnswer(repID, userId) {
+        const likeButton = document.getElementById(`likeButton${repID}`);
+        const likeCount = document.getElementById(`likeCount${repID}`);
+        let liked = likeButton.classList.contains('liked');
 
-                // サーバーにいいねの状態を送信
-                fetch('like_update.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId,
-                        repID,
-                        liked
-                    }),
-                });
+        liked = !liked;
+        likeButton.classList.toggle('liked', liked);
+        likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+
+        fetch('like_update.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    answer_id: repID,
+                    user_id: userId,
+                    liked
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    likeCount.textContent = data.likes;
+                } else {
+                    liked = !liked;
+                    likeButton.classList.toggle('liked', liked);
+                    likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+                }
             });
-        });
-    </script>
-</body>
-
-</html>
+    }
+</script>
