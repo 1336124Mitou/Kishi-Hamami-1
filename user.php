@@ -47,10 +47,21 @@ class UQ extends Dbdata
         $sql = "INSERT INTO UQlink (UsID, QuestionID) VALUES (?, ?)";
         $result = $this->exec($sql, [$UsID, $QuestionID]);
     }
+
+    public function detailUQlink($QID) {
+        $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
+        $stmt = $this->query($sql, [$QID]);
+        $result = $stmt->fetch();
+    }
 }
 
 class User extends Dbdata
 {
+    public function tokuteiUser($UID) {
+        $sql = "SELECT * FROM usr WHERE UsID = ?";
+        $stmt = $this->query($sql, [$UID]);
+        $result = $stmt->fetch();
+    }
 
     // 新しいユーザーを登録するメソッド
     public function newUser($UsID, $Name, $password, $passCheck, $ProInfo, $ProPic)
