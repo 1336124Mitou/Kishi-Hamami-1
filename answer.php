@@ -285,40 +285,38 @@ $user_id = 'kd1@gmail.com';
 <body>
     <main>
         <?php
-        require_once __DIR__ . '/shitsumon.php';
-        require_once __DIR__ . '/kaitou.php';
-        require_once __DIR__ . '/tags.php';
-
-        $quest = new Quest();
-        $kaitou = new Comment();
-        $tags = new Tag();
-
-        if (isset($_POST["question_id"])) {
-            $question_id = $_POST["question_id"];
-        }
-
-        $showQuestion = $quest->showQuestion($question_id);
-        $showAnswers = $kaitou->showAllAnswer($question_id);
-
-        $user_id = 'kd1@gmail.com';
+        $tag = $tags->showTagQ($question_id);
         ?>
-
         <div class="frame">
             <h2>質問</h2>
             <hr>
+
             <p><?= $showQuestion['Question'] ?></p>
-            <p class="tag"># <?= $tags->showTagQ($question_id)['TagName'] ?></p><br>
+
+            <p class="tag"># <?= $tag['TagName'] ?></p><br>
+
             <p class="timestamp"><?= $showQuestion['D'] ?></p>
             <input class="button" onclick="check('popup');" type="button" value="回答追加">
         </div>
-
         <div class="frame">
             <h2>回答</h2>
-            <?php foreach ($showAnswers as $showAnswer) {
-                require 'like_button.php'; // like_button.phpを読み込む
-            ?>
+            <?php foreach ($showAnswers as $showAnswer) { ?>
+                <div class="answer-info">
+                    <div class="interaction">
+                        <!-- コメント -->
+                        <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
+                        <!-- 日付 -->
+                        <div class="date-and-like">
+                            <!-- 日付 -->
+                            <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
+                            <!-- Like button -->
+                            <?php require 'like_button.php'; ?>
+                        </div>
+                    </div>
+                </div>
                 <hr>
             <?php } ?>
+
         </div>
     </main>
 
@@ -328,13 +326,19 @@ $user_id = 'kd1@gmail.com';
         }
     </script>
 
+    <!-- クリック動作判定 -->
     <input class="checkbox" type="checkbox" id="popup">
+    <!-- ポップアップ部分 -->
     <div id="overlay">
-        <label for="popup" id="bg_gray"></label>
-        <div id="window">
-            <label for="popup" id="btn_cloth"><span></span></label>
-            <div id="msg">
+        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+        <div id="window"> <!-- ウィンドウ部分 -->
+            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+                <span></span>
+            </label>
+            <div id="msg"> <!-- ウィンドウのコンテンツ -->
                 <form method="POST" action="kaitouadd.php">
+                    <!-- ユーザーのIDを取得する -->
                     <input type="hidden" name="userID" value="kd1@gmail.com">
                     <h2>回答投稿</h2>
                     <div class="textarea">
@@ -343,7 +347,6 @@ $user_id = 'kd1@gmail.com';
                         <div class="post">
                             <input type="submit" value="投稿">
                         </div>
-                    </div>
                 </form>
             </div>
         </div>
