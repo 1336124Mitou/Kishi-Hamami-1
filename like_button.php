@@ -5,7 +5,6 @@ $user_liked = $user_like_result->rowCount() > 0;
 
 <div class="answer-info">
     <div class="interaction">
-        <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
         <div class="date-and-like">
             <div class="like-container">
                 <button id="likeButton<?= $showAnswer['RepID'] ?>" class="like-button <?= $user_liked ? 'liked' : '' ?>" onclick="likeAnswer(<?= $showAnswer['RepID'] ?>, '<?= $user_id ?>')">
@@ -16,7 +15,6 @@ $user_liked = $user_like_result->rowCount() > 0;
                 </button>
                 <span id="likeCount<?= $showAnswer['RepID'] ?>"><?= $showAnswer['LNum'] ?></span>
             </div>
-            <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
         </div>
     </div>
 </div>

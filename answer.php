@@ -356,13 +356,19 @@ $user_id = 'kd1@gmail.com';
     }
 </script>
 
+<!-- クリック動作判定 -->
 <input class="checkbox" type="checkbox" id="popup">
+<!-- ポップアップ部分 -->
 <div id="overlay">
-    <label for="popup" id="bg_gray"></label>
-    <div id="window">
-        <label for="popup" id="btn_cloth"><span></span></label>
-        <div id="msg">
+    <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+
+    <div id="window"> <!-- ウィンドウ部分 -->
+        <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+            <span></span>
+        </label>
+        <div id="msg"> <!-- ウィンドウのコンテンツ -->
             <form method="POST" action="kaitouadd.php">
+                <!-- ユーザーのIDを取得する -->
                 <input type="hidden" name="userID" value="kd1@gmail.com">
                 <h2>回答投稿</h2>
                 <div class="textarea">
@@ -371,10 +377,10 @@ $user_id = 'kd1@gmail.com';
                     <div class="post">
                         <input type="submit" value="投稿">
                     </div>
-                </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 
 <?php require_once __DIR__ . '/footer.php'; ?>
