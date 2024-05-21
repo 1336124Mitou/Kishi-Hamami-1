@@ -319,14 +319,13 @@ $userCheck = $user->selectURlink($kijiID);
                 <p><?= $showComment['Reply'] ?></p>
 
                 <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
-                <!-- for later/後で追加 
+                <!-- for later/後で追加 -->
                 <div class="infor">
                     <p class="likenumtwo" id="likeDisplay"><?= $like["LNum"] ?></p>
                     <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
 
                     <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
                 </div>
-                -->
                 <hr>
 
             <?php
