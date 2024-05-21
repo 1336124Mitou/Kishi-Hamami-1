@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // プロフィール更新
         if ($user->updateProfile($_SESSION['userId'], $userName, $prof)) {
-            $success = 'プロフィールが更新されました。';
+            $success = '';
         } else {
             $error = 'プロフィールの更新に失敗しました。';
         }
@@ -116,6 +116,10 @@ $profile = $user->myProfile($_SESSION['userId']);
         .update-button:hover {
             background-color: #0056b3;
         }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -136,7 +140,7 @@ $profile = $user->myProfile($_SESSION['userId']);
                 <label for="prof">プロフィール</label>
                 <textarea id="prof" name="prof" required><?= htmlspecialchars($profile['Prof'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
-            <button class="update-button" onclick="location.href='profile.php'" type="submit">更新</button>
+            <button class="update-button" type="submit">更新</button>
         </form>
     </div>
 </body>
