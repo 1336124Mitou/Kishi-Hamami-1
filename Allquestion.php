@@ -108,6 +108,8 @@ $showTags = $tags->showTags();
             border-radius: 20px;
             padding: 0.5em 1.5em;
             border-color: #007BFF;
+            border: none;
+            cursor: pointer;
         }
 
         input.submit:hover {
@@ -265,7 +267,7 @@ $showTags = $tags->showTags();
                         <h2 class="questionndata"><?= $q ?></h2>
                         <p class="UserName"><?= $urname['UsName'] ?></p>
                         <p class="tag"># <?= $qtag['TagName'] ?></p><br>
-                        <input type="submit" value="詳細">
+                        <input class="submit" type="submit" value="詳細">
                     </form>
                 </section>
             </main>
