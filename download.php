@@ -1,57 +1,57 @@
 <?php
-// データベース接続などの設定
-
-// データベースへの接続
+// データベース接続設定
 $servername = "localhost";
 $username = "Kishi";
 $password = "hamami";
 $dbname = "kishi";
+
+// データベースへの接続
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 if ($conn->connect_error) {
     die("接続に失敗しました: " . $conn->connect_error);
 }
 
-// 制作物のIDを取得
-$proID = $_GET['id'];
+// 制作物IDの取得
+$proID = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// 制作物のファイル名をデータベースから取得するSQLクエリ
-$sql = "SELECT ProjFile FROM project WHERE ProID = $proID";
-$result = $conn->query($sql);
+if ($proID <= 0) {
+    die("無効な制作物IDです");
+}
 
+// 制作物のファイルパスを取得するSQLクエリ
+$sql = "SELECT ProjFile FROM Project WHERE ProID = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $proID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// ファイルが存在するかチェック
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $filePath = $row['ProjFile']; // 制作物のファイルパス
-    $fileName = basename($filePath); // ファイル名を取得
+    $filePath = $row['ProjFile'];
 
-    // ファイルが存在するかどうかを確認する
+    // ファイルが存在するかチェック
     if (file_exists($filePath)) {
-        $fileSize = filesize($filePath); // ファイルサイズを取得
-        // ファイルの種類を取得する
-        $fileType = mime_content_type($filePath);
-
-        // ダウンロード用のヘッダーを設定する
+        // ファイルのダウンロード処理
         header('Content-Description: File Transfer');
-        header('Content-Type: ' . $fileType);
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
-        header('Content-Length: ' . $fileSize);
-
-        // ファイルを読み込んで出力する
+        header('Content-Length: ' . filesize($filePath));
         readfile($filePath);
-
-        // スクリプトを終了する
         exit;
     } else {
-        // ファイルが存在しない場合はエラーメッセージを出力する
-        die("ファイルが見つかりませんでした");
+        echo "ファイルが見つかりませんでした";
     }
 } else {
-    // 制作物が存在しない場合はエラーメッセージを出力して終了する
-    die("制作物が見つかりませんでした");
+    echo "制作物が見つかりませんでした";
 }
 
 // データベース接続を閉じる
+$stmt->close();
 $conn->close();
 ?>
+

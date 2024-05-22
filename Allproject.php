@@ -125,10 +125,6 @@ $conn->close();
                 echo "<input type='hidden' name='id' value='" . htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8') . "'>";
                 echo "<input type='submit' value='詳細' class='submit'>";
                 echo "</form>";
-                echo "<form method='post' action='delete_project.php' style='display:inline-block;' onsubmit='return confirm(\"本当に削除しますか？\");'>";
-                echo "<input type='hidden' name='id' value='" . htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8') . "'>";
-                echo "<input type='submit' value='削除' class='delete'>";
-                echo "</form>";
                 echo "</div>";
             }
             ?>
