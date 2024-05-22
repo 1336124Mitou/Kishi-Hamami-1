@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
 <?php
-if (!isset($user)) { //user変数が無ければ
+session_start();
+if (!isset($user)) {
     require_once __DIR__ . '/user.php';
     $user = new User();
 }
+
+// プロフィール情報を抽出
+$profile = $user->myProfile($_SESSION['userId']);
 ?>
 
 <head>
-    <?php require_once __DIR__ . '/header.php';
-    //プロフィール情報を抽出
-    $profile = $user->myProfile($_SESSION['userId']);
-    ?>
+    <?php require_once __DIR__ . '/header.php'; ?>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale-1.0">
-    <title>ログイン</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール</title>
     <link href="main.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 0
+            padding: 0;
         }
 
         .profile-container {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 700px;
+            width: 90%;
+            max-width: 700px;
             text-align: center;
             padding: 20px;
-            margin-left: 120px;
+            margin: 20px auto;
             position: relative;
         }
 
@@ -39,6 +41,7 @@ if (!isset($user)) { //user変数が無ければ
             display: flex;
             align-items: center;
             text-align: left;
+            flex-wrap: wrap;
         }
 
         .profile-img {
@@ -51,6 +54,7 @@ if (!isset($user)) { //user変数が無ければ
 
         .profile-details {
             text-align: left;
+            flex-grow: 1;
         }
 
         .profile-name {
@@ -111,8 +115,29 @@ if (!isset($user)) { //user変数が無ければ
         .edit-profile-button:hover {
             background-color: #0056b3;
         }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .profile-details {
+                text-align: center;
+            }
+
+            .edit-profile-button {
+                top: 10px;
+                right: 10px;
+            }
+        }
     </style>
-        <script>
+    <script>
         function redirectToUpdateProfile() {
             window.location.href = 'update_profile.php';
         }
@@ -120,15 +145,13 @@ if (!isset($user)) { //user変数が無ければ
 </head>
 
 <body>
-
-
     <div class="profile-container">
         <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
         <div class="profile-header">
             <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
-            <div>
-                <div class="profile-name"><?= $profile['UsName'] ?></div>
-                <div class="profile-emailaddress"><?= $_SESSION['userId'] ?></div>
+            <div class="profile-details">
+                <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
+                <div class="profile-emailaddress"><?= htmlspecialchars($_SESSION['userId'], ENT_QUOTES, 'UTF-8') ?></div>
             </div>
         </div>
         <div class="profile-stats">
@@ -137,9 +160,8 @@ if (!isset($user)) { //user変数が無ければ
                 <hr>
             </div>
         </div>
-        <div class="profile-bio"><?= $profile['Prof'] ?></div>
+        <div class="profile-bio"><?= htmlspecialchars($profile['Prof'], ENT_QUOTES, 'UTF-8') ?></div>
     </div>
-
 </body>
 
 </html>
