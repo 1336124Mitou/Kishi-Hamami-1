@@ -32,6 +32,16 @@ class Dbdata
         return $stmt;
     }
 
+    protected function beginTransaction()
+    {
+        $this->pdo->beginTransaction();
+    }
+
+    protected function commit()
+    {
+        $this->pdo->commit();
+    }
+
     public function getLastInsertedID()
     {
         return $this->pdo->lastInsertId();

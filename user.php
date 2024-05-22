@@ -38,6 +38,15 @@ class URe extends Dbdata
         $sql = "INSERT INTO URelink (UsID, RepID) VALUES (?, ?)";
         $result = $this->exec($sql, [$UsID, $RepID]);
     }
+
+    // 特定のユーザーと回答/コメントのIDを取得する
+    public function detailURelink($ComID) {
+        $sql = "SELECT * FROM urelink WHERE RepID = ?";
+        $stmt = $this->query($sql, [$ComID]);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
 }
 // ユーザーのデータと質問のデータを関連させる
 class UQ extends Dbdata

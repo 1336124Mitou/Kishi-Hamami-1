@@ -1,4 +1,9 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (!isset($comment)) {
     require_once __DIR__ . '/comment.php';
     $comment = new Comment();
@@ -285,18 +290,27 @@ $userCheck = $user->selectURlink($kijiID);
         function check(id) {
             document.getElementById(id).checked = true;
         }
-
-        function likeAnswer(replyId) {
+        function likeAnswer(replyId, userId) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "likeRadd.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    updateLikesDisplay();
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // 良いね数の表示を更新する
+                        document.getElementById('likesDisplay').innerText = response.newLikeCount;
+                    } else {
+                        console.error("Error: " + response.message);
+                    }
+                } else if (xhr.readyState === 4) {
+                    console.error("Error: " + xhr.status + " " + xhr.statusText);
                 }
             };
-            xhr.send("ReplyID=" + replyId);
+            xhr.send("ReplyID=" + encodeURIComponent(replyId) + "&UserID=" + encodeURIComponent(userId));
         }
+
+        
 
         function updateLikesDisplay() {
             //likesDisplayの数値を文字列として取得
@@ -335,7 +349,7 @@ $userCheck = $user->selectURlink($kijiID);
         <!-- いいねボタン -->
         <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
         <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
-        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>, '<?= $_SESSION['userId'] ?>')">いいね！</button>
     </div>
     <main>
         <div class="frame">
@@ -350,7 +364,7 @@ $userCheck = $user->selectURlink($kijiID);
                 <!-- for later/後で追加 -->
                 <div class="infor">
                     <p class="likenumtwo" id="likeDisplay"><?= $like["LNum"] ?></p>
-                    <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>)">いいね！</button>
+                    <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>, <?= $_SESSION['userId'] ?>)">いいね！</button>
                 </div>
                 <hr>
 
