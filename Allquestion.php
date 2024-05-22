@@ -187,7 +187,7 @@ $showTags = $tags->showTags();
                     <h2>質問投稿</h2>
                     <div class="textarea">
                         <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
-                        <input type="hidden" name="userid" value="<?=$_SESSION['userId'] ?>">
+                        <input type="hidden" name="userid" value="<?= $_SESSION['userId'] ?>">
 
                         <!-- タグIDをおくる -->
                         <select name="Qtag">
@@ -249,9 +249,9 @@ $showTags = $tags->showTags();
         foreach ($showQuestions as $showQuest) {
             //質問が20文字以上ならそこで区切って...を表示する
             if (mb_strlen($showQuest['Question']) > $limit) {
-                $q = mb_substr($showQuest['Question'], 0, $limit) . '...';
+                $q = htmlspecialchars(mb_substr($showQuest['Question'], 0, $limit) . '...', ENT_QUOTES);
             } else {
-                $q = $showQuest['Question'];
+                $q = htmlspecialchars($showQuest['Question'], ENT_QUOTES);
             }
             $qtag = $tags->showTagQ($showQuest['QuestionID']);
 

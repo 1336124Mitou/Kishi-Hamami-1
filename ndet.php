@@ -319,7 +319,7 @@ $userCheck = $user->selectURlink($kijiID);
         ?>
             <!-- 削除ボタン -->
             <div class="delete-button">
-                <form method="POST" action="kijidelete.php">
+                <form method="POST" action="kijidelete.php" onsubmit="return confirm('本当に削除しますか？');">
                     <input type="hidden" name="kijiID" value="<?= $kijiID ?>">
                     <input type="submit" value="削除">
                 </form>
@@ -327,8 +327,8 @@ $userCheck = $user->selectURlink($kijiID);
         <?php
         }
         ?>
-        <h1><?= $showkiji['Title'] ?></h1>
-        <form id="form1"><?= $showkiji['Info'] ?></form>
+        <h1><?php echo htmlspecialchars($showkiji['Title'], ENT_QUOTES); ?></h1>
+        <form id="form1"><?php echo htmlspecialchars($showkiji['Info'], ENT_QUOTES); ?></form>
         <br>
     </div>
     <div class="like">

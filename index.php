@@ -220,7 +220,7 @@ $showTags = $tags->showTags();
                         <section class="kiji">
                             <form method="post" name="kiji" action="ndet.php">
                                 <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
-                                <h2 id="kijidata"><?= $showReport['Title'] ?></h2>
+                                <h2 id="kijidata"><?php echo htmlspecialchars($showReport['Title'], ENT_QUOTES); ?></h2>
                                 <p class="tag"># <?= $rtag['TagName'] ?></p>
                                 <div class="extra">
                                     <input type="submit" value="詳細" id="more">

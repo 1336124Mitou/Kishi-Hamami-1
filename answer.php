@@ -322,7 +322,7 @@ $user_id = 'kd1@gmail.com';
     ?>
         <!-- 削除ボタン -->
         <div class="delete-button">
-            <form method="POST" action="shitsumondelete.php">
+            <form method="POST" action="shitsumondelete.php" onsubmit="return confirm('本当に削除しますか？')">
                 <input type="hidden" name="QID" value="<?= $question_id ?>">
                 <input type="submit" value="削除">
             </form>
@@ -333,7 +333,7 @@ $user_id = 'kd1@gmail.com';
     <div class="frame">
         <h2>質問</h2>
         <hr>
-        <p><?= $showQuestion['Question'] ?></p>
+        <p><?php echo htmlspecialchars($showQuestion['Question'], ENT_QUOTES); ?></p>
         <p class="tag"># <?= $tag['TagName'] ?></p><br>
         <p class="timestamp"><?= $showQuestion['D'] ?></p>
         <input class="button" onclick="check('popup');" type="button" value="回答追加">
@@ -344,7 +344,7 @@ $user_id = 'kd1@gmail.com';
         <h2>回答</h2>
         <?php foreach ($showAnswers as $showAnswer) {
         ?>
-            <p><?= $showAnswer['Reply'] ?></p>
+            <p><?php echo htmlspecialchars($showAnswer['Reply'], ENT_QUOTES); ?></p>
             <?php
             require 'like_button.php'; // like_button.phpを読み込む
             ?>
