@@ -338,16 +338,20 @@ $user_id = 'kd1@gmail.com';
         <p class="timestamp"><?= $showQuestion['D'] ?></p>
         <input class="button" onclick="check('popup');" type="button" value="回答追加">
     </div>
-</main>
 
-<div class="frame">
-    <h2>回答</h2>
-    <?php foreach ($showAnswers as $showAnswer) {
-        require 'like_button.php'; // like_button.phpを読み込む
-    ?>
-        <hr>
-    <?php } ?>
-</div>
+
+    <div class="frame">
+        <h2>回答</h2>
+        <?php foreach ($showAnswers as $showAnswer) {
+        ?>
+            <p><?= $showAnswer['Reply'] ?></p>
+            <?php
+            require 'like_button.php'; // like_button.phpを読み込む
+            ?>
+            <hr>
+        <?php
+        } ?>
+    </div>
 </main>
 
 <script>
