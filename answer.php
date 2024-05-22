@@ -312,92 +312,82 @@ $user_id = 'kd1@gmail.com';
     </style>
 </head>
 
-<body>
-    <main>
-        <?php
-        $tag = $tags->showTagQ($question_id);
+<main>
+    <?php
+    $tag = $tags->showTagQ($question_id);
+    ?>
+    <?php
+    //ログインしているユーザーと記事を投稿したユーザーが同じなら削除ボタンを表示する
+    if ($_SESSION['userId'] == $userCheck['UsID']) {
+    ?>
+        <!-- 削除ボタン -->
+        <div class="delete-button">
+            <form method="POST" action="shitsumondelete.php">
+                <input type="hidden" name="QID" value="<?= $question_id ?>">
+                <input type="submit" value="削除">
+            </form>
+        </div>
+    <?php
+    }
+    ?>
+    <div class="frame">
+        <h2>質問</h2>
+        <hr>
+        <p><?= $showQuestion['Question'] ?></p>
+        <p class="tag"># <?= $tag['TagName'] ?></p><br>
+        <p class="timestamp"><?= $showQuestion['D'] ?></p>
+        <input class="button" onclick="check('popup');" type="button" value="回答追加">
+    </div>
+
+
+    <div class="frame">
+        <h2>回答</h2>
+        <?php foreach ($showAnswers as $showAnswer) {
         ?>
-        <?php
-        //ログインしているユーザーと記事を投稿したユーザーが同じなら削除ボタンを表示する
-        if ($_SESSION['userId'] == $userCheck['UsID']) {
-        ?>
-            <!-- 削除ボタン -->
-            <div class="delete-button">
-                <form method="POST" action="shitsumondelete.php">
-                    <input type="hidden" name="kijiID" value="<?= $kijiID ?>">
-                    <input type="submit" value="削除">
-                </form>
-            </div>
-        <?php
-        }
-        ?>
-        <div class="frame">
-            <h2>質問</h2>
+            <p><?= $showAnswer['Reply'] ?></p>
+            <?php
+            require 'like_button.php'; // like_button.phpを読み込む
+            ?>
             <hr>
+        <?php
+        } ?>
+    </div>
+</main>
 
-            <p><?= $showQuestion['Question'] ?></p>
+<script>
+    function check(id) {
+        document.getElementById(id).checked = true;
+    }
+</script>
 
-            <p class="tag"># <?= $tag['TagName'] ?></p><br>
+<!-- クリック動作判定 -->
+<input class="checkbox" type="checkbox" id="popup">
+<!-- ポップアップ部分 -->
+<div id="overlay">
+    <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
 
-            <p class="timestamp"><?= $showQuestion['D'] ?></p>
-            <input class="button" onclick="check('popup');" type="button" value="回答追加">
-        </div>
-        <div class="frame">
-            <h2>回答</h2>
-            <?php foreach ($showAnswers as $showAnswer) { ?>
-                <div class="answer-info">
-                    <div class="interaction">
-                        <!-- コメント -->
-                        <p class="comment" style="word-wrap: break-word;"><?= $showAnswer['Reply'] ?></p><br>
-                        <!-- 日付 -->
-                        <div class="date-and-like">
-                            <!-- 日付 -->
-                            <p class="timestamptwo"><?= $showAnswer['D'] ?> <?= $showAnswer['Tim'] ?></p>
-                            <!-- Like button -->
-                            <?php require 'like_button.php'; ?>
-                        </div>
+    <div id="window"> <!-- ウィンドウ部分 -->
+        <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
+            <span></span>
+        </label>
+        <div id="msg"> <!-- ウィンドウのコンテンツ -->
+            <form method="POST" action="kaitouadd.php">
+                <!-- ユーザーのIDを取得する -->
+                <input type="hidden" name="userID" value="kd1@gmail.com">
+                <h2>回答投稿</h2>
+                <div class="textarea">
+                    <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>
+                    <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
+                    <div class="post">
+                        <input type="submit" value="投稿">
                     </div>
-                </div>
-                <hr>
-            <?php } ?>
-
-        </div>
-    </main>
-
-    <script>
-        function check(id) {
-            document.getElementById(id).checked = true;
-        }
-    </script>
-
-    <!-- クリック動作判定 -->
-    <input class="checkbox" type="checkbox" id="popup">
-    <!-- ポップアップ部分 -->
-    <div id="overlay">
-        <label for="popup" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
-
-        <div id="window"> <!-- ウィンドウ部分 -->
-            <label for="popup" id="btn_cloth"> <!-- 閉じるボタン -->
-                <span></span>
-            </label>
-            <div id="msg"> <!-- ウィンドウのコンテンツ -->
-                <form method="POST" action="kaitouadd.php">
-                    <!-- ユーザーのIDを取得する -->
-                    <input type="hidden" name="userID" value="kd1@gmail.com">
-                    <h2>回答投稿</h2>
-                    <div class="textarea">
-                        <textarea id="answer" name="Com" rows="5" cols="70" required></textarea>
-                        <input type="hidden" name="QuestionID" value="<?= $question_id ?>">
-                        <div class="post">
-                            <input type="submit" value="投稿">
-                        </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    </div>
+</div>
+</div>
 
-    <?php require_once __DIR__ . '/footer.php'; ?>
+<?php require_once __DIR__ . '/footer.php'; ?>
 </body>
 
 </html>

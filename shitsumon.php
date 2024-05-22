@@ -37,6 +37,11 @@ class Quest extends DbData
 
     public function deleteQuestion($QID)
     {
+        //回答のIDを取得
+        $sql = "SELECT * FROM RepQ WHERE QuestionID = ?";
+        $stmt = $this->query($sql, [$QID]);
+        $RepIDs = $stmt->fetchAll();
+
         $sql = "DELETE FROM UQlink WHERE QuestionID = ?";
         $this->exec($sql, [$QID]);
 
@@ -48,5 +53,13 @@ class Quest extends DbData
 
         $sql = "DELETE FROM Question WHERE QuestionID = ?";
         $this->exec($sql, [$QID]);
+
+        // //質問の回答を削除
+        foreach ($RepIDs as $RepID) {
+            $sql = "DELETE FROM URelink WHERE RepID = ?";
+            $this->exec($sql, [$RepID['RepID']]);
+            $sql = "DELETE FROM Reply WHERE RepID = ?";
+            $this->exec($sql, [$RepID['RepID']]);
+        }
     }
 }
