@@ -342,7 +342,7 @@ $userCheck = $user->selectURlink($kijiID);
         }
         ?>
         <h1><?php echo htmlspecialchars($showkiji['Title'], ENT_QUOTES); ?></h1>
-        <form id="form1"><?php echo htmlspecialchars($showkiji['Info'], ENT_QUOTES); ?></form>
+        <form id="form1"><?php echo nl2br(htmlspecialchars($showkiji['Info'], ENT_QUOTES)); ?></form>
         <br>
     </div>
     <div class="like">
