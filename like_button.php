@@ -22,11 +22,22 @@ $user_liked = $user_like_result->rowCount() > 0;
 <script>
     function likeAnswer(repID, userId) {
         const likeButton = document.getElementById(`likeButton${repID}`);
+        const heartPath = likeButton.querySelector('.heart-path');
         const likeCount = document.getElementById(`likeCount${repID}`);
         let liked = likeButton.classList.contains('liked');
 
         liked = !liked;
         likeButton.classList.toggle('liked', liked);
+
+        // 更新された状態に基づいて色を変更する
+        if (liked) {
+            heartPath.setAttribute('fill', 'pink');
+            heartPath.setAttribute('stroke', 'none');
+        } else {
+            heartPath.setAttribute('fill', 'white');
+            heartPath.setAttribute('stroke', 'black');
+        }
+
         likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
 
         fetch('like_update.php', {
@@ -45,8 +56,18 @@ $user_liked = $user_like_result->rowCount() > 0;
                 if (data.success) {
                     likeCount.textContent = data.likes;
                 } else {
+                    // サーバー側でエラーが発生した場合、状態を元に戻す
                     liked = !liked;
                     likeButton.classList.toggle('liked', liked);
+
+                    if (liked) {
+                        heartPath.setAttribute('fill', 'pink');
+                        heartPath.setAttribute('stroke', 'none');
+                    } else {
+                        heartPath.setAttribute('fill', 'white');
+                        heartPath.setAttribute('stroke', 'black');
+                    }
+
                     likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
                 }
             });
