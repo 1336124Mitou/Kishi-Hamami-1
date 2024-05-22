@@ -50,7 +50,7 @@
             border-radius: 5px;
         }
 
-        .login-form button {
+        .loginbutton {
             background-color: #007bff;
             color: white;
             border: none;
@@ -58,6 +58,10 @@
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
+        }
+
+        .loginbutton:hover {
+            background-color: #0056b3;
         }
 
         .login-form button:hover {
@@ -88,6 +92,10 @@
             /* line-height: 1em;
             transition: .3s;
             border: 2px solid #000066; */
+        }
+
+        .newaccount-button:hover {
+            background-color: #0056b3;
         }
 
         .newaccount-sentence {
@@ -141,7 +149,7 @@
             <!-- パスワードを入力するためのテキストボックス -->
             <label for="textbox">パスワード：</label>
             <input type="password" id="pass" name="password" required><br>
-            <input type="submit" value="ログイン">
+            <input type="submit" class="loginbutton" value="ログイン">
         </form>
     </div>
     <br>

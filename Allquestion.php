@@ -108,6 +108,8 @@ $showTags = $tags->showTags();
             border-radius: 20px;
             padding: 0.5em 1.5em;
             border-color: #007BFF;
+            border: none;
+            cursor: pointer;
         }
 
         input.submit:hover {
@@ -187,7 +189,7 @@ $showTags = $tags->showTags();
                     <h2>質問投稿</h2>
                     <div class="textarea">
                         <textarea id="question" name="QDet" rows="5" cols="70" required></textarea><br><br>
-                        <input type="hidden" name="userid" value="<?=$_SESSION['userId'] ?>">
+                        <input type="hidden" name="userid" value="<?= $_SESSION['userId'] ?>">
 
                         <!-- タグIDをおくる -->
                         <select name="Qtag">
@@ -249,9 +251,9 @@ $showTags = $tags->showTags();
         foreach ($showQuestions as $showQuest) {
             //質問が20文字以上ならそこで区切って...を表示する
             if (mb_strlen($showQuest['Question']) > $limit) {
-                $q = mb_substr($showQuest['Question'], 0, $limit) . '...';
+                $q = htmlspecialchars(mb_substr($showQuest['Question'], 0, $limit) . '...', ENT_QUOTES);
             } else {
-                $q = $showQuest['Question'];
+                $q = htmlspecialchars($showQuest['Question'], ENT_QUOTES);
             }
             $qtag = $tags->showTagQ($showQuest['QuestionID']);
 
@@ -265,7 +267,7 @@ $showTags = $tags->showTags();
                         <h2 class="questionndata"><?= $q ?></h2>
                         <p class="UserName"><?= $urname['UsName'] ?></p>
                         <p class="tag"># <?= $qtag['TagName'] ?></p><br>
-                        <input type="submit" value="詳細">
+                        <input class="submit" type="submit" value="詳細">
                     </form>
                 </section>
             </main>

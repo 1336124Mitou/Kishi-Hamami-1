@@ -58,7 +58,8 @@ class UQ extends Dbdata
     }
 
     // 特定のユーザーと質問のIDを取得する
-    public function detailUQlink($QID) {
+    public function detailUQlink($QID)
+    {
         $sql = "SELECT * FROM UQlink WHERE QuestionID = ?";
         $stmt = $this->query($sql, [$QID]);
         $result = $stmt->fetch();
@@ -70,7 +71,8 @@ class UQ extends Dbdata
 class User extends Dbdata
 {
     // 特定のユーザーのデータを取得する
-    public function tokuteiUser($UID) {
+    public function tokuteiUser($UID)
+    {
         $sql = "SELECT * FROM usr WHERE UsID = ?";
         $stmt = $this->query($sql, [$UID]);
         $result = $stmt->fetch();
