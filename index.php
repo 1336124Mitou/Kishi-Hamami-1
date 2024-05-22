@@ -3,15 +3,18 @@ if (!isset($kiji)) {
     require_once __DIR__ . '/kiji.php';
     $kiji = new Report();
 }
+
 if (!isset($tag)) {
     require_once __DIR__ . '/tags.php';
     $tags = new Tag();
 }
+
 if (!isset($us)) {
     require_once __DIR__ . '/user.php';
     $us = new User();
     $ur = new UR();
 }
+
 if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
     $Filter = $_POST["Filter"];
 }
@@ -21,10 +24,8 @@ if (!isset($Filter)) { //$Filterが空なら全て表示する
 } else {
     $showKiji = $tags->sortTagR($Filter);
 }
-
 $showTags = $tags->showTags();
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -33,7 +34,11 @@ $showTags = $tags->showTags();
     <title>プログラミング情報共有サイト（仮）</title>
     <link href="main.css" rel="stylesheet">
     <script src="index.js" defer></script>
+    <?php
+    require_once __DIR__ . '/header.php';
+    ?>
 </head>
+
 <style>
     a.que {
         float: right;
@@ -53,17 +58,16 @@ $showTags = $tags->showTags();
         font-weight: bold;
     }
 
-    h2 {
+
+    .title {
         font-weight: bold;
         line-height: 2;
         color: #000000;
-        margin: 25px 0;
+        margin: 10px;
     }
 
     p {
         font-weight: bold;
-        line-height: 2;
-        color: #333;
     }
 
     th,
@@ -94,7 +98,7 @@ $showTags = $tags->showTags();
         border: 1px solid #333333;
     }
 
-    button {
+    .button {
         background-color: #fff;
         border-color: #fff;
         margin-left: 5px;
@@ -111,17 +115,77 @@ $showTags = $tags->showTags();
         color: #007BFF;
     }
 
+    .main {
+        /* 幅を指定 */
+        width: 80%;
+        /* 最大幅を指定 */
+        max-width: 1200px;
+        /* 自動的に中央に配置 */
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    /* .filter {
+        width: 120px;
+        height: 42px;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    } */
+
+    .filter {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        margin: 10px;
+    }
+
+    .filter::after {
+        position: absolute;
+        right: 15px;
+        width: 10px;
+        height: 7px;
+        background-color: #535353;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        content: '';
+        pointer-events: none;
+    }
+
+    .filter select {
+        appearance: none;
+        min-width: 50px;
+        height: 2.8em;
+        padding: .4em calc(.8em + 30px) .4em .8em;
+        border: 1px solid #d0d0d0;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #333333;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+
     /* ボタンの微調整 */
+    /* Button styling */
     input.button {
         border: 1px solid;
         width: 150px;
-        height: 35px;
+        height: 42px;
         font-size: 15px;
         align-self: center;
         border-radius: 5px;
         cursor: pointer;
         color: white;
         background-color: #007BFF;
+    }
+
+    input.button:hover {
+        background-color: #0056b3;
     }
 
     .textarea {
@@ -135,8 +199,39 @@ $showTags = $tags->showTags();
         margin: 10px;
     }
 
+    /* Article styling */
+    .articles {
+        margin-top: 20px;
+    }
+
     .kiji {
-        margin-left: 13px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .kiji h2 {
+        color: #007BFF;
+        margin: 10px 0;
+    }
+
+    p.tag {
+        display: inline-block;
+        background-color: #e9ecef;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin: 10px 0;
+    }
+
+    .kiji .extra {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .kiji #date {
+        font-size: 14px;
+        color: #666;
     }
 
     .extra {
@@ -156,55 +251,60 @@ $showTags = $tags->showTags();
         font-size: 15px;
         color: #878787;
     }
+
+    input.submit {
+        display: inline-block;
+        color: #fff;
+        background: #007BFF;
+        border-radius: 20px;
+        padding: 0.5em 1.5em;
+        border-color: #007BFF;
+        border: none;
+        cursor: pointer;
+    }
+
+    input.submit:hover {
+        opacity: 0.7;
+    }
 </style>
 
+
+
+
 <body>
-    <?php
-    require_once __DIR__ . '/header.php';
-    ?>
 
     <div class="main">
         <div class="main_con">
+
+            <h2 class="title">記事一覧</h2>
+
             <div class="upload">
-                <input class="button" onclick="location.href='repin.php'" type="button" value="記事投稿">
+                <input class="button" onclick="location.href='repin.php'" type="button" value="記事を投稿する">
             </div>
-            <h2>記事一覧</h2>
-
-            <!-- 絞り込み機能追加 -->
-            <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
-            <label class="filter">
-
-                <form method="post" action="">
-                    <select name="Filter" onchange="submit(this.form)">
-                        <option disabled selected>絞り込む</option>
-                        <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
-                                            ?>>All</option>
-                        <?php
-                        foreach ($showTags as $showTag) {
-                            if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
-                                $selected = 'selected';
-                            } else {
-                                $selected = '';
-                            }
-                        ?>
-                            <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
-                        <?php
+            <div class="filter">
+                <!-- 絞り込み機能追加 -->
+                <select>
+                    <option disabled selected>絞り込む</option>
+                    <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                        ?>>All</option>
+                    <?php
+                    foreach ($showTags as $showTag) {
+                        if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
                         }
-                        ?>
-                    </select>
-                </form>
-            </label>
+                    ?>
+                        <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
             <br>
-            <p>並べ替え</p>
-            <!--並べ替え機能 ここから-->
-            <button onclick="sortArticles('tags')">タグで並べ替え</button>
-            <button onclick="sortArticlesByTitle()">タイトルで並べ替え</button>
-            <button onclick="sortArticles('day')">日付で並べ替え</button>
-            <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
 
-                <br>
                 <?php
                 function sortByDateTime($a, $b)
                 {
@@ -236,12 +336,11 @@ $showTags = $tags->showTags();
                                 <p class="UserName"><?= $ru['UsName'] ?></p>
                                 <p class="tag"># <?= $rtag['TagName'] ?></p>
                                 <div class="extra">
-                                    <input type="submit" value="詳細" id="more">
+                                    <input class="submit" type="submit" value="詳細" id="more">
                                     <p id="date"><?= $showReport['D'] ?> <?= substr($showReport['Tim'], 0, 5) ?></p>
                                 </div>
                             </form>
                         </section>
-                        <hr>
 
                 <?php
                     }
@@ -255,6 +354,5 @@ $showTags = $tags->showTags();
     require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
     ?>
 </body>
-
 
 </html>
