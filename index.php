@@ -7,6 +7,11 @@ if (!isset($tag)) {
     require_once __DIR__ . '/tags.php';
     $tags = new Tag();
 }
+if (!isset($us)) {
+    require_once __DIR__ . '/user.php';
+    $us = new User();
+    $ur = new UR();
+}
 if (isset($_POST["Filter"]) && $_POST["Filter"] != 0) {
     $Filter = $_POST["Filter"];
 }
@@ -146,6 +151,11 @@ $showTags = $tags->showTags();
     #date {
         margin-left: 200px;
     }
+
+    .UserName {
+        font-size: 15px;
+        color: #878787;
+    }
 </style>
 
 <body>
@@ -216,11 +226,14 @@ $showTags = $tags->showTags();
                     foreach ($showKiji as $showReport) {
                         //記事IDからタグを取得する
                         $rtag = $tags->showTagR($showReport['RepoID']);
+                        $rid = $ur->selectURlink($showReport['RepoID']);
+                        $ru = $us->tokuteiUser($rid['UsID']);
                 ?>
                         <section class="kiji">
                             <form method="post" name="kiji" action="ndet.php">
                                 <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
                                 <h2 id="kijidata"><?php echo htmlspecialchars($showReport['Title'], ENT_QUOTES); ?></h2>
+                                <p class="UserName"><?= $ru['UsName'] ?></p>
                                 <p class="tag"># <?= $rtag['TagName'] ?></p>
                                 <div class="extra">
                                     <input type="submit" value="詳細" id="more">
