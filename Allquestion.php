@@ -28,151 +28,189 @@ $showTags = $tags->showTags();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+<style>
+    /* main {
+        padding: 20px;
+    } */
+
+    .title {
+        font-weight: bold;
+        line-height: 2;
+        color: #000000;
+        margin: 10px;
+    }
+
+    .main {
+        /* 幅を指定 */
+        width: 80%;
+        /* 最大幅を指定 */
+        max-width: 1200px;
+        /* 自動的に中央に配置 */
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .question {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .question h2 {
+        color: #4267b2;
+    }
+
+    .question a {
+        color: #4267b2;
+        text-decoration: none;
+    }
+
+    footer {
+        background-color: #f4f4f4;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    p.tag {
+        font-weight: bold;
+        border: 1px solid;
+        display: inline-block;
+        border-radius: 20px;
+        background-color: #e9ecef;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin: 10px 0;
+
+    }
+
+    /* ボタンの微調整 */
+    .button {
+        background-color: #fff;
+        border-color: #fff;
+        margin-left: 5px;
+    }
+
+    input.button {
+        border: 1px solid;
+        width: 150px;
+        height: 42px;
+        font-size: 15px;
+        align-self: center;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: #007BFF;
+    }
+
+    input.button:hover {
+        background-color: #0056b3;
+    }
+
+    .que {
+        text-align: right;
+        float: right;
+        margin: 10px;
+    }
+
+    .textarea {
+        resize: none;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        /* パディングとボーダーを含めて幅を計算する */
+    }
+
+    .textarea textarea {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    input.submit {
+        display: inline-block;
+        color: #fff;
+        background: #007BFF;
+        border-radius: 20px;
+        padding: 0.5em 1.5em;
+        border-color: #007BFF;
+        border: none;
+        cursor: pointer;
+    }
+
+    input.submit:hover {
+        opacity: 0.7;
+    }
+
+    .filter {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        margin: 10px;
+    }
+
+    .filter::after {
+        position: absolute;
+        right: 15px;
+        width: 10px;
+        height: 7px;
+        background-color: #535353;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        content: '';
+        pointer-events: none;
+    }
+
+    .filter select {
+        appearance: none;
+        min-width: 50px;
+        height: 2.8em;
+        padding: .4em calc(.8em + 30px) .4em .8em;
+        border: 1px solid #d0d0d0;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #333333;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .textarea textarea {
+            font-size: 14px;
+            /* 小さい画面ではフォントサイズも調整すると良い */
+        }
+    }
+
+    .UserName {
+        font-weight: bold;
+        font-size: 15px;
+        color: #878787;
+    }
+</style>
+
+
+<script>
+    function check(id) {
+        document.getElementById(id).checked = true;
+    }
+</script>
 
 <head>
     <meta charset="UTF-8">
     <title>質問一覧</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
-    <style>
-        main {
-            padding: 20px;
-        }
-
-        .question {
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-
-        .question h2 {
-            color: #4267b2;
-        }
-
-        .question a {
-            color: #4267b2;
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: #f4f4f4;
-            padding: 10px 20px;
-            text-align: center;
-        }
-
-        p.tag {
-            border: 1px solid;
-            display: inline-block;
-            border-radius: 20px;
-            background-color: #ccc;
-        }
-
-        /* ボタンの微調整 */
-        input.button {
-            border: 1px solid;
-            width: 150px;
-            height: 35px;
-            font-size: 15px;
-            align-self: center;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            background-color: #007BFF;
-        }
-
-        .que {
-            text-align: right;
-            float: right;
-            margin: 10px;
-        }
-
-        .textarea {
-            resize: none;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-            /* パディングとボーダーを含めて幅を計算する */
-        }
-
-        .textarea textarea {
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-
-        input.submit {
-            display: inline-block;
-            color: #fff;
-            background: #007BFF;
-            border-radius: 20px;
-            padding: 0.5em 1.5em;
-            border-color: #007BFF;
-            border: none;
-            cursor: pointer;
-        }
-
-        input.submit:hover {
-            opacity: 0.7;
-        }
-
-        .filter {
-            display: inline-flex;
-            align-items: center;
-            position: relative;
-            margin: 10px;
-        }
-
-        .filter::after {
-            position: absolute;
-            right: 15px;
-            width: 10px;
-            height: 7px;
-            background-color: #535353;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            content: '';
-            pointer-events: none;
-        }
-
-        .filter select {
-            appearance: none;
-            min-width: 50px;
-            height: 2.8em;
-            padding: .4em calc(.8em + 30px) .4em .8em;
-            border: 1px solid #d0d0d0;
-            border-radius: 3px;
-            background-color: #fff;
-            color: #333333;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .textarea textarea {
-                font-size: 14px;
-                /* 小さい画面ではフォントサイズも調整すると良い */
-            }
-        }
-
-        .UserName {
-            font-size: 15px;
-            color: #878787;
-        }
-    </style>
-
-
-    <script>
-        function check(id) {
-            document.getElementById(id).checked = true;
-        }
-    </script>
-</head>
-
-<body>
     <?php
     //ヘッダーを読み込む
     require_once __DIR__ . '/header.php';
     ?>
+</head>
+
+<body>
+
     <!-- クリック動作判定 -->
     <input class="checkbox" type="checkbox" id="popup">
 
@@ -212,71 +250,77 @@ $showTags = $tags->showTags();
 
     </div>
 
-    <div class="que">
-        <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
-    </div>
+
     <!-- ここまでポップアップ -->
-    <!-- 絞り込み機能 -->
-    <label class="filter">
+    <div class="main">
+        <h2 class="title">質問一覧</h2>
+        <!-- 質問追加ボタン -->
+        <div class="que">
+            <input class="button" onclick="check('popup');" type="button" value="質問を追加する">
+        </div>
+        <!-- 絞り込み機能 -->
+        <label class="filter">
 
-        <form method="post" action="">
-            <select name="Filter" onchange="submit(this.form)">
-                <option disabled selected>絞り込む</option>
-                <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
-                                    ?>>All</option>
-                <?php
-                foreach ($showTags as $showTag) {
-                    if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
-                        $selected = 'selected';
-                    } else {
-                        $selected = '';
+            <form method="post" action="">
+                <select name="Filter" onchange="submit(this.form)">
+                    <option disabled selected>絞り込む</option>
+                    <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                        ?>>All</option>
+                    <?php
+                    foreach ($showTags as $showTag) {
+                        if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
+                        }
+                    ?>
+                        <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                    <?php
                     }
-                ?>
-                    <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
-                <?php
-                }
-                ?>
-            </select>
-        </form>
-    </label>
-    <?php
-    if (empty($showQuestions)) { //質問が無いなら
-        echo '<h4>質問はありません';
-        echo '</body>';
-    } else { //質問があるなら
-    ?>
+                    ?>
+                </select>
+            </form>
+        </label>
+        <hr>
         <?php
-        //文字数の上限
-        $limit = 20;
-        foreach ($showQuestions as $showQuest) {
-            //質問が20文字以上ならそこで区切って...を表示する
-            if (mb_strlen($showQuest['Question']) > $limit) {
-                $q = htmlspecialchars(mb_substr($showQuest['Question'], 0, $limit) . '...', ENT_QUOTES);
-            } else {
-                $q = htmlspecialchars($showQuest['Question'], ENT_QUOTES);
-            }
-            $qtag = $tags->showTagQ($showQuest['QuestionID']);
-
-            $Uname = $uq->detailUQlink($showQuest['QuestionID']);
-            $urname = $us->tokuteiUser($Uname['UsID']);
+        if (empty($showQuestions)) { //質問が無いなら
+            echo '<h4>質問はありません';
+            echo '</body>';
+        } else { //質問があるなら
         ?>
-            <main>
-                <section class="question">
-                    <form method="post" name="answer" action="answer.php">
-                        <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                        <h2 class="questionndata"><?= $q ?></h2>
-                        <p class="UserName"><?= $urname['UsName'] ?></p>
-                        <p class="tag"># <?= $qtag['TagName'] ?></p><br>
-                        <input class="submit" type="submit" value="詳細">
-                    </form>
-                </section>
-            </main>
+            <?php
+            //文字数の上限
+            $limit = 20;
+            foreach ($showQuestions as $showQuest) {
+                //質問が20文字以上ならそこで区切って...を表示する
+                if (mb_strlen($showQuest['Question']) > $limit) {
+                    $q = htmlspecialchars(mb_substr($showQuest['Question'], 0, $limit) . '...', ENT_QUOTES);
+                } else {
+                    $q = htmlspecialchars($showQuest['Question'], ENT_QUOTES);
+                }
+                $qtag = $tags->showTagQ($showQuest['QuestionID']);
+
+                $Uname = $uq->detailUQlink($showQuest['QuestionID']);
+                $urname = $us->tokuteiUser($Uname['UsID']);
+            ?>
+                <main>
+                    <section class="question">
+                        <form method="post" name="answer" action="answer.php">
+                            <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
+                            <h2 class="questionndata"><?= $q ?></h2>
+                            <p class="UserName"><?= $urname['UsName'] ?></p>
+                            <p class="tag"># <?= $qtag['TagName'] ?></p><br>
+                            <input class="submit" type="submit" value="詳細">
+                        </form>
+                    </section>
+                </main>
+            <?php
+            }
+            ?>
         <?php
         }
         ?>
-    <?php
-    }
-    ?>
+    </div>
 
 
     <script>
