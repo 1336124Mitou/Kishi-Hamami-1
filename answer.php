@@ -15,6 +15,8 @@ if (!isset($tags)) { //$tagsに必ずTagオブジェクトをセットするた�
 if (!isset($user)) {
     require_once __DIR__ . '/user.php';
     $user = new UQ();
+    $us = new User();
+    $ur = new URe();
 }
 
 //POSTが定義されているなら取得する
@@ -309,6 +311,12 @@ $user_id = 'kd1@gmail.com';
             fill: #fc49c7;
             /* いいねが押されたときのハートの色 */
         }
+
+        #username {
+            font-weight: bold;
+            font-size: 15px;
+            color: #878787;
+        }
     </style>
 </head>
 
@@ -343,7 +351,11 @@ $user_id = 'kd1@gmail.com';
     <div class="frame">
         <h2>回答</h2>
         <?php foreach ($showAnswers as $showAnswer) {
+
+            $repid = $ur->detailURelink($showAnswer['RepID']);
+            $uname = $us->tokuteiUser($repid['UsID']);
         ?>
+            <p id="username"><?= $uname['UsName']?></p>
             <p><?php echo htmlspecialchars($showAnswer['Reply'], ENT_QUOTES); ?></p>
             <?php
             require 'like_button.php'; // like_button.phpを読み込む

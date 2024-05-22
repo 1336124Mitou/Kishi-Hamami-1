@@ -189,6 +189,15 @@ $showTags = $tags->showTags();
         font-size: 15px;
         color: #878787;
     }
+
+    .extra {
+        display: flex;
+        align-items: center;
+    }
+
+    #date {
+        margin-left: 200px;
+    }
 </style>
 
 
@@ -309,8 +318,11 @@ $showTags = $tags->showTags();
                             <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
                             <h2 class="questionndata"><?= $q ?></h2>
                             <p class="UserName"><?= $urname['UsName'] ?></p>
-                            <p class="tag"># <?= $qtag['TagName'] ?></p><br>
-                            <input class="submit" type="submit" value="詳細">
+                            <p class="tag"># <?= $qtag['TagName'] ?></p>
+                            <div class="extra">
+                                <input class="submit" type="submit" value="詳細">
+                                <p id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
+                            </div>
                         </form>
                     </section>
                 </main>

@@ -25,6 +25,13 @@
                 position: relative;
             }
 
+            #entry label {
+                font-size: 14px;
+                color: #777;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
             #newu-button {
                 background-color: #007bff;
                 color: white;
@@ -126,19 +133,18 @@
                 <input type="password" id="checkpass" name="check" required><br>
 
                 <label>プロフィールのアイコンを追加する：</label><br>
-                <input type="file" name="imageFile" accept="image/*" required><br>
+                <input type="file" id="pasta" name="imageFile" accept="image/*" required><br>
 
                 <label for="textbox">自由記入欄：</label>
                 <input type="text" id="info" name="info" required><br><br>
 
                 <input class="button" type="submit" id="newu-button" value="新規登録">
-                <br>
-                <div id="login-box">
-                    <p id="login-sentence">既にアカウントを持ちの方はこちらへ</p>
-                    <a id="login-button" href="login.php">ログイン画面へ</a>
-                </div>
-
             </form>
+        </div>
+        <br>
+        <div id="login-box">
+            <p id="login-sentence">既にアカウントを持ちの方はこちらへ</p>
+            <a id="login-button" href="login.php">ログイン画面へ</a>
         </div>
     </body>
 </html>
