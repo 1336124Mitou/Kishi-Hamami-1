@@ -20,15 +20,6 @@ if (!isset($Filter)) { //$Filterが空なら全て表示する
 $showTags = $tags->showTags();
 ?>
 
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <title>プログラミング情報共有サイト（仮）</title>
-    <link href="main.css" rel="stylesheet">
-    <script src="index.js" defer></script>
-</head>
 <style>
     a.que {
         float: right;
@@ -106,17 +97,45 @@ $showTags = $tags->showTags();
         color: #007BFF;
     }
 
+    /* Container styling */
+    .main {
+        width: 80%;
+        /* 幅を指定 */
+        max-width: 1200px;
+        /* 最大幅を指定 */
+        margin: 0 auto;
+        /* 自動的に中央に配置 */
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .filter {
+        width: 120px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
     /* ボタンの微調整 */
-    input.button {
-        border: 1px solid;
-        width: 150px;
-        height: 35px;
-        font-size: 15px;
-        align-self: center;
+    /* Button styling */
+    input.button,
+    button {
+        display: inline-block;
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
         border-radius: 5px;
         cursor: pointer;
-        color: white;
-        background-color: #007BFF;
+        font-size: 16px;
+    }
+
+    input.button:hover,
+    button:hover {
+        background-color: #0056b3;
     }
 
     .textarea {
@@ -130,8 +149,40 @@ $showTags = $tags->showTags();
         margin: 10px;
     }
 
+    /* Article styling */
+    .articles {
+        margin-top: 20px;
+    }
+
     .kiji {
-        margin-left: 13px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .kiji h2 {
+        color: #007BFF;
+        margin: 10px 0;
+    }
+
+    .kiji p.tag {
+        display: inline-block;
+        background-color: #e9ecef;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin: 10px 0;
+    }
+
+    .kiji .extra {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .kiji #date {
+        font-size: 14px;
+        color: #666;
     }
 
     .extra {
@@ -147,6 +198,15 @@ $showTags = $tags->showTags();
         margin-left: 200px;
     }
 </style>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>プログラミング情報共有サイト（仮）</title>
+    <link href="main.css" rel="stylesheet">
+    <script src="index.js" defer></script>
+</head>
 
 <body>
     <?php
@@ -161,36 +221,24 @@ $showTags = $tags->showTags();
             <h2>記事一覧</h2>
 
             <!-- 絞り込み機能追加 -->
-            <input type="text" id="filterInput" oninput="filterArticles(this.value)" placeholder="絞り込み" style="width: 300px;height: 40px;">
-            <label class="filter">
-
-                <form method="post" action="">
-                    <select name="Filter" onchange="submit(this.form)">
-                        <option disabled selected>絞り込む</option>
-                        <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
-                                            ?>>All</option>
-                        <?php
-                        foreach ($showTags as $showTag) {
-                            if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
-                                $selected = 'selected';
-                            } else {
-                                $selected = '';
-                            }
-                        ?>
-                            <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </form>
-            </label>
+            <select class="filter">
+                <option disabled selected>絞り込む</option>
+                <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
+                                    ?>>All</option>
+                <?php
+                foreach ($showTags as $showTag) {
+                    if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                        $selected = 'selected';
+                    } else {
+                        $selected = '';
+                    }
+                ?>
+                    <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                <?php
+                }
+                ?>
+            </select>
             <br>
-            <p>並べ替え</p>
-            <!--並べ替え機能 ここから-->
-            <button onclick="sortArticles('tags')">タグで並べ替え</button>
-            <button onclick="sortArticlesByTitle()">タイトルで並べ替え</button>
-            <button onclick="sortArticles('day')">日付で並べ替え</button>
-            <!--並べ替え機能 ここまで-->
             <hr>
             <div class="articles">
 
@@ -228,7 +276,6 @@ $showTags = $tags->showTags();
                                 </div>
                             </form>
                         </section>
-                        <hr>
 
                 <?php
                     }
@@ -242,6 +289,5 @@ $showTags = $tags->showTags();
     require_once  __DIR__ . '/footer.php';  // footer.phpを読み込む	
     ?>
 </body>
-
 
 </html>
