@@ -118,11 +118,11 @@ $conn->close();
             <p><strong>制作物説明:</strong> <?php echo htmlspecialchars($project['Proexample'], ENT_QUOTES, 'UTF-8'); ?></p>
             <p><strong>制作物ファイル:</strong> <a href="download.php?id=<?php echo htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8'); ?>">ダウンロード</a></p>
             <!-- 制作物の詳細情報を表示するための他の要素をここに追加することができます -->
-            <form method="post" action="delete_project.php" onsubmit="return confirm('本当に削除しますか？');">
+        </div>
+        <form method="post" action="delete_project.php" onsubmit="return confirm('本当に削除しますか？');">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($project['ProID'], ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="submit" value="削除" class="button delete">
             </form>
-        </div>
     </div>
 </body>
 
