@@ -122,7 +122,7 @@ if (empty($_SESSION['userId'])) {
             <nav>
                 <ul class="nav">
                     <!--ヘッダー ここから-->
-                    <li><a id="indexLink" href="index.php" class="btn4">ホーム</a></li>
+                    <li><a id="indexLink" href="index.php" class="btn4">記事一覧</a></li>
                     <li><a id="AllquestionLink" href="Allquestion.php" class="btn4">質問一覧</a></li>
                     <li><a id="AllprojectLink" href="Allproject.php" class="btn4">制作物一覧</a></li>
                     <!--ヘッダー 追加はここから-->
