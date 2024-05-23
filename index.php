@@ -284,23 +284,24 @@ $showTags = $tags->showTags();
             </div>
             <div class="filter">
                 <!-- 絞り込み機能追加 -->
-                <select>
-                    <option disabled selected>絞り込む</option>
-                    <option value="0" <?php if (empty($Filter)) echo 'selected'; //$Filterが空ならselectedを表示する 
-                                        ?>>All</option>
-                    <?php
-                    foreach ($showTags as $showTag) {
-                        if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
-                            $selected = 'selected';
-                        } else {
-                            $selected = '';
+                <form method="post" action="">
+                    <select name="Filter" onchange="submit(this.form)">
+                        <option disabled selected>絞り込む</option>
+                        <option value="0" <?php if (empty($Filter)) echo 'selected'; ?>>All</option>
+                        <?php
+                        foreach ($showTags as $showTag) {
+                            if ($Filter == $showTag['TagID']) { //$Filterと$showTagが同じならselectedを表示する
+                                $selected = 'selected';
+                            } else {
+                                $selected = '';
+                            }
+                        ?>
+                            <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
+                        <?php
                         }
-                    ?>
-                        <option value="<?= $showTag['TagID']  ?>" <?= $selected ?>><?= $showTag['TagName'] ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
+                        ?>
+                    </select>
+                </form>
             </div>
             <br>
             <hr>

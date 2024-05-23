@@ -68,7 +68,7 @@ $showTags = $tags->showTags();
 
         <form method="POST" action="kijiadd.php">
             <!-- ユーザーのIDを取得する -->
-            <input type="hidden" name="userID" value="kd1@gmail.com">
+            <input type="hidden" name="userID" value="<?= $_SESSION['userId'] ?>">
             <!-- 記事タイトル入力 -->
             <h4>記事のタイトル</h4>
             <textarea id="Title" name="Title" placeholder="ここに記事のタイトルを書いてください" required></textarea>
