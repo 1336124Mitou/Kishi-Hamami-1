@@ -206,6 +206,7 @@ $showTags = $tags->showTags();
 
     .kiji {
         border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
         margin-bottom: 20px;
     }
 
