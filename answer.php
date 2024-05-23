@@ -23,6 +23,10 @@ if (!isset($user)) {
 if (isset($_POST["question_id"])) {
     $question_id = $_POST["question_id"]; // 質問のIDを取得する
 }
+
+if (isset($_GET["question_id"])) {
+    $question_id = $_GET["question_id"];
+}
 //与えられたIDから質問を取得
 $showQuestion = $quest->showQuestion($question_id);
 
@@ -355,7 +359,7 @@ $user_id = 'kd1@gmail.com';
             $repid = $ur->detailURelink($showAnswer['RepID']);
             $uname = $us->tokuteiUser($repid['UsID']);
         ?>
-            <p id="username"><?= $uname['UsName']?></p>
+            <p id="username"><?= $uname['UsName'] ?></p>
             <p><?php echo htmlspecialchars($showAnswer['Reply'], ENT_QUOTES); ?></p>
             <?php
             require 'like_button.php'; // like_button.phpを読み込む

@@ -40,7 +40,8 @@ class URe extends Dbdata
     }
 
     // 特定のユーザーと回答/コメントのIDを取得する
-    public function detailURelink($ComID) {
+    public function detailURelink($ComID)
+    {
         $sql = "SELECT * FROM urelink WHERE RepID = ?";
         $stmt = $this->query($sql, [$ComID]);
         $result = $stmt->fetch();
@@ -157,5 +158,25 @@ class User extends Dbdata
             error_log("Error updating profile: " . $e->getMessage());
             return false;
         }
+    }
+
+    // ユーザーが投稿した質問を取得するメソッド
+    public function getUserQuestions($userId)
+    {
+        $sql = "SELECT * FROM UQlink WHERE UsID = ?";
+        $stmt = $this->query($sql, [$userId]); // ユーザーIDを正しく指定する
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+    // ユーザーが投稿した記事を取得するメソッド
+    public function getUserReports($userId)
+    {
+        $sql = "SELECT * FROM URelink WHERE UsID = ?";
+        $stmt = $this->query($sql, [$userId]); // ユーザーIDを正しく指定する
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
 }
