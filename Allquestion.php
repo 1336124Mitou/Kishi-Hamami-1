@@ -28,6 +28,17 @@ $showTags = $tags->showTags();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>質問一覧</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
+    <?php
+    //ヘッダーを読み込む
+    require_once __DIR__ . '/header.php';
+    ?>
+</head>
 <style>
     /* main {
         padding: 20px;
@@ -192,11 +203,14 @@ $showTags = $tags->showTags();
 
     .extra {
         display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 
-    #date {
+    .date {
         margin-left: 200px;
+        font-weight: bold;
+        color: #666;
     }
 </style>
 
@@ -207,16 +221,6 @@ $showTags = $tags->showTags();
     }
 </script>
 
-<head>
-    <meta charset="UTF-8">
-    <title>質問一覧</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="popup.css"> <!-- 可読性の関係でオーバーレイ関係だけ分けました -->
-    <?php
-    //ヘッダーを読み込む
-    require_once __DIR__ . '/header.php';
-    ?>
-</head>
 
 <body>
 
@@ -321,7 +325,7 @@ $showTags = $tags->showTags();
                             <p class="tag"># <?= $qtag['TagName'] ?></p>
                             <div class="extra">
                                 <input class="submit" type="submit" value="詳細">
-                                <p id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
+                                <p class="date" id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
                             </div>
                         </form>
                     </section>
