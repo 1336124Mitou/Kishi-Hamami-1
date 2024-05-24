@@ -359,7 +359,7 @@ $showTags = $tags->showTags();
                 if (empty($urpro['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
                     $Qprofpic = "noimage.png";
                 } else {
-                    $Qprofpic = $usrPic['ProfPic'];
+                    $Qprofpic = $urpro['ProfPic'];
                 }
             ?>
                 <main>
