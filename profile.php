@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
 <?php
 session_start();
 if (!isset($user)) {
@@ -7,18 +5,21 @@ if (!isset($user)) {
     $user = new User();
 }
 
-// うまくいっていない場合、消さずにおいてきます
-/*
-// プロフィール情報を抽出
-$profile = $user->myProfile($_SESSION['userId']);
-*/
-
 if (isset($_POST["usid"])) {
     $usid = $_POST["usid"];
     $profile = $user->myProfile($usid);
 }
 
+
+// ユーザーが投稿した質問を取得
+$questions = $user->getUserQuestions($usid);
+
+// ユーザーが投稿した記事を取得
+$reports = $user->getUserReports($usid);
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <?php require_once __DIR__ . '/header.php'; ?>
@@ -145,6 +146,31 @@ if (isset($_POST["usid"])) {
                 right: 10px;
             }
         }
+
+        .post-container {
+            margin-top: 20px;
+        }
+
+        .post {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .post h3 {
+            margin-top: 0;
+        }
+
+        .post a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .post a:hover {
+            text-decoration: underline;
+        }
     </style>
     <script>
         function redirectToUpdateProfile() {
@@ -176,6 +202,19 @@ if (isset($_POST["usid"])) {
             </div>
         </div>
         <div class="profile-bio"><?= htmlspecialchars($profile['Prof'], ENT_QUOTES, 'UTF-8') ?></div>
+
+        <!-- 質問の表示 -->
+        <div class="post-container">
+            <h2>投稿した質問</h2>
+            <?php foreach ($questions as $question) : ?>
+                <div class="post">
+                    <?php if (isset($question['Question'])) : ?>
+                        <h3><?= htmlspecialchars($question['Question'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <?php endif; ?>
+                    <a href="answer.php?question_id=<?= isset($question['QuestionID']) ? htmlspecialchars($question['QuestionID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a> <!-- 詳細ボタン -->
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </body>
 

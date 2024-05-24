@@ -276,11 +276,9 @@ $showTags = $tags->showTags();
                 </form>
             </div>
         </div>
-
     </div>
-
-
     <!-- ここまでポップアップ -->
+
     <div class="main">
         <h2 class="title">質問一覧</h2>
         <!-- 質問追加ボタン -->
@@ -289,7 +287,6 @@ $showTags = $tags->showTags();
         </div>
         <!-- 絞り込み機能 -->
         <label class="filter">
-
             <form method="post" action="">
                 <select name="Filter" onchange="submit(this.form)">
                     <option disabled selected>絞り込む</option>
@@ -310,7 +307,9 @@ $showTags = $tags->showTags();
                 </select>
             </form>
         </label>
+
         <hr>
+
         <?php
         if (empty($showQuestions)) { //質問が無いなら
             echo '<h4>質問はありません';
