@@ -192,7 +192,7 @@ $reports = $user->getUserReports($usid);
         }
         ?>
         <div class="profile-header">
-            <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
+            <img src="images/<?= $ProfPic ?>" alt="プロフィール画像" class="profile-img">
             <div class="profile-details">
                 <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
                 <div class="profile-emailaddress"><?= htmlspecialchars($profile['UsID'], ENT_QUOTES, 'UTF-8') ?></div>

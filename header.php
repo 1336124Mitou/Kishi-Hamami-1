@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -9,7 +7,22 @@ if (empty($_SESSION['userId'])) {
     header('Location: login.php');
 }
 
+if (!isset($user)) {
+    require_once __DIR__ . '/user.php';
+    $user = new User();
+}
+
+$usrPic = $user->myProfile($_SESSION['userId']);
+if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
+    $ProfPic = "noimage.png";
+} else {
+    $ProfPic = $usrPic['ProfPic'];
+}
+
 ?>
+<!DOCTYPE html>
+<html lang="ja">
+
 
 <head>
     <meta charset="UTF-8">
@@ -122,7 +135,7 @@ if (empty($_SESSION['userId'])) {
 <body>
     <header>
         <div class="header-content">
-            <img src="1676155437876-5NNUYKTjTE.png" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
+            <img src="images/<?= $ProfPic ?>" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
             <!-- ポップアップメニュー -->
             <div id="popupMenu" class="popup-menu">
                 <form method="POST" action="profile.php">

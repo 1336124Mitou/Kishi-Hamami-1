@@ -3,8 +3,12 @@ $UName = $_POST['name'];
 $Mail = $_POST['email'];
 $Pass = $_POST['password'];
 $Past = $_POST['check'];
-$ProfPic = $_POST['imageFile'];
+$ProfPic = $_FILES['imageFile']['name'];
 $Info = $_POST['info'];
+
+if (!empty($_FILES['imageFile']['tmp_name'])) {
+    move_uploaded_file($_FILES['imageFile']['tmp_name'], './images/' . $ProfPic);
+}
 
 require_once __DIR__ . '/user.php';
 
