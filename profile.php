@@ -206,6 +206,19 @@ $reports = $user->getUserReports($_SESSION['userId']);
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <!-- 記事の表示 -->
+        <div class="post-container">
+            <h2>投稿した記事</h2>
+            <?php foreach ($reports as $report) : ?>
+                <div class="post">
+                    <?php if (isset($report['Report'])) : ?>
+                        <h3><?= htmlspecialchars($report['Report'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <?php endif; ?>
+                    <a href="ndet.php?kijiID=<?= isset($report['RepoID']) ? htmlspecialchars($report['RepoID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </body>
 

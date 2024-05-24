@@ -33,6 +33,10 @@ if (isset($_POST["kijiID"])) {
     $kijiID = $_POST["kijiID"];
 }
 
+if (isset($_GET["kijiID"])) {
+    $kijiID = $_GET["kijiID"];
+}
+
 $like = $likeR->showLikeR($kijiID);
 
 $showkiji = $kiji->showReport($kijiID);
@@ -290,6 +294,7 @@ $userCheck = $user->selectURlink($kijiID);
         function check(id) {
             document.getElementById(id).checked = true;
         }
+
         function likeAnswer(replyId, userId) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "likeRadd.php", true);
@@ -310,7 +315,7 @@ $userCheck = $user->selectURlink($kijiID);
             xhr.send("ReplyID=" + encodeURIComponent(replyId) + "&UserID=" + encodeURIComponent(userId));
         }
 
-        
+
 
         function updateLikesDisplay() {
             //likesDisplayの数値を文字列として取得
