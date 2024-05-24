@@ -7,8 +7,17 @@ if (!isset($user)) {
     $user = new User();
 }
 
+// うまくいっていない場合、消さずにおいてきます
+/*
 // プロフィール情報を抽出
 $profile = $user->myProfile($_SESSION['userId']);
+*/
+
+if (isset($_POST["usid"])) {
+    $usid = $_POST["usid"];
+    $profile = $user->myProfile($usid);
+}
+
 ?>
 
 <head>
@@ -146,12 +155,18 @@ $profile = $user->myProfile($_SESSION['userId']);
 
 <body>
     <div class="profile-container">
-        <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
+        <?php
+            if ($_SESSION['userId'] == $profile['UsID']) {
+        ?>
+            <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
+        <?php
+            }
+        ?>
         <div class="profile-header">
             <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
             <div class="profile-details">
                 <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
-                <div class="profile-emailaddress"><?= htmlspecialchars($_SESSION['userId'], ENT_QUOTES, 'UTF-8') ?></div>
+                <div class="profile-emailaddress"><?= htmlspecialchars($profile['UsID'], ENT_QUOTES, 'UTF-8') ?></div>
             </div>
         </div>
         <div class="profile-stats">
