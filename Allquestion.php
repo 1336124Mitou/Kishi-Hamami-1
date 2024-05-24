@@ -196,9 +196,21 @@ $showTags = $tags->showTags();
     }
 
     .UserName {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
         font-weight: bold;
-        font-size: 15px;
-        color: #878787;
+        font-size: 23px;
+        color: #4267b2;
+        text-decoration: underline;
+    }
+
+    .UserName:hover {
+        text-decoration: underline;
+        color: #0a48c7;
     }
 
     .extra {
@@ -211,6 +223,10 @@ $showTags = $tags->showTags();
         margin-left: 200px;
         font-weight: bold;
         color: #666;
+    }
+
+    .not-user {
+        margin-left: 25px;
     }
 </style>
 
@@ -317,16 +333,23 @@ $showTags = $tags->showTags();
             ?>
                 <main>
                     <section class="question">
-                        <form method="post" name="answer" action="answer.php">
-                            <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                            <h2 class="questionndata"><?= $q ?></h2>
-                            <p class="UserName"><?= $urname['UsName'] ?></p>
-                            <p class="tag"># <?= $qtag['TagName'] ?></p>
-                            <div class="extra">
-                                <input class="submit" type="submit" value="詳細">
-                                <p class="date" id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
+                        <!-- <form method="post" name="answer" action="answer.php"> -->
+                            <!-- <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>"> -->
+                            <form method="POST" action="profile.php">
+                                <input type="hidden" name="usid" value="<?= $urname['UsID'] ?>">
+                                <button type="submit" class="UserName">投稿者：<?= $urname['UsName'] ?></button>
+                            </form>
+                            <div class="not-user">
+                                <h2 class="questionndata"><?= $q ?></h2>
+                                <p class="tag"># <?= $qtag['TagName'] ?></p>
+                                <form method="post" name="answer" action="answer.php">
+                                    <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
+                                    <div class="extra">
+                                        <input class="submit" type="submit" value="詳細">
+                                        <p class="date" id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
                     </section>
                 </main>
             <?php
