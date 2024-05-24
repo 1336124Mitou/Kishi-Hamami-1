@@ -8,6 +8,9 @@ if (!isset($user)) {
 if (isset($_POST["usid"])) {
     $usid = $_POST["usid"];
     $profile = $user->myProfile($usid);
+} else {
+    $usid = $_SESSION['userId'];
+    $profile = $user->myProfile($usid);
 }
 
 
