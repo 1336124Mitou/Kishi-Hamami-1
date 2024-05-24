@@ -117,6 +117,18 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             /* 表示の優先度を設定 指定なしや0より手前に表示する*/
             z-index: 1;
         }
+        .link-button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .link-button:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -126,7 +138,10 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             <img src="images/<?= $ProfPic ?>" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
             <!-- ポップアップメニュー -->
             <div id="popupMenu" class="popup-menu">
-                <a href="profile.php">マイプロフィール</a>
+                <form method="POST" action="profile.php">
+                    <input type="hidden" name="usid" value="<?= $_SESSION['userId'] ?>">
+                    <button type="submit" class="link-button">マイプロフィール</button>
+                </form>
                 <a href="update_profile.php">プロフィール編集</a>
                 <a href="passchan.php">パスワード設定</a>
                 <p class="logoutbutton" id="logoutbutton">ログアウト</p>

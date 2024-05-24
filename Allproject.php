@@ -120,10 +120,11 @@ $conn->close();
 <body>
     <?php require_once __DIR__ . '/header.php'; ?>
     <div class="main">
-        <div class="show">
+    <div class="show">
             <input class="button" onclick="location.href='proshow.php'" type="button" value="制作物公開へ">
         </div>
         <h2>制作物一覧</h2>
+        <hr>
         <div class="project-list">
             <?php
             // 制作物の一覧を表示

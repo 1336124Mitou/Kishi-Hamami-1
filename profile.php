@@ -5,14 +5,20 @@ if (!isset($user)) {
     $user = new User();
 }
 
-// プロフィール情報を抽出
-$profile = $user->myProfile($_SESSION['userId']);
+if (isset($_POST["usid"])) {
+    $usid = $_POST["usid"];
+    $profile = $user->myProfile($usid);
+} else {
+    $usid = $_SESSION['userId'];
+    $profile = $user->myProfile($usid);
+}
+
 
 // ユーザーが投稿した質問を取得
-$questions = $user->getUserQuestions($_SESSION['userId']);
+$questions = $user->getUserQuestions($usid);
 
 // ユーザーが投稿した記事を取得
-$reports = $user->getUserReports($_SESSION['userId']);
+$reports = $user->getUserReports($usid);
 ?>
 
 <!DOCTYPE html>
@@ -178,12 +184,18 @@ $reports = $user->getUserReports($_SESSION['userId']);
 
 <body>
     <div class="profile-container">
-        <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
+        <?php
+        if ($_SESSION['userId'] == $profile['UsID']) {
+        ?>
+            <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
+        <?php
+        }
+        ?>
         <div class="profile-header">
             <img src="images/<?= $ProfPic ?>" alt="プロフィール画像" class="profile-img">
             <div class="profile-details">
                 <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
-                <div class="profile-emailaddress"><?= htmlspecialchars($_SESSION['userId'], ENT_QUOTES, 'UTF-8') ?></div>
+                <div class="profile-emailaddress"><?= htmlspecialchars($profile['UsID'], ENT_QUOTES, 'UTF-8') ?></div>
             </div>
         </div>
         <div class="profile-stats">
@@ -203,6 +215,19 @@ $reports = $user->getUserReports($_SESSION['userId']);
                         <h3><?= htmlspecialchars($question['Question'], ENT_QUOTES, 'UTF-8') ?></h3>
                     <?php endif; ?>
                     <a href="answer.php?question_id=<?= isset($question['QuestionID']) ? htmlspecialchars($question['QuestionID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a> <!-- 詳細ボタン -->
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- 記事の表示 -->
+        <div class="post-container">
+            <h2>投稿した記事</h2>
+            <?php foreach ($reports as $report) : ?>
+                <div class="post">
+                    <?php if (isset($report['Report'])) : ?>
+                        <h3><?= htmlspecialchars($report['Report'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <?php endif; ?>
+                    <a href="ndet.php?kijiID=<?= isset($report['RepoID']) ? htmlspecialchars($report['RepoID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a>
                 </div>
             <?php endforeach; ?>
         </div>

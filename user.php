@@ -173,7 +173,7 @@ class User extends Dbdata
     // ユーザーが投稿した記事を取得するメソッド
     public function getUserReports($userId)
     {
-        $sql = "SELECT * FROM URelink WHERE UsID = ?";
+        $sql = "SELECT * FROM URlink WHERE UsID = ?";
         $stmt = $this->query($sql, [$userId]); // ユーザーIDを正しく指定する
         $result = $stmt->fetchAll();
 
