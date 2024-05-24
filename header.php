@@ -60,21 +60,22 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
         /* プロフィールアイコンのスタイル */
         .profile-icon {
             cursor: pointer;
-            width: 40px;
+            width: 7em;
             /* 適切な幅に調整 */
-            height: 40px;
+            height: 7em;
             /* 適切な高さに調整 */
             border-radius: 50%;
             /* 円形にするための角丸 */
             margin-right: 10px;
             /* アイコンと他の要素の間隔を調整 */
+            margin-top: 10px;
             float: right;
             /* アイコンを右側に配置 */
         }
 
         /* 追加：ポップアップメニューの位置調整 */
         .popup-menu {
-            top: 60px;
+            top: 110px;
             /* アイコンの下に表示 */
             right: 0;
             /* アイコンの右端に揃える */
@@ -117,6 +118,7 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             /* 表示の優先度を設定 指定なしや0より手前に表示する*/
             z-index: 1;
         }
+
         .link-button {
             background: none;
             color: inherit;
@@ -126,6 +128,7 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             cursor: pointer;
             text-decoration: underline;
         }
+
         .link-button:hover {
             text-decoration: underline;
         }

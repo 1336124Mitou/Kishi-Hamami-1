@@ -200,17 +200,16 @@ $showTags = $tags->showTags();
         color: inherit;
         border: none;
         padding: 0;
+        margin: 0;
         font: inherit;
-        cursor: pointer;
         font-weight: bold;
         font-size: 23px;
         color: #4267b2;
-        text-decoration: underline;
     }
 
-    .UserName:hover {
-        text-decoration: underline;
-        color: #0a48c7;
+    .UserNamebox {
+        display: flex;
+        align-items: flex-end;
     }
 
     .extra {
@@ -227,6 +226,33 @@ $showTags = $tags->showTags();
 
     .not-user {
         margin-left: 25px;
+    }
+
+    .Qpropic {
+        cursor: pointer;
+        /* 適切な幅に調整 */
+        width: 40px;
+        /* 適切な高さに調整 */
+        height: 40px;
+        /* 円形にするための角丸 */
+        border-radius: 50%;
+        /* アイコンと他の要素の間隔を調整 */
+        margin-right: 10px;
+        /* アイコンを左側に配置 */
+        float: left;
+    }
+
+    .Qprofpicbutton {
+        border: none;
+        background: transparent;
+    }
+
+    .Qprof {
+        /* フレックスコンテナであることを指定 */
+        display: flex;
+        /* 交差軸：上下の配置 下ぞろえ*/
+        align-items: flex-end;
+        margin-top: 10px;
     }
 </style>
 
@@ -329,27 +355,35 @@ $showTags = $tags->showTags();
                 $qtag = $tags->showTagQ($showQuest['QuestionID']);
 
                 $Uname = $uq->detailUQlink($showQuest['QuestionID']);
-                $urname = $us->tokuteiUser($Uname['UsID']);
+                $urpro = $us->tokuteiUser($Uname['UsID']);
+                if (empty($urpro['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
+                    $Qprofpic = "noimage.png";
+                } else {
+                    $Qprofpic = $usrPic['ProfPic'];
+                }
             ?>
                 <main>
                     <section class="question">
                         <!-- <form method="post" name="answer" action="answer.php"> -->
-                            <!-- <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>"> -->
-                            <form method="POST" action="profile.php">
-                                <input type="hidden" name="usid" value="<?= $urname['UsID'] ?>">
-                                <button type="submit" class="UserName">投稿者：<?= $urname['UsName'] ?></button>
-                            </form>
-                            <div class="not-user">
-                                <h2 class="questionndata"><?= $q ?></h2>
-                                <p class="tag"># <?= $qtag['TagName'] ?></p>
-                                <form method="post" name="answer" action="answer.php">
-                                    <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
-                                    <div class="extra">
-                                        <input class="submit" type="submit" value="詳細">
-                                        <p class="date" id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
-                                    </div>
-                                </form>
+                        <!-- <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>"> -->
+                        <form method="POST" action="profile.php">
+                            <input type="hidden" name="usid" value="<?= $urpro['UsID'] ?>">
+                            <div class="Qprof">
+                                <button type="submit" class="Qprofpicbutton"><img src="images/<?= $Qprofpic ?>" class="Qpropic"></button>
+                                <p class="UserName"><?= $urpro['UsName'] ?></p>
                             </div>
+                        </form>
+                        <div class="not-user">
+                            <h2 class="questionndata"><?= $q ?></h2>
+                            <p class="tag"># <?= $qtag['TagName'] ?></p>
+                            <form method="post" name="answer" action="answer.php">
+                                <input type="hidden" name="question_id" value="<?= $showQuest['QuestionID'] ?>">
+                                <div class="extra">
+                                    <input class="submit" type="submit" value="詳細">
+                                    <p class="date" id="date"><?= $showQuest['D'] ?> <?= substr($showQuest['Tim'], 0, 5) ?></p>
+                                </div>
+                            </form>
+                        </div>
                     </section>
                 </main>
             <?php
