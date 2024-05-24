@@ -185,11 +185,11 @@ $reports = $user->getUserReports($usid);
 <body>
     <div class="profile-container">
         <?php
-            if ($_SESSION['userId'] == $profile['UsID']) {
+        if ($_SESSION['userId'] == $profile['UsID']) {
         ?>
             <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
         <?php
-            }
+        }
         ?>
         <div class="profile-header">
             <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
