@@ -41,9 +41,19 @@ $conn->close();
             margin: 0;
             padding: 0;
         }
-        .main {
-            padding: 20px;
-        }
+        
+    .main {
+        /* 幅を指定 */
+        width: 80%;
+        /* 最大幅を指定 */
+        max-width: 1200px;
+        /* 自動的に中央に配置 */
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
         .project-item {
             border-bottom: 1px solid #ccc;
             padding-bottom: 20px;
