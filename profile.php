@@ -180,7 +180,7 @@ $reports = $user->getUserReports($_SESSION['userId']);
     <div class="profile-container">
         <button class="edit-profile-button" onclick="redirectToUpdateProfile()">プロフィールを編集</button>
         <div class="profile-header">
-            <img src="1676155437876-5NNUYKTjTE.png" alt="プロフィール画像" class="profile-img">
+            <img src="images/<?= $ProfPic ?>" alt="プロフィール画像" class="profile-img">
             <div class="profile-details">
                 <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
                 <div class="profile-emailaddress"><?= htmlspecialchars($_SESSION['userId'], ENT_QUOTES, 'UTF-8') ?></div>

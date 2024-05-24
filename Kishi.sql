@@ -21,7 +21,7 @@ CREATE TABLE Usr (
     UsName VARCHAR(255) UNIQUE NOT NULL,
     Passw VARCHAR(255) NOT NULL,
     Prof TEXT NOT NULL,
-    ProfPic BLOB
+    ProfPic VARCHAR(255)
 );
 
 INSERT INTO Usr(UsID, UsName, Passw, prof) values('kd1@gmail.com', 'testuser', 'aaa', 'aaa');
