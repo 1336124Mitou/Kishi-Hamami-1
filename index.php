@@ -249,8 +249,21 @@ $showTags = $tags->showTags();
     }
 
     .UserName {
-        font-size: 15px;
-        color: #878787;
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 23px;
+        color: #4267b2;
+        text-decoration: underline;
+    }
+
+    .UserName:hover {
+        text-decoration: underline;
+        color: #0a48c7;
     }
 
     input.submit {
@@ -266,6 +279,10 @@ $showTags = $tags->showTags();
 
     input.submit:hover {
         opacity: 0.7;
+    }
+
+    .not-user {
+        margin-left: 25px;
     }
 </style>
 
@@ -332,16 +349,21 @@ $showTags = $tags->showTags();
                         $ru = $us->tokuteiUser($rid['UsID']);
                 ?>
                         <section class="kiji">
-                            <form method="post" name="kiji" action="ndet.php">
-                                <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
-                                <h2 id="kijidata"><?php echo htmlspecialchars($showReport['Title'], ENT_QUOTES); ?></h2>
-                                <p class="UserName"><?= $ru['UsName'] ?></p>
-                                <p class="tag"># <?= $rtag['TagName'] ?></p>
-                                <div class="extra">
-                                    <input class="submit" type="submit" value="詳細" id="more">
-                                    <p id="date"><?= $showReport['D'] ?> <?= substr($showReport['Tim'], 0, 5) ?></p>
-                                </div>
+                            <form method="POST" action="profile.php">
+                                <input type="hidden" name="usid" value="<?= $ru['UsID'] ?>">
+                                <button type="submit" class="UserName">投稿者：<?= $ru['UsName'] ?></button>
                             </form>
+                            <div class="not-user">
+                                <h2 id="kijidata"><?php echo htmlspecialchars($showReport['Title'], ENT_QUOTES); ?></h2>
+                                <p class="tag"># <?= $rtag['TagName'] ?></p>
+                                <form method="post" name="kiji" action="ndet.php">
+                                    <input type="hidden" name="kijiID" value="<?= $showReport['RepoID'] ?>">
+                                    <div class="extra">
+                                        <input class="submit" type="submit" value="詳細" id="more">
+                                        <p id="date"><?= $showReport['D'] ?> <?= substr($showReport['Tim'], 0, 5) ?></p>
+                                    </div>
+                                </form>
+                            </div>
                         </section>
 
                 <?php

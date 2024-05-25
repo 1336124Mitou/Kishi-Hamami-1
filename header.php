@@ -7,12 +7,12 @@ if (empty($_SESSION['userId'])) {
     header('Location: login.php');
 }
 
-if (!isset($user)) {
+if (!isset($userhead)) {
     require_once __DIR__ . '/user.php';
-    $user = new User();
+    $userhead = new User();
 }
 
-$usrPic = $user->myProfile($_SESSION['userId']);
+$usrPic = $userhead->myProfile($_SESSION['userId']);
 if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
     $ProfPic = "noimage.png";
 } else {
