@@ -253,17 +253,11 @@ $showTags = $tags->showTags();
         color: inherit;
         border: none;
         padding: 0;
+        margin: 0;
         font: inherit;
-        cursor: pointer;
         font-weight: bold;
         font-size: 23px;
         color: #4267b2;
-        text-decoration: underline;
-    }
-
-    .UserName:hover {
-        text-decoration: underline;
-        color: #0a48c7;
     }
 
     input.submit {
@@ -283,6 +277,37 @@ $showTags = $tags->showTags();
 
     .not-user {
         margin-left: 25px;
+    }
+
+    .Rpropic {
+        cursor: pointer;
+        /* 適切な幅に調整 */
+        width: 40px;
+        /* 適切な高さに調整 */
+        height: 40px;
+        /* 円形にするための角丸 */
+        border-radius: 50%;
+        /* アイコンと他の要素の間隔を調整 */
+        margin-right: 10px;
+        /* アイコンを左側に配置 */
+        float: left;
+    }
+
+    .Rpropic:hover {
+        filter: brightness(0.95);
+    }
+
+    .Rprofpicbutton {
+        border: none;
+        background: transparent;
+    }
+
+    .Rprof {
+        /* フレックスコンテナであることを指定 */
+        display: flex;
+        /* 交差軸：上下の配置 下ぞろえ*/
+        align-items: flex-end;
+        margin-top: 10px;
     }
 </style>
 
@@ -347,11 +372,19 @@ $showTags = $tags->showTags();
                         $rtag = $tags->showTagR($showReport['RepoID']);
                         $rid = $ur->selectURlink($showReport['RepoID']);
                         $ru = $us->tokuteiUser($rid['UsID']);
+                        if (empty($ru['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
+                            $Rprofpic = "noimage.png";
+                        } else {
+                            $Rprofpic = $ru['ProfPic'];
+                        }
                 ?>
                         <section class="kiji">
                             <form method="POST" action="profile.php">
                                 <input type="hidden" name="usid" value="<?= $ru['UsID'] ?>">
-                                <button type="submit" class="UserName">投稿者：<?= $ru['UsName'] ?></button>
+                                <div class="Rprof">
+                                    <button type="submit" class="Rprofpicbutton"><img src="images/<?= $Rprofpic ?>" class="Rpropic"></button>
+                                    <p class="UserName"><?= $ru['UsName'] ?></p>
+                                </div>
                             </form>
                             <div class="not-user">
                                 <h2 id="kijidata"><?php echo htmlspecialchars($showReport['Title'], ENT_QUOTES); ?></h2>

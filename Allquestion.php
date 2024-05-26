@@ -242,6 +242,10 @@ $showTags = $tags->showTags();
         float: left;
     }
 
+    .Qpropic:hover {
+        filter: brightness(0.95);
+    }
+
     .Qprofpicbutton {
         border: none;
         background: transparent;
