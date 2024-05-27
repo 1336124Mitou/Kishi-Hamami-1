@@ -73,6 +73,10 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             /* アイコンを右側に配置 */
         }
 
+        .profile-icon:hover {
+            filter: brightness(0.95);
+        }
+
         /* 追加：ポップアップメニューの位置調整 */
         .popup-menu {
             top: 110px;
