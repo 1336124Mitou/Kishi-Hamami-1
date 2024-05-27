@@ -24,7 +24,8 @@ if (isset($_POST["usid"])) {
     }
 }
 
-$userId = 'kd1@gmail.com';
+// ログインしているユーザーのIDを取得
+$userId = $_SESSION['userId'];
 
 // ユーザーが投稿した質問を取得
 $questions = $user->getUserQuestions($usid);
