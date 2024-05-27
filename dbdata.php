@@ -47,7 +47,7 @@ class Dbdata
         return $this->pdo->lastInsertId();
     }
 
-    public function rollbackLastInsert()
+    public function rollBack()
     {
         $this->pdo->rollBack();
     }

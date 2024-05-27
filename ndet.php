@@ -22,6 +22,7 @@ if (!isset($kiji)) {
 if (!isset($likeR)) {
     require_once __DIR__ . '/likeR.php';
     $likeR = new LikeRepo();
+    $likeCom = new LikeCom();
 }
 
 if (!isset($user)) {
@@ -38,6 +39,7 @@ if (isset($_GET["kijiID"])) {
 }
 
 $like = $likeR->showLikeR($kijiID);
+$likec;
 
 $showkiji = $kiji->showReport($kijiID);
 $showComments = $comment->showAllAnswer($kijiID);
@@ -295,7 +297,7 @@ $userCheck = $user->selectURlink($kijiID);
             document.getElementById(id).checked = true;
         }
 
-        function likeAnswer(replyId, userId) {
+        function likeReport(repoID, userId) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "likeRadd.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -312,19 +314,28 @@ $userCheck = $user->selectURlink($kijiID);
                     console.error("Error: " + xhr.status + " " + xhr.statusText);
                 }
             };
-            xhr.send("ReplyID=" + encodeURIComponent(replyId) + "&UserID=" + encodeURIComponent(userId));
+            xhr.send("RepoID=" + encodeURIComponent(repoID) + "&UserID=" + encodeURIComponent(userId));
         }
 
-
-
-        function updateLikesDisplay() {
-            //likesDisplayの数値を文字列として取得
-            var likesCount = document.getElementById('likesDisplay').innerText;
-            //文字列を数値に変換して1足す
-            var newCownt = Number(likesCount) + 1;
-            //likesDisplayの表示更新
-            document.getElementById('likesDisplay').innerText = newCownt;
+        function likeAnswer(repID, userId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "likeRepadd.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        document.getElementById('likeDisplaytwo' + repID).innerText = response.newLikeCount;
+                    } else {
+                        console.error("Error: " + response.message);
+                    }
+                } else if (xhr.readyState === 4) {
+                    console.error("Error: " + xhr.status + " " + xhr.statusText);
+                }
+            };
+            xhr.send("ReplyID=" + encodeURIComponent(repID) + "&UserID=" + encodeURIComponent(userId));
         }
+
     </script>
 </head>
 
@@ -354,22 +365,23 @@ $userCheck = $user->selectURlink($kijiID);
         <!-- いいねボタン -->
         <p class="likenum" id="likesDisplay"><?= $like["LNum"] ?></p>
         <input type="hidden" name="ReplyID" value="<?= $showkiji['RepoID'] ?>">
-        <button type="submit" class="likebutton" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>, '<?= $_SESSION['userId'] ?>')">いいね！</button>
+        <button type="submit" class="likebutton" onclick="likeReport(<?= $showkiji['RepoID'] ?>, '<?= $_SESSION['userId'] ?>')">いいね！</button>
     </div>
     <main>
         <div class="frame">
             <h2>コメント</h2>
             <?php
             foreach ($showComments as $showComment) {
+                $likec = $likeCom->showLikeRep($showComment['RepID']);
             ?>
 
                 <p><?= $showComment['Reply'] ?></p>
 
-                <p class="date"><?= $showComment['D'] ?> <?= $showComment['Tim'] ?></p>
+                <p class="date"><?= $showComment['D'] ?> <?= substr($showComment['Tim'], 0, 5) ?></p>
                 <!-- for later/後で追加 -->
                 <div class="infor">
-                    <p class="likenumtwo" id="likeDisplay"><?= $like["LNum"] ?></p>
-                    <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showkiji['RepoID'] ?>, <?= $_SESSION['userId'] ?>)">いいね！</button>
+                    <p class="likenumtwo" id="likeDisplaytwo<?= $showComment['RepID'] ?>"><?= $likec["LNum"] ?></p>
+                    <button type="submit" class="likestwo" onclick="likeAnswer(<?= $showComment['RepID'] ?>, '<?= $_SESSION['userId'] ?>')">いいね！</button>
                 </div>
                 <hr>
 
