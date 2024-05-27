@@ -180,6 +180,19 @@ class User extends Dbdata
         return $result;
     }
 
+    // ユーザーが投稿した質問の内容を取得するメソッド
+    public function getUserQuestionsInfo($userId)
+    {
+        $sql = "SELECT q.Question
+                FROM UQlink uq
+                JOIN Question q ON uq.QuestionID = q.QuestionID
+                WHERE uq.UsID = ?";
+        $stmt = $this->query($sql, [$userId]);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
     // ユーザーが投稿した記事のタイトルを取得するメソッド
     public function getUserReportTitles($userId)
     {

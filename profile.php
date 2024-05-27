@@ -22,6 +22,9 @@ $questions = $user->getUserQuestions($usid);
 // ユーザーが投稿した記事を取得
 $reports = $user->getUserReports($usid);
 
+// ユーザーが投稿した質問の内容を取得
+$questionInfo = $user->getUserQuestionsInfo($userId);
+
 // ユーザーが投稿した記事のタイトルを取得
 $reportTitles = $user->getUserReportTitles($userId);
 
@@ -215,12 +218,15 @@ $reportTitles = $user->getUserReportTitles($userId);
         <!-- 質問の表示 -->
         <div class="post-container">
             <h2>投稿した質問</h2>
-            <?php foreach ($questions as $question) : ?>
+            <?php foreach ($questions as $index => $question) : ?>
                 <div class="post">
                     <?php if (isset($question['Question'])) : ?>
                         <h3><?= htmlspecialchars($question['Question'], ENT_QUOTES, 'UTF-8') ?></h3>
                     <?php endif; ?>
-                    <a href="answer.php?question_id=<?= isset($question['QuestionID']) ? htmlspecialchars($question['QuestionID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a> <!-- 詳細ボタン -->
+                    <?php if (isset($questionInfo[$index]['Question'])) : ?>
+                        <h2><?php echo htmlspecialchars($questionInfo[$index]['Question'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <?php endif; ?>
+                    <a href="answer.php?question_id=<?= isset($question['QuestionID']) ? htmlspecialchars($question['QuestionID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a>
                 </div>
             <?php endforeach; ?>
         </div>
