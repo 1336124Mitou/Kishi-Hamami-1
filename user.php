@@ -179,4 +179,18 @@ class User extends Dbdata
 
         return $result;
     }
+
+    // ユーザーが投稿した記事のタイトルを取得するメソッド
+    public function getUserReportTitles($userId)
+    {
+        // ユーザーが投稿した記事のIDを取得
+        $sql = "SELECT r.Title 
+                FROM URlink ur
+                JOIN Report r ON ur.RepoID = r.RepoID
+                WHERE ur.UsID = ?";
+        $stmt = $this->query($sql, [$userId]);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
 }

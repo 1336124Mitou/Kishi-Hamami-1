@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (!isset($user)) {
+    require_once __DIR__ . '/dbdata.php';
     require_once __DIR__ . '/user.php';
     $user = new User();
 }
@@ -13,12 +14,17 @@ if (isset($_POST["usid"])) {
     $profile = $user->myProfile($usid);
 }
 
+$userId = 'kd1@gmail.com';
 
 // ユーザーが投稿した質問を取得
 $questions = $user->getUserQuestions($usid);
 
 // ユーザーが投稿した記事を取得
 $reports = $user->getUserReports($usid);
+
+// ユーザーが投稿した記事のタイトルを取得
+$reportTitles = $user->getUserReportTitles($userId);
+
 ?>
 
 <!DOCTYPE html>
@@ -222,10 +228,13 @@ $reports = $user->getUserReports($usid);
         <!-- 記事の表示 -->
         <div class="post-container">
             <h2>投稿した記事</h2>
-            <?php foreach ($reports as $report) : ?>
+            <?php foreach ($reports as $index => $report) : ?>
                 <div class="post">
                     <?php if (isset($report['Report'])) : ?>
                         <h3><?= htmlspecialchars($report['Report'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <?php endif; ?>
+                    <?php if (isset($reportTitles[$index]['Title'])) : ?>
+                        <h2><?php echo htmlspecialchars($reportTitles[$index]['Title'], ENT_QUOTES, 'UTF-8'); ?></h2>
                     <?php endif; ?>
                     <a href="ndet.php?kijiID=<?= isset($report['RepoID']) ? htmlspecialchars($report['RepoID'], ENT_QUOTES, 'UTF-8') : '' ?>">詳細</a>
                 </div>
