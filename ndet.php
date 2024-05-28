@@ -199,6 +199,14 @@ $userCheck = $user->selectURlink($kijiID);
         }
 
         .likebutton {
+            height: 35px;
+            width: 100px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
             display: block;
             margin: auto;
         }
@@ -335,7 +343,6 @@ $userCheck = $user->selectURlink($kijiID);
             };
             xhr.send("ReplyID=" + encodeURIComponent(repID) + "&UserID=" + encodeURIComponent(userId));
         }
-
     </script>
 </head>
 

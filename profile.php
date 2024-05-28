@@ -9,12 +9,23 @@ if (!isset($user)) {
 if (isset($_POST["usid"])) {
     $usid = $_POST["usid"];
     $profile = $user->myProfile($usid);
+    if (empty($profile['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
+        $Pprofpic = "noimage.png";
+    } else {
+        $Pprofpic = $profile['ProfPic'];
+    }
 } else {
     $usid = $_SESSION['userId'];
     $profile = $user->myProfile($usid);
+    if (empty($profile['ProfPic'])) { //画像が登録されてなかったらデフォルトの画像を表示するようにする。
+        $Pprofpic = "noimage.png";
+    } else {
+        $Pprofpic = $profile['ProfPic'];
+    }
 }
 
-$userId = 'kd1@gmail.com';
+// ログインしているユーザーのIDを取得
+$userId = $_SESSION['userId'];
 
 // ユーザーが投稿した質問を取得
 $questions = $user->getUserQuestions($usid);
@@ -201,7 +212,7 @@ $reportTitles = $user->getUserReportTitles($userId);
         }
         ?>
         <div class="profile-header">
-            <img src="images/<?= $ProfPic ?>" alt="プロフィール画像" class="profile-img">
+            <img src="images/<?= $Pprofpic ?>" alt="プロフィール画像" class="profile-img">
             <div class="profile-details">
                 <div class="profile-name"><?= htmlspecialchars($profile['UsName'], ENT_QUOTES, 'UTF-8') ?></div>
                 <div class="profile-emailaddress"><?= htmlspecialchars($profile['UsID'], ENT_QUOTES, 'UTF-8') ?></div>

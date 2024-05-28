@@ -73,6 +73,10 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
             /* アイコンを右側に配置 */
         }
 
+        .profile-icon:hover {
+            filter: brightness(0.95);
+        }
+
         /* 追加：ポップアップメニューの位置調整 */
         .popup-menu {
             top: 110px;
@@ -149,7 +153,7 @@ if (empty($usrPic['ProfPic'])) { //画像が登録されてなかったらデフ
                 <a href="passchan.php">パスワード設定</a>
                 <p class="logoutbutton" id="logoutbutton">ログアウト</p>
             </div>
-            <h1 id="Title">プログラミング情報共有サイト（仮）</h1>
+            <h1 id="Title">プログラミング情報共有サイト</h1>
             <nav>
                 <ul class="nav">
                     <!--ヘッダー ここから-->
