@@ -19,6 +19,11 @@ if (!isset($user)) {
     $ur = new URe();
 }
 
+if (!isset($likes)) {
+    require_once __DIR__ . '/likeR.php';
+    $likes = new LikeCom();
+}
+
 //POSTが定義されているなら取得する
 if (isset($_POST["question_id"])) {
     $question_id = $_POST["question_id"]; // 質問のIDを取得する
@@ -35,7 +40,7 @@ $showAnswers = $kaitou->showAllAnswer($question_id);
 
 $userCheck = $user->detailUQlink($question_id);
 // ログインユーザーのセッションからユーザーIDを取得するか、テスト目的で直接設定する
-$user_id = 'kd1@gmail.com';
+// $user_id = $_SESSION['userId'];
 ?>
 
 <!DOCTYPE html>

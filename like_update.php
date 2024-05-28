@@ -3,9 +3,8 @@ require 'dbdata.php';
 header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true);
 
-$user_id = $data['userId'];
+$user_id = $_SESSION['userId'];
 $rep_id = $data['repID'];
-$liked = $data['liked'] ? 1 : 0;
 
 $db = new Dbdata();
 
@@ -13,7 +12,8 @@ try {
     if ($liked) {
         // いいねを追加
         $sql = "INSERT INTO Likes (UsID, RepID) VALUES (?, ?)";
-        $params = [$user_id, $rep_id];
+        // $params = [$user_id, $rep_id];
+        $this->exec($sql, [$user_id, $rep_id]);
     } else {
         // いいねを削除
         $sql = "DELETE FROM Likes WHERE UsID = ? AND RepID = ?";

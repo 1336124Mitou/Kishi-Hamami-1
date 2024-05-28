@@ -102,4 +102,15 @@ class LikeCom extends Dbdata
         $showLike = $stmt->fetch();
         return $showLike;
     }
+
+    public function liked($RepID, $UID) {
+        $sql = "SELECT * FROM likes WHERE UsID = ? AND RepID = ?";
+        $stmt = $this->query($sql, [$UID, $RepID]);
+        $result = $stmt->fetch();
+        if (!$result) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
